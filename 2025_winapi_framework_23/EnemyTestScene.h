@@ -11,5 +11,7 @@ public:
 private:
 	double _enemySpawnTime;
 	double _timer;
+	int _enemyCount;
+	double _spawnPercent;
 };
 

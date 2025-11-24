@@ -6,25 +6,23 @@
 #include "CollisionManager.h"
 #include "ResourceManager.h"
 #include "Floor.h"
+#include "CloseRangeEnemy.h"
+#include "RangedEnemy.h"
+#include "Health.h"
 
 void EnemyTestScene::Init()
 {
-	//Object* obj = new Enemy;
-	//obj->SetPos({ WINDOW_WIDTH / 2, WINDOW_HEIGHT / 4 });
-	//obj->SetSize({ 100,100 });
-	////obj->SetScene(this);
-	//AddObject(obj, Layer::ENEMY);
-	cout << "Scene Change" << endl << " : EnemyTestScene";
-	
+	_enemySpawnTime = 2.5f;
+	_timer = 0;
+	_enemyCount = 10;
+	_spawnPercent = 65;
+	EnemySpawn();
 
-
-	Spawn<Floor>
-		(
-			Layer::DEFAULT
-			, { WINDOW_WIDTH / 2, WINDOW_HEIGHT / 4 }
-	, { 100,100 });
+	Spawn<Player>(Layer::PLAYER, { WINDOW_WIDTH / 2 , WINDOW_HEIGHT / 4 }, { 50,50 });
 
 	GET_SINGLE(CollisionManager)->CheckLayer(Layer::PROJECTILE, Layer::ENEMY);
+	GET_SINGLE(CollisionManager)->CheckLayer(Layer::PROJECTILE, Layer::PROJECTILE);
+	GET_SINGLE(CollisionManager)->CheckLayer(Layer::PLAYER, Layer::PROJECTILE);
 	GET_SINGLE(CollisionManager)->CheckLayer(Layer::PLAYER, Layer::ENEMY);
 	GET_SINGLE(CollisionManager)->CheckLayer(Layer::PLAYER, Layer::DEFAULT);
 }
@@ -32,6 +30,23 @@ void EnemyTestScene::Init()
 void EnemyTestScene::Update()
 {
 	Scene::Update();
+	_timer += fDT;
+	if (_timer >= _enemySpawnTime)
+	{
+		_timer = 0;
+		EnemySpawn();
+	}
+
+	/*for (auto obj : GetLayerObjects(Layer::ENEMY))
+	{
+		if (obj->GetComponent<Health>() != nullptr)
+		{
+			if (obj->GetComponent<Health>()->GetIsDead())
+			{
+				RequestDestroy(obj);
+			}
+		}
+	}*/
 }
 
 void EnemyTestScene::Render(HDC _hdc)
@@ -41,9 +56,26 @@ void EnemyTestScene::Render(HDC _hdc)
 
 void EnemyTestScene::EnemySpawn()
 {
-	Spawn<Enemy>
-		(
-			Layer::DEFAULT
-			, { WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2 }
-	, { 50,50 });
+	for (int i = 0; i < _enemyCount; i++)
+	{
+		if (rand() % 100 <= _spawnPercent)
+		{
+			if (rand() % 100 <= 50)
+			{
+				Spawn<CloseRangeEnemy>
+					(
+						Layer::ENEMY
+						, { (WINDOW_WIDTH / 2 - (50 * (_enemyCount / 2))) + (50 * i),  -100 }
+				, { 50,50 });
+			}
+			else
+			{
+				Spawn<RangedEnemy>
+					(
+						Layer::ENEMY
+						, { (WINDOW_WIDTH / 2 - (50 * (_enemyCount / 2))) + (50 * i), -100 }
+				, { 50,50 });
+			}
+		}
+	}
 }
