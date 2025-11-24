@@ -10,6 +10,7 @@ public:
 public:
 	const HDC& GetMainDC() const { return m_hDC; }
 	const HWND& GetHwnd() const { return m_hWnd; }
+	const HINSTANCE& GetHinstance() const { return (HINSTANCE)::GetWindowLongPtr(m_hWnd, GWLP_HINSTANCE); }
 private:
 	void MainUpdate();
 	void MainRender();

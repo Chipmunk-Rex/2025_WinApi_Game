@@ -24,6 +24,10 @@ public:
 	{
 		return m_curScene;
 	}
+	const std::unordered_map<wstring, std::shared_ptr<Scene>>& GetAllScenes() const
+	{
+		return m_mapScenes;
+	}
 private:
 	// Scene* m_scene;
 	std::shared_ptr<Scene> m_curScene;
