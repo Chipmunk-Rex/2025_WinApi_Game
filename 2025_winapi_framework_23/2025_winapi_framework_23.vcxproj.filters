@@ -47,6 +47,9 @@
     <Filter Include="Engine\02. Manager\Framework">
       <UniqueIdentifier>{3117f2d1-76b5-4d4e-9c99-0359d91c25d9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\06. Component\Health">
+      <UniqueIdentifier>{cda78c28-d70c-4626-bf6e-fbdbeb548ad9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="2025_WinApi_Game.h">
@@ -142,6 +145,12 @@
     <ClInclude Include="Floor.h">
       <Filter>Engine\03. Object</Filter>
     </ClInclude>
+    <ClInclude Include="EnemyTestScene.h">
+      <Filter>Engine\04. Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Health.h">
+      <Filter>Engine\06. Component\Health</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="2025_winapi_framework_23.rc">
@@ -228,6 +237,12 @@
     </ClCompile>
     <ClCompile Include="Floor.cpp">
       <Filter>Engine\03. Object</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyTestScene.cpp">
+      <Filter>Engine\04. Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Health.cpp">
+      <Filter>Engine\06. Component\Health</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

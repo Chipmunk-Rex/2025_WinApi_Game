@@ -171,10 +171,12 @@
     <ClInclude Include="Defines.h" />
     <ClInclude Include="DevScene.h" />
     <ClInclude Include="Enemy.h" />
+    <ClInclude Include="EnemyTestScene.h" />
     <ClInclude Include="Enums.h" />
     <ClInclude Include="Floor.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="GDISelector.h" />
+    <ClInclude Include="Health.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="pch.h" />
@@ -202,8 +204,10 @@
     <ClCompile Include="Core.cpp" />
     <ClCompile Include="DevScene.cpp" />
     <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="EnemyTestScene.cpp" />
     <ClCompile Include="Floor.cpp" />
     <ClCompile Include="GDISelector.cpp" />
+    <ClCompile Include="Health.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Object.cpp" />
