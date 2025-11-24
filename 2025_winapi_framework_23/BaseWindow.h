@@ -3,16 +3,15 @@ class BaseWindow
 {
 public:
 	BaseWindow();
-	~BaseWindow();
+	virtual ~BaseWindow() {};
 public:
-	int Run(HINSTANCE hInstance, int nCmdShow);
+	virtual int Run(HINSTANCE hInstance, int nCmdShow) = 0;
 private:
-	ATOM MyRegisterClass();
-	void createWindow();
-	void showWindow(int nCmdShow);
-	static LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
-	int MessageLoop();
-private:
+	virtual ATOM MyRegisterClass() = 0;
+	virtual void createWindow() = 0;
+	virtual void showWindow(int nCmdShow) = 0;
+	virtual int MessageLoop() = 0;
+protected:
 	HINSTANCE m_hInst;
 	HWND	  m_hWnd;
 };

@@ -1,6 +1,7 @@
 #pragma once
 #include "Object.h"
 class Texture;
+class Rigidbody;
 class Player :
     public Object
 {
@@ -17,7 +18,9 @@ public:
     void ExitCollision(Collider* _other) override;
 private:
     void CreateProjectile();
+    Vec2 GetShootDir();
 private:
     Texture* m_pTex;
+    Rigidbody* rb;
 };
 

@@ -49,6 +49,8 @@
     </Filter>
     <Filter Include="Engine\06. Component\Health">
       <UniqueIdentifier>{cda78c28-d70c-4626-bf6e-fbdbeb548ad9}</UniqueIdentifier>
+    <Filter Include="Engine\09. Window">
+      <UniqueIdentifier>{9f02ea37-503b-4644-8c4a-e11afc734cae}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -73,7 +75,7 @@
     <ClInclude Include="pch.h">
       <Filter>Engine\99. Headers</Filter>
     </ClInclude>
-    <ClInclude Include="BaseWindow.h">
+    <ClInclude Include="CoreWindow.h">
       <Filter>Engine\01. Core</Filter>
     </ClInclude>
     <ClInclude Include="Object.h">
@@ -150,6 +152,11 @@
     </ClInclude>
     <ClInclude Include="Health.h">
       <Filter>Engine\06. Component\Health</Filter>
+    <ClInclude Include="BaseWindow.h">
+      <Filter>Engine\01. Core</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneSelectWindow.h">
+      <Filter>Engine\09. Window</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -172,7 +179,7 @@
     <ClCompile Include="Core.cpp">
       <Filter>Engine\01. Core</Filter>
     </ClCompile>
-    <ClCompile Include="BaseWindow.cpp">
+    <ClCompile Include="CoreWindow.cpp">
       <Filter>Engine\01. Core</Filter>
     </ClCompile>
     <ClCompile Include="Object.cpp">
@@ -243,6 +250,11 @@
     </ClCompile>
     <ClCompile Include="Health.cpp">
       <Filter>Engine\06. Component\Health</Filter>
+    <ClCompile Include="BaseWindow.cpp">
+      <Filter>Engine\01. Core</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneSelectWindow.cpp">
+      <Filter>Engine\09. Window</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
