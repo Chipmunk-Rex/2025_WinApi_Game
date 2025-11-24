@@ -16,7 +16,7 @@ void DevScene::Init()
 	//obj->SetSize({100.f,100.f});
 	//AddObject(obj,Layer::DEFAULT);
 
-	//Spawn<Player>(Layer::PLAYER, { WINDOW_WIDTH / 2, 300}, { 100.f,100.f });
+	Spawn<Player>(Layer::PLAYER, { WINDOW_WIDTH / 2, 300}, { 100.f,100.f });
 	//Spawn<Floor>(Layer::DEFAULT, { WINDOW_WIDTH / 2, 600}, { 100.f,100.f });
 
 	//Spawn<Enemy>(Layer::ENEMY, { WINDOW_WIDTH / 2, WINDOW_HEIGHT / 4}, { 100.f,100.f });

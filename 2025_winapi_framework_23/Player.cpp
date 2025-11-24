@@ -22,7 +22,8 @@ Player::Player()
 	auto* anim = AddComponent<Animator>();
 	anim->CreateAnimation(L"JiwooFront", m_pTex, { 0.f, 150.f }, { 50.f,50.f }, { 50.f,0.f }, 5, 0.1f);
 	anim->Play(L"JiwooFront");
-	AddComponent<Rigidbody>();
+	rb = AddComponent<Rigidbody>();
+	rb->SetUseGravity(false);
 }
 Player::~Player()
 {
@@ -50,8 +51,8 @@ void Player::Update()
 	if (GET_KEY(KEY_TYPE::W)) dir.y -= 1.f;
 	if (GET_KEY(KEY_TYPE::S)) dir.y += 1.f;
 
-	Translate({ dir.x * 300.f * fDT, dir.y * 300.f * fDT });
-
+	//Translate({ dir.x * 300.f * fDT, dir.y * 300.f * fDT });
+	rb->SetVelocity(dir * 300.f);
 	// 크기변경
 	float scaleDelta = 0.f;
 	float scaleSpeed = 1.f;
@@ -71,14 +72,23 @@ void Player::CreateProjectile()
 {
 	Projectile* proj = new Projectile;
 	Vec2 pos = GetPos();
-	pos.y -= GetSize().y / 2.f;
+	//pos.y -= GetSize().y / 2.f;
 	proj->SetPos(pos);
 	proj->SetSize({ 20.f,20.f });
 	static float angle = 0.f;
 	//proj->SetAngle(angle * PI / 180);
-	proj->SetDir({0.f, -1.f});
+	proj->SetDir(GetShootDir());
 	angle += 10.f;
 	GET_SINGLE(SceneManager)->GetCurScene()->AddObject(proj, Layer::PROJECTILE);
+}
+
+Vec2 Player::GetShootDir()
+{
+	POINT mousePos = GET_SINGLE(InputManager)->GetMousePos();
+	Vec2 playerPos = GetPos();
+	Vec2 dir = { mousePos.x - playerPos.x, mousePos.y - playerPos.y };
+	dir.Normalize();
+	return dir;
 }
 
 void Player::Render(HDC _hdc)

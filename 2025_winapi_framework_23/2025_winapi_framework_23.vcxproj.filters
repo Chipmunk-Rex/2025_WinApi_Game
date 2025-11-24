@@ -47,6 +47,9 @@
     <Filter Include="Engine\02. Manager\Framework">
       <UniqueIdentifier>{3117f2d1-76b5-4d4e-9c99-0359d91c25d9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\09. Window">
+      <UniqueIdentifier>{9f02ea37-503b-4644-8c4a-e11afc734cae}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="2025_WinApi_Game.h">
@@ -70,7 +73,7 @@
     <ClInclude Include="pch.h">
       <Filter>Engine\99. Headers</Filter>
     </ClInclude>
-    <ClInclude Include="BaseWindow.h">
+    <ClInclude Include="CoreWindow.h">
       <Filter>Engine\01. Core</Filter>
     </ClInclude>
     <ClInclude Include="Object.h">
@@ -142,6 +145,12 @@
     <ClInclude Include="Floor.h">
       <Filter>Engine\03. Object</Filter>
     </ClInclude>
+    <ClInclude Include="BaseWindow.h">
+      <Filter>Engine\01. Core</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneSelectWindow.h">
+      <Filter>Engine\09. Window</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="2025_winapi_framework_23.rc">
@@ -163,7 +172,7 @@
     <ClCompile Include="Core.cpp">
       <Filter>Engine\01. Core</Filter>
     </ClCompile>
-    <ClCompile Include="BaseWindow.cpp">
+    <ClCompile Include="CoreWindow.cpp">
       <Filter>Engine\01. Core</Filter>
     </ClCompile>
     <ClCompile Include="Object.cpp">
@@ -228,6 +237,12 @@
     </ClCompile>
     <ClCompile Include="Floor.cpp">
       <Filter>Engine\03. Object</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseWindow.cpp">
+      <Filter>Engine\01. Core</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneSelectWindow.cpp">
+      <Filter>Engine\09. Window</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
