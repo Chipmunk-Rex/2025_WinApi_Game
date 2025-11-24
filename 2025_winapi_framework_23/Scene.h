@@ -31,13 +31,14 @@ public:
 		m_vecObj[(UINT)_type].push_back(_obj);
 	}
 	template<typename T>
-	void Spawn(Layer _type, Vec2 _pos, Vec2 _size)
+	T* Spawn(Layer _type, Vec2 _pos, Vec2 _size)
 	{
 		static_assert(std::is_base_of<Object,T>::value, "Object로부터 상속받아야 함");
 		T* obj = new T;
 		obj->SetPos(_pos);
 		obj->SetSize(_size);
 		AddObject(obj, _type);
+		return obj;
 	}
 	void RequestDestroy(Object* obj); // 지연삭제
 	void RequestSpawn(Object* obj, Layer _type); // 지연생성

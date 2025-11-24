@@ -6,6 +6,7 @@
 #include "Collider.h"
 #include "SceneSelectWindow.h"
 #include "Core.h"
+#include "UIScene.h"
 void SceneManager::PhysicsSyncColliders()
 {
 	for (UINT i = 0; i < (UINT)Layer::END; ++i)
@@ -28,6 +29,7 @@ void SceneManager::Init()
 	// ¾À µî·Ï
 	RegisterScene(L"TestScene", std::make_shared<TestScene>());
 	RegisterScene(L"DevScene", std::make_shared<DevScene>());
+	RegisterScene(L"UIScene", std::make_shared<UIScene>());
 
 	SceneSelectWindow sceneSelectWindow;
 	sceneSelectWindow.Run(GET_SINGLE(Core)->GetHinstance(), SW_SHOWDEFAULT);
