@@ -6,6 +6,7 @@ enum class Layer
 	PLAYER,
 	ENEMY,
 	PROJECTILE,
+	ENEMYPROJECTILE,
 	END
 };
 enum class PenType
