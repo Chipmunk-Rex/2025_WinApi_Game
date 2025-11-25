@@ -12,6 +12,7 @@ EnemyProjectile::EnemyProjectile(): _damage(0),_timer(0.f),_lifeTime(5.f)
 
 EnemyProjectile::~EnemyProjectile()
 {
+
 }
 
 void EnemyProjectile::Update()
