@@ -16,7 +16,6 @@ public:
 			m_curScene->RequestDestroy(obj);
 	}
 public:
-	void PhysicsSyncColliders();
 	void RegisterScene(const wstring& _name, std::shared_ptr<Scene> _scene);
 	void LoadScene(const wstring& _name);
 public:
