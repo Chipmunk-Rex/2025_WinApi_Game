@@ -13,10 +13,10 @@
 void EnemyTestScene::Init()
 {
 	_enemySpawnTime = 2.5f;
-	_timer = 0;
+	_timer = 2.5f;
 	_enemyCount = 10;
 	_spawnPercent = 65;
-	EnemySpawn();
+	//EnemySpawn();
 
 	Spawn<Player>(Layer::PLAYER, { WINDOW_WIDTH / 2 , WINDOW_HEIGHT / 4 }, { 50,50 });
 
