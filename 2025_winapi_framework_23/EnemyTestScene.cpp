@@ -21,8 +21,8 @@ void EnemyTestScene::Init()
 	Spawn<Player>(Layer::PLAYER, { WINDOW_WIDTH / 2 , WINDOW_HEIGHT / 4 }, { 50,50 });
 
 	GET_SINGLE(CollisionManager)->CheckLayer(Layer::PROJECTILE, Layer::ENEMY);
-	GET_SINGLE(CollisionManager)->CheckLayer(Layer::PROJECTILE, Layer::PROJECTILE);
-	GET_SINGLE(CollisionManager)->CheckLayer(Layer::PLAYER, Layer::PROJECTILE);
+	GET_SINGLE(CollisionManager)->CheckLayer(Layer::PROJECTILE, Layer::ENEMYPROJECTILE);
+	GET_SINGLE(CollisionManager)->CheckLayer(Layer::PLAYER, Layer::ENEMYPROJECTILE);
 	GET_SINGLE(CollisionManager)->CheckLayer(Layer::PLAYER, Layer::ENEMY);
 	GET_SINGLE(CollisionManager)->CheckLayer(Layer::PLAYER, Layer::DEFAULT);
 }

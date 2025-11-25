@@ -10,7 +10,7 @@ RangedEnemy::RangedEnemy() : _timer(0), _attackDelay(3), _damage(3), _projectile
 
 RangedEnemy::~RangedEnemy()
 {
-	if(_projectile != nullptr && _projectile->GetIsDead())//여기 고쳐야함
+	if(_projectile != nullptr)//여기 고쳐야함
 	GET_SINGLE(SceneManager)->GetCurScene()->RequestDestroy(_projectile);
 }
 
@@ -37,7 +37,7 @@ void RangedEnemy::Update()
 		proj->SetSize({ 20.f,20.f });
 		proj->SetDir(playerPos - pos);
 		proj->SetDamage(_damage);
-		curScene->AddObject(proj,Layer::PROJECTILE);
+		curScene->AddObject(proj,Layer::ENEMYPROJECTILE);
 		_projectile = proj;
 	}
 }

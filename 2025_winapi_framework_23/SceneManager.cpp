@@ -4,6 +4,7 @@
 #include "TestScene.h"
 #include "Object.h"
 #include "Collider.h"
+#include "EnemyTestScene.h"
 #include "SceneSelectWindow.h"
 #include "Core.h"
 void SceneManager::PhysicsSyncColliders()
@@ -28,6 +29,7 @@ void SceneManager::Init()
 	// ¾À µî·Ï
 	RegisterScene(L"TestScene", std::make_shared<TestScene>());
 	RegisterScene(L"DevScene", std::make_shared<DevScene>());
+	RegisterScene(L"EnemyTestScene", std::make_shared<EnemyTestScene>());
 
 	SceneSelectWindow sceneSelectWindow;
 	sceneSelectWindow.Run(GET_SINGLE(Core)->GetHinstance(), SW_SHOWDEFAULT);
