@@ -7,19 +7,37 @@
 #include "SceneSelectWindow.h"
 #include "Core.h"
 #include "UIScene.h"
+#include "EnemyTestScene.h"
+void SceneManager::PhysicsSyncColliders()
+{
+	for (UINT i = 0; i < (UINT)Layer::END; ++i)
+	{
+		const auto& objects = m_curScene->GetLayerObjects((Layer)i);
+		for (Object* obj : objects)
+		{
+			if (!obj)
+				continue;
+
+			if (auto* col = obj->GetComponent<Collider>())
+				col->LateUpdate(); // sync  
+		}
+	}
+}
 void SceneManager::Init()
 {
 	m_curScene = nullptr;
 
-	// ï¿½ï¿½ ï¿½ï¿½ï¿½
+	// ¾À µî·Ï
 	RegisterScene(L"TestScene", std::make_shared<TestScene>());
 	RegisterScene(L"DevScene", std::make_shared<DevScene>());
 	RegisterScene(L"UIScene", std::make_shared<UIScene>());
+	RegisterScene(L"EnemyTestScene", std::make_shared<EnemyTestScene>());
 
 	SceneSelectWindow sceneSelectWindow;
 	sceneSelectWindow.Run(GET_SINGLE(Core)->GetHinstance(), SW_SHOWDEFAULT);
-	// Ã¹ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	// Ã¹ ¾À ÁöÁ¤
 }
+
 void SceneManager::Update()
 {
 	if (m_curScene == nullptr)
@@ -33,6 +51,7 @@ void SceneManager::FixedUpdate(float _fixedDT)
 	if (m_curScene == nullptr)
 		return;
 	m_curScene->FixedUpdate(_fixedDT);
+	PhysicsSyncColliders();
 }
 
 void SceneManager::Render(HDC _hdc)
@@ -51,7 +70,7 @@ void SceneManager::RegisterScene(const wstring& _name, std::shared_ptr<Scene> _s
 
 void SceneManager::LoadScene(const wstring& _name)
 {
-	// 2ï¿½ï¿½Â° load ï¿½Ï½ï¿½ change ï¿½ï¿½ï¿½ï¿½
+	// 2¹øÂ° load ÀÏ½Ã change ¿ªÇÒ
 	if (m_curScene != nullptr)
 	{
 		m_curScene->Release();
