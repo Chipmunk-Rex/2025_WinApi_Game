@@ -4,7 +4,7 @@
 #include "SceneManager.h"
 
 
-RangedEnemy::RangedEnemy() : _timer(0), _attackDelay(3), _damage(3), _projectile(nullptr)
+RangedEnemy::RangedEnemy() : _timer(0), _attackDelay(10), _attackTime(2), _damage(3), _projectile(nullptr)
 {
 }
 
@@ -18,9 +18,9 @@ void RangedEnemy::Update()
 {
 	Enemy::Update();
 	_timer += fDT;
-	cout << (rand() % (int)_attackDelay + 2) + ((rand() % 9) / 10.f) << endl;
-	if (_timer >= (rand() % (int)_attackDelay + 2) + ((rand() % 9) / 10.f))
+	if (_timer >= _attackTime)
 	{
+		_attackTime = (rand() % (int)_attackDelay + 2) + ((rand() % 9) / 10.f);
 		_timer = 0;
 		auto curScene = GET_SINGLE(SceneManager)->GetCurScene();
 		

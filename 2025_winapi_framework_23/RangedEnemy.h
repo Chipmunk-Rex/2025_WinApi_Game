@@ -14,6 +14,7 @@ public:
 private:
     double _timer;
     double _attackDelay;
+    double _attackTime;
     int _damage;
     EnemyProjectile* _projectile;
 };
