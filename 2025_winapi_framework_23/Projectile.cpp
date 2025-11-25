@@ -48,6 +48,9 @@ void Projectile::Render(HDC _hdc)
 
 void Projectile::EnterCollision(Collider* _other)
 {
+	if (_other->GetName() == L"EnemyProjectile")
+		return;
+
 	Object* owner = _other->GetOwner();
 	float distanceX = abs((owner->GetPos().x - GetPos().x));
 	float distanceY = abs((owner->GetPos().y - GetPos().y));

@@ -4,7 +4,7 @@
 Floor::Floor()
 {
 	auto* compo = AddComponent<Collider>();
-	compo->SetSize({ 1000.f, 50.f });
+	compo->SetSize({ 1500.f, 50.f });
 	compo->SetName(L"Floor");
 }
 

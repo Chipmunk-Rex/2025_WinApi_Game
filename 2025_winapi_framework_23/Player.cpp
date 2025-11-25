@@ -19,7 +19,7 @@ Player::Player()
 	//path += L"Texture\\planem.bmp";
 	//m_pTex->Load(path); 
 	m_pTex = GET_SINGLE(ResourceManager)->GetTexture(L"Jiwoo");
-	AddComponent<Collider>();
+	AddComponent<Collider>()->SetName(L"Player");
 	auto* anim = AddComponent<Animator>();
 	anim->CreateAnimation(L"JiwooFront", m_pTex, { 0.f, 150.f }, { 50.f,50.f }, { 50.f,0.f }, 5, 0.1f);
 	anim->Play(L"JiwooFront");
@@ -29,6 +29,7 @@ Player::Player()
 
 	Health* health = AddComponent<Health>();
 	health->SetHealth(100);
+
 }
 Player::~Player()
 {
@@ -181,3 +182,4 @@ void Player::ExitCollision(Collider* _other)
 }
 
 
+////////////////////////////////////////////////////////////////////
