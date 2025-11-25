@@ -4,10 +4,15 @@
 #include "EnchantCard.h"
 #include "SceneManager.h"
 #include "InputManager.h"
+#include "MouseObject.h"
+#include "CollisionManager.h"
 
 
 void UIScene::Init()
 {
+    Spawn<MouseObject>(Layer::PLAYER, { 0,0 }, { 10,10 });
+    GET_SINGLE(CollisionManager)->CheckLayer(Layer::PLAYER, Layer::UI);
+
 }
 
 void UIScene::Update()
@@ -28,7 +33,7 @@ void UIScene::Update()
 void UIScene::ClearCards()
 {
    
-    auto& objs = GetLayerObjects(Layer::DEFAULT);
+    auto& objs = GetLayerObjects(Layer::UI);
 
     for (auto obj : objs)
     {
@@ -51,7 +56,7 @@ void UIScene::SpawnCards(int count)
     {
 
 
-        EnchantCard *card = Spawn<EnchantCard>(Layer::DEFAULT,
+        EnchantCard *card = Spawn<EnchantCard>(Layer::UI,
             { centerX, centerY }, size);
 
         card->SetInfo(vec[0].name.c_str(), vec[0].desc.c_str());
@@ -61,12 +66,12 @@ void UIScene::SpawnCards(int count)
     if (count == 2)
     {
     
-        EnchantCard* card = Spawn<EnchantCard>(Layer::DEFAULT,
+        EnchantCard* card = Spawn<EnchantCard>(Layer::UI,
             { centerX - spacing / 2, centerY }, size);
 
         card->SetInfo(vec[0].name.c_str(), vec[0].desc.c_str());
 
-        EnchantCard* card2 = Spawn<EnchantCard>(Layer::DEFAULT,
+        EnchantCard* card2 = Spawn<EnchantCard>(Layer::UI,
             { centerX + spacing / 2, centerY }, size);
         card2->SetInfo(vec[1].name.c_str(), vec[1].desc.c_str());
         return;
@@ -74,16 +79,16 @@ void UIScene::SpawnCards(int count)
 
     if (count == 3)
     {
-        EnchantCard* card = Spawn<EnchantCard>(Layer::DEFAULT,
+        EnchantCard* card = Spawn<EnchantCard>(Layer::UI,
             { centerX - spacing, centerY }, size);
 
         card->SetInfo(vec[0].name.c_str(), vec[0].desc.c_str());
-        EnchantCard* card2 = Spawn<EnchantCard>(Layer::DEFAULT,
+        EnchantCard* card2 = Spawn<EnchantCard>(Layer::UI,
             { centerX, centerY }, size);
 
         card2->SetInfo(vec[1].name.c_str(), vec[1].desc.c_str());
 
-        EnchantCard* card3 = Spawn<EnchantCard>(Layer::DEFAULT,
+        EnchantCard* card3 = Spawn<EnchantCard>(Layer::UI,
             { centerX + spacing, centerY }, size);
         card3->SetInfo(vec[2].name.c_str(), vec[2].desc.c_str());
         return;

@@ -18,5 +18,9 @@ public:
 private:
     std::wstring name;
     std::wstring desc;
+
+    bool isHovered;
+    float hoverScale;
+
 };
 

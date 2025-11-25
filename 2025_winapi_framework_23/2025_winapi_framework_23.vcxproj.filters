@@ -166,8 +166,18 @@
     <ClInclude Include="SceneSelectWindow.h">
       <Filter>Engine\09. Window</Filter>
     </ClInclude>
-    <ClInclude Include="CardDB.h" />
-    <ClInclude Include="CardInfo.h" />
+    <ClInclude Include="Button.h">
+      <Filter>Engine\06. Component\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="CardDB.h">
+      <Filter>Engine\03. Object</Filter>
+    </ClInclude>
+    <ClInclude Include="CardInfo.h">
+      <Filter>Engine\03. Object</Filter>
+    </ClInclude>
+    <ClInclude Include="MouseObject.h">
+      <Filter>Engine\03. Object</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="2025_winapi_framework_23.rc">
@@ -273,6 +283,14 @@
     <ClCompile Include="SceneSelectWindow.cpp">
       <Filter>Engine\09. Window</Filter>
     </ClCompile>
-    <ClCompile Include="CardDB.cpp" />
+    <ClCompile Include="Button.cpp">
+      <Filter>Engine\06. Component\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="CardDB.cpp">
+      <Filter>Engine\03. Object</Filter>
+    </ClCompile>
+    <ClCompile Include="MouseObject.cpp">
+      <Filter>Engine\03. Object</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

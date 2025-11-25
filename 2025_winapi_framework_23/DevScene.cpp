@@ -17,10 +17,13 @@ void DevScene::Init()
 	//AddObject(obj,Layer::DEFAULT);
 
 	Spawn<Player>(Layer::PLAYER, { WINDOW_WIDTH / 2, 300}, { 100.f,100.f });
-	//Spawn<Floor>(Layer::DEFAULT, { WINDOW_WIDTH / 2, 600}, { 100.f,100.f });
+	//Spawn<Floor>(Layer::DEFAULT, { WINDOW_WIDTH / 2, 0 }, { 100.f,100.f });
+	Spawn<Floor>(Layer::DEFAULT, { WINDOW_WIDTH / 2,  0}, { 1000.f, 50.f });
+	Spawn<Floor>(Layer::DEFAULT, { WINDOW_WIDTH / 2, WINDOW_HEIGHT }, { 1000.f, 50.f });
 
 	//Spawn<Enemy>(Layer::ENEMY, { WINDOW_WIDTH / 2, WINDOW_HEIGHT / 4}, { 100.f,100.f });
 	GET_SINGLE(CollisionManager)->CheckLayer(Layer::PROJECTILE, Layer::ENEMY);
+	GET_SINGLE(CollisionManager)->CheckLayer(Layer::PROJECTILE, Layer::DEFAULT);
 	GET_SINGLE(CollisionManager)->CheckLayer(Layer::PLAYER, Layer::ENEMY);
 	GET_SINGLE(CollisionManager)->CheckLayer(Layer::PLAYER, Layer::DEFAULT);
 	GET_SINGLE(ResourceManager)->Play(L"BGM");

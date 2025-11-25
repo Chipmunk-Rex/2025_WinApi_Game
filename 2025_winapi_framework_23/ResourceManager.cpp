@@ -54,6 +54,8 @@ void ResourceManager::RegisterTexture()
 	LoadTexture(L"Plane", L"Texture\\planem.bmp");
 	LoadTexture(L"Bullet", L"Texture\\Bullet.bmp");
 	LoadTexture(L"Jiwoo", L"Texture\\jiwoo.bmp");
+	LoadTexture(L"Ball", L"Texture\\Ball.bmp");
+	LoadTexture(L"Dotted_line", L"Texture\\dotted_line.bmp");
 
 
 }
@@ -69,7 +71,8 @@ void ResourceManager::RegisterGDI()
 	m_Pens[(UINT)PenType::GREEN] = ::CreatePen(PS_SOLID, 1, RGB(0, 255, 0));
 
 	// 폰트 등록
-	RegisterFont(FontType::TITLE, L"나눔손글씨 암스테르담", 0);
+	RegisterFont(FontType::TITLE, L"나눔손글씨 암스테르담", 30);
+	RegisterFont(FontType::UI, L"나눔손글씨 암스테르담", 0);
 }
 void ResourceManager::ReleaseGDI()
 {
