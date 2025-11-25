@@ -20,7 +20,13 @@ private:
     std::wstring desc;
 
     bool isHovered;
+    bool isTweening;
+ 
     float hoverScale;
+    float targetScale;
+
+
+    float sizeValue;
 
 };
 

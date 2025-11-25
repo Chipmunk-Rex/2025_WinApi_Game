@@ -13,6 +13,7 @@
 #include<string>
 #include<algorithm>
 #include<ctime>
+#include<numeric>
 #include<cmath>
 #include<format>
 #include<assert.h>

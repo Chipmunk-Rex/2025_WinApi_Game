@@ -27,6 +27,8 @@ void UIScene::Update()
 
     if (GET_SINGLE(InputManager)->IsDown(KEY_TYPE::C))
         SpawnCards(3);
+
+    
  
 }
 
