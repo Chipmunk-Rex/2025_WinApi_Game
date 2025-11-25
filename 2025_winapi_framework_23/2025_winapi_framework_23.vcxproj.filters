@@ -145,12 +145,20 @@
     <ClInclude Include="Floor.h">
       <Filter>Engine\03. Object</Filter>
     </ClInclude>
+    <ClInclude Include="UIScene.h">
+      <Filter>Engine\04. Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="EnchantCard.h">
+      <Filter>Engine\07. UI</Filter>
+    </ClInclude>
     <ClInclude Include="BaseWindow.h">
       <Filter>Engine\01. Core</Filter>
     </ClInclude>
     <ClInclude Include="SceneSelectWindow.h">
       <Filter>Engine\09. Window</Filter>
     </ClInclude>
+    <ClInclude Include="CardDB.h" />
+    <ClInclude Include="CardInfo.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="2025_winapi_framework_23.rc">
@@ -238,11 +246,18 @@
     <ClCompile Include="Floor.cpp">
       <Filter>Engine\03. Object</Filter>
     </ClCompile>
+    <ClCompile Include="UIScene.cpp">
+      <Filter>Engine\04. Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="EnchantCard.cpp">
+      <Filter>Engine\07. UI</Filter>
+    </ClCompile>
     <ClCompile Include="BaseWindow.cpp">
       <Filter>Engine\01. Core</Filter>
     </ClCompile>
     <ClCompile Include="SceneSelectWindow.cpp">
       <Filter>Engine\09. Window</Filter>
     </ClCompile>
+    <ClCompile Include="CardDB.cpp" />
   </ItemGroup>
 </Project>

@@ -6,17 +6,19 @@
 #include "Collider.h"
 #include "SceneSelectWindow.h"
 #include "Core.h"
+#include "UIScene.h"
 void SceneManager::Init()
 {
 	m_curScene = nullptr;
 
-	// ¾À µî·Ï
+	// ï¿½ï¿½ ï¿½ï¿½ï¿½
 	RegisterScene(L"TestScene", std::make_shared<TestScene>());
 	RegisterScene(L"DevScene", std::make_shared<DevScene>());
+	RegisterScene(L"UIScene", std::make_shared<UIScene>());
 
 	SceneSelectWindow sceneSelectWindow;
 	sceneSelectWindow.Run(GET_SINGLE(Core)->GetHinstance(), SW_SHOWDEFAULT);
-	// Ã¹ ¾À ÁöÁ¤
+	// Ã¹ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 }
 void SceneManager::Update()
 {
@@ -49,7 +51,7 @@ void SceneManager::RegisterScene(const wstring& _name, std::shared_ptr<Scene> _s
 
 void SceneManager::LoadScene(const wstring& _name)
 {
-	// 2¹øÂ° load ÀÏ½Ã change ¿ªÇÒ
+	// 2ï¿½ï¿½Â° load ï¿½Ï½ï¿½ change ï¿½ï¿½ï¿½ï¿½
 	if (m_curScene != nullptr)
 	{
 		m_curScene->Release();

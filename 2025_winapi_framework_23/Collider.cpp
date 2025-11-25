@@ -30,7 +30,7 @@ void Collider::Render(HDC _hdc)
 	PenType penColor = PenType::GREEN;
 	if (m_showDebug)
 		penColor = PenType::RED;
-	// »ç°¢Çü
+	// ï¿½ç°¢ï¿½ï¿½
 	GDISelector pen(_hdc, penColor);
 	GDISelector brush(_hdc, BrushType::HOLLOW);
 	Vec2 worldPos = GetWorldPos();
