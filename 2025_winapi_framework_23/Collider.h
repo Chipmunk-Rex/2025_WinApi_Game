@@ -1,5 +1,6 @@
 #pragma once
 #include "Component.h"
+#include "Object.h"
 class Collider :   public Component
 {
 public:
@@ -18,9 +19,10 @@ public:
         m_offsetPos = _OffsetPos;
     }
     const Vec2& GetOffSetPos() const { return m_offsetPos; }
-    const Vec2& GetUpdatedPos() const
+    const Vec2& GetWorldPos() const
     {
-        return m_updatedPos;
+		Vec2 ownerPos = GetOwner()->GetPos();
+        return ownerPos + m_offsetPos;
     }
     UINT GetID() const { return m_ID; }
     void EnterCollision(Collider* _other);
@@ -35,8 +37,6 @@ private:
     Vec2 m_size; // 콜라이더 크기
     // Object로부터 상대적인 위치
     Vec2 m_offsetPos;
-    // LateUpdate에서 매 프레임마다 오브젝트로부터 계산되는 위치
-    Vec2 m_updatedPos;
     UINT m_ID; // 충돌체 고유 ID값
     static UINT m_nextID;
     bool m_showDebug;

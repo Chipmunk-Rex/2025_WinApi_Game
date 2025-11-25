@@ -21,6 +21,7 @@ private:
     Vec2 GetShootDir();
 private:
     Texture* m_pTex;
+    Texture* m_lineTex;
     Rigidbody* rb;
 };
 

@@ -21,8 +21,8 @@ void CollisionManager::Update()
 
 void CollisionManager::CheckLayer(Layer _left, Layer _right)
 {
-	// ÀÛÀºÂÊÀ» ÇàÀ¸·Î ¾¹½Ã´Ù.
-	// ÀÛÀº °ªÀ» LAYERÀÇ ÇàÀ¸·Î, Å« °ªÀ» ¿­
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ã´ï¿½.
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ LAYERï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, Å« ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 	UINT Row = (UINT)_left;
 	UINT Col = (UINT)_right;
 	//Row = min(Row, Col);
@@ -31,14 +31,14 @@ void CollisionManager::CheckLayer(Layer _left, Layer _right)
 	//m_arrLayer[Row];
 	//Col;
 
-	//// ºñÆ® ¿¬»ê
-	// Ã¼Å©°¡ µÇ¾îÀÖ´Ù¸é
+	//// ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
+	// Ã¼Å©ï¿½ï¿½ ï¿½Ç¾ï¿½ï¿½Ö´Ù¸ï¿½
 	if (m_objectLayer[Row] & (1 << Col))
 	{
-		// Ã¼Å© Ç®±â
+		// Ã¼Å© Ç®ï¿½ï¿½
 		m_objectLayer[Row] &= ~(1 << Col);
 	}
-	// Ã¼Å©°¡ ¾ÈµÇ¾îÀÖ´Ù¸ér
+	// Ã¼Å©ï¿½ï¿½ ï¿½ÈµÇ¾ï¿½ï¿½Ö´Ù¸ï¿½r
 	else
 	{
 		m_objectLayer[Row] |= (1 << Col);
@@ -48,7 +48,7 @@ void CollisionManager::CheckLayer(Layer _left, Layer _right)
 
 void CollisionManager::CheckReset()
 {
-	// ¸Þ¸ð¸® ÃÊ±âÈ­
+	// ï¿½Þ¸ï¿½ ï¿½Ê±ï¿½È­
 	memset(m_objectLayer, 0, sizeof(UINT) * (UINT)Layer::END);
 }
 
@@ -61,33 +61,33 @@ void CollisionManager::CollisionLayerUpdate(Layer _left, Layer _right)
 	for (size_t i = 0; i < vecLeftLayer.size(); ++i)
 	{
 		Collider* pLeftCollider = vecLeftLayer[i]->GetComponent<Collider>();
-		// Ãæµ¹Ã¼ ¾ø´Â °æ¿ì
+		// ï¿½æµ¹Ã¼ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 		if (nullptr == pLeftCollider)
 			continue;
 		for (size_t j = 0; j < vecRightLayer.size(); j++)
 		{
 			Collider* pRightCollider = vecRightLayer[j]->GetComponent<Collider>();
-			// Ãæµ¹Ã¼°¡ ¾ø°Å³ª, ÀÚ±âÀÚ½Å°úÀÇ Ãæµ¹ÀÎ °æ¿ì
+			// ï¿½æµ¹Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½Å³ï¿½, ï¿½Ú±ï¿½ï¿½Ú½Å°ï¿½ï¿½ï¿½ ï¿½æµ¹ï¿½ï¿½ ï¿½ï¿½ï¿½
 			if (nullptr == pRightCollider || vecLeftLayer[i] == vecRightLayer[j])
 				continue;
 
-			// µÎ Ãæµ¹Ã¼·Î¸¸ ¸¸µé ¼ö ÀÖ´Â ID
+			// ï¿½ï¿½ ï¿½æµ¹Ã¼ï¿½Î¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö´ï¿½ ID
 			ULONGLONG colliderID = MakePairKey(pLeftCollider->GetID(), pRightCollider->GetID());
 
 			iter = m_mapCollisionInfo.find(colliderID);
-			// ÀÌÀü ÇÁ·¹ÀÓ Ãæµ¹ÇÑ Àû ¾ø´Ù.
+			// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½æµ¹ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 			if (iter == m_mapCollisionInfo.end())
 			{
-				// Ãæµ¹ Á¤º¸°¡ ¹Ìµî·ÏµÈ »óÅÂÀÎ °æ¿ì µî·Ï(Ãæµ¹ÇÏÁö ¾Ê¾Ò´Ù·Î)
+				// ï¿½æµ¹ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½Ïµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½(ï¿½æµ¹ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¾Ò´Ù·ï¿½)
 				m_mapCollisionInfo.insert({ colliderID, false });
 				//m_mapCollisionInfo[colliderID.ID] = false;
 				iter = m_mapCollisionInfo.find(colliderID);
 			}
 
-			// Ãæµ¹¿©ºÎ È®ÀÎ
+			// ï¿½æµ¹ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½
 			if (IsCollision(pLeftCollider, pRightCollider))
 			{
-				// ÀÌÀü¿¡µµ Ãæµ¹Áß
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½æµ¹ï¿½ï¿½
 				if (iter->second)
 				{
 					if (vecLeftLayer[i]->GetIsDead() || vecRightLayer[j]->GetIsDead())
@@ -102,7 +102,7 @@ void CollisionManager::CollisionLayerUpdate(Layer _left, Layer _right)
 						pRightCollider->StayCollision(pLeftCollider);
 					}
 				}
-				else // ÀÌÀü¿¡ Ãæµ¹ x
+				else // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½æµ¹ x
 				{
 					if (!vecLeftLayer[i]->GetIsDead() && !vecRightLayer[j]->GetIsDead())
 					{
@@ -112,9 +112,9 @@ void CollisionManager::CollisionLayerUpdate(Layer _left, Layer _right)
 					}
 				}
 			}
-			else // Ãæµ¹ ¾ÈÇÏ³×?
+			else // ï¿½æµ¹ ï¿½ï¿½ï¿½Ï³ï¿½?
 			{
-				if (iter->second) // ±Ùµ¥ ÀÌÀü¿¡ Ãæµ¹Áß
+				if (iter->second) // ï¿½Ùµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½æµ¹ï¿½ï¿½
 				{
 					pLeftCollider->ExitCollision(pRightCollider);
 					pRightCollider->ExitCollision(pLeftCollider);
@@ -128,8 +128,8 @@ void CollisionManager::CollisionLayerUpdate(Layer _left, Layer _right)
 
 bool CollisionManager::IsCollision(Collider* _left, Collider* _right)
 {
-	Vec2 leftPos = _left->GetUpdatedPos();
-	Vec2 rightPos = _right->GetUpdatedPos();
+	Vec2 leftPos = _left->GetWorldPos();
+	Vec2 rightPos = _right->GetWorldPos();
 	Vec2 leftSize = _left->GetSize();
 	Vec2 rightSize = _right->GetSize();
 
@@ -139,7 +139,7 @@ bool CollisionManager::IsCollision(Collider* _left, Collider* _right)
 
 ULONGLONG CollisionManager::MakePairKey(UINT a, UINT b)
 {
-	// ÁÂ¿ì ¼ø¼­¸¦ ¹«ÀÇ¹ÌÇÏ°Ô: ÀÛÀº °ªÀ» lo, Å« °ªÀ» hi
+	// ï¿½Â¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ç¹ï¿½ï¿½Ï°ï¿½: ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ lo, Å« ï¿½ï¿½ï¿½ï¿½ hi
 	COLLIDER_ID id = {};
 	id.lo_ID = (a < b) ? a : b;
 	id.hi_ID = (a < b) ? b : a;

@@ -54,6 +54,8 @@ void ResourceManager::RegisterTexture()
 	LoadTexture(L"Plane", L"Texture\\planem.bmp");
 	LoadTexture(L"Bullet", L"Texture\\Bullet.bmp");
 	LoadTexture(L"Jiwoo", L"Texture\\jiwoo.bmp");
+	LoadTexture(L"Ball", L"Texture\\Ball.bmp");
+	LoadTexture(L"Dotted_line", L"Texture\\dotted_line.bmp");
 
 
 }

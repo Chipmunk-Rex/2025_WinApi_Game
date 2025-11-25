@@ -90,8 +90,8 @@ void SceneSelectWindow::createWindow()
 	m_hBtnOk = CreateWindowW(L"BUTTON", L"OK", WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON,
 		280, 30, 100, 30, m_hWnd, (HMENU)IDC_BTN_OK, m_hInst, nullptr);
 
-	m_hBtnCancel = CreateWindowW(L"BUTTON", L"Cancel", WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON,
-		280, 70, 100, 30, m_hWnd, (HMENU)IDC_BTN_CANCEL, m_hInst, nullptr);
+	//m_hBtnCancel = CreateWindowW(L"BUTTON", L"Cancel", WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON,
+		//280, 70, 100, 30, m_hWnd, (HMENU)IDC_BTN_CANCEL, m_hInst, nullptr);
 }
 
 void SceneSelectWindow::showWindow(int nCmdShow)
@@ -168,4 +168,4 @@ LRESULT CALLBACK SceneSelectWindow::WndProc(HWND hWnd, UINT message, WPARAM wPar
 		return DefWindowProc(hWnd, message, wParam, lParam);
 	}
 	return 0;
-}
+}////

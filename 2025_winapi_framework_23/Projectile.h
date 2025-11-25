@@ -1,6 +1,8 @@
 #pragma once
 #include "Object.h"
+#include "Rigidbody.h"
 class Texture;
+class Rigidbody;
 class Projectile :
     public Object
 {
@@ -12,15 +14,15 @@ public:
     // Object을(를) 통해 상속됨
     void Render(HDC _hdc) override;
 public:
-    void SetAngle(float _angle) { m_angle = _angle; }
     void SetDir(Vec2 _dir)
     {
-        m_dir = _dir;
-        m_dir.Normalize();
+        rigidbody->SetVelocity(_dir);
     }
+	void EnterCollision(Collider* _other) override;
+	void StayCollision(Collider* _other) override;
+	void ExitCollision(Collider* _other) override;
 private:
-    float m_angle;
-    Vec2  m_dir;
     Texture* m_pTex;
+	Rigidbody* rigidbody;
 };
 

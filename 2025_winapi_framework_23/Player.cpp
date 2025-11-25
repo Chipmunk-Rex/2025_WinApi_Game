@@ -52,7 +52,7 @@ void Player::Update()
 	if (GET_KEY(KEY_TYPE::S)) dir.y += 1.f;
 
 	//Translate({ dir.x * 300.f * fDT, dir.y * 300.f * fDT });
-	rb->SetVelocity(dir * 300.f);
+	rb->SetVelocity(dir.Normalize() * 300.f);
 	// 크기변경
 	float scaleDelta = 0.f;
 	float scaleSpeed = 1.f;
@@ -75,10 +75,8 @@ void Player::CreateProjectile()
 	//pos.y -= GetSize().y / 2.f;
 	proj->SetPos(pos);
 	proj->SetSize({ 20.f,20.f });
-	static float angle = 0.f;
 	//proj->SetAngle(angle * PI / 180);
-	proj->SetDir(GetShootDir());
-	angle += 10.f;
+	proj->SetDir(GetShootDir() * 500);
 	GET_SINGLE(SceneManager)->GetCurScene()->AddObject(proj, Layer::PROJECTILE);
 }
 
@@ -139,6 +137,24 @@ void Player::Render(HDC _hdc)
 
 	// 5.  - 회전
 	//::PlgBlt();
+
+	const float lineDistance = 100;
+	const float lineWidth= 10;
+	Vec2 shootDir = this->GetShootDir();
+
+	Vec2 leftBottom = GetPos() + shootDir.Rotate(-90) * lineWidth;
+	Vec2 rightBottom = GetPos() + shootDir.Rotate(90) * lineWidth;
+	Vec2 leftTop = GetPos() + shootDir * lineDistance + shootDir.Rotate(-90) * lineWidth;
+	Vec2 rightTop = GetPos() + shootDir * lineDistance + shootDir.Rotate(90) * lineWidth;
+
+	POINT arr[4] =
+	{
+		(POINT)leftBottom,
+		(POINT)rightBottom,
+		(POINT)rightTop,
+		(POINT)leftTop
+	};
+	Polygon(_hdc, arr, 4);
 }
 
 void Player::EnterCollision(Collider* _other)
@@ -148,6 +164,7 @@ void Player::EnterCollision(Collider* _other)
 		Rigidbody* rb = GetComponent<Rigidbody>();
 		rb->SetGrounded(true);
 	}
+	cout << "hi";
 }
 
 void Player::StayCollision(Collider* _other)

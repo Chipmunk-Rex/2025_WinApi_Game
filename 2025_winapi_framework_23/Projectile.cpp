@@ -3,16 +3,17 @@
 #include "ResourceManager.h"
 #include "Texture.h"
 #include "Collider.h"
+#include "Rigidbody.h"
 Projectile::Projectile()
-	: m_angle(0.f)
-	, m_dir{}
 {
-	m_pTex = GET_SINGLE(ResourceManager)->GetTexture(L"Bullet");
+	m_pTex = GET_SINGLE(ResourceManager)->GetTexture(L"Ball");
 	auto* compo = AddComponent<Collider>();
 	//GetComponent<Collider>()->SetSize({ 20.f,20.f });
 	compo->SetSize({ 20.f,20.f });
 	compo->SetName(L"PlayerBullet");
 	compo->SetTrigger(true);
+
+	rigidbody = AddComponent<Rigidbody>();
 }
 
 Projectile::~Projectile()
@@ -22,7 +23,6 @@ Projectile::~Projectile()
 void Projectile::Update()
 {
 	//Translate({ cosf(m_angle) * 500.f * fDT, sinf(m_angle) * 500.f * fDT});
-	Translate({ m_dir.x * 500.f * fDT, m_dir.y * 500.f * fDT});
 }
 
 void Projectile::Render(HDC _hdc)
@@ -45,3 +45,41 @@ void Projectile::Render(HDC _hdc)
 	ComponentRender(_hdc);
 
 }
+
+void Projectile::EnterCollision(Collider* _other)
+{
+	Object* owner = _other->GetOwner();
+	float distanceX = abs((owner->GetPos().x - GetPos().x));
+	float distanceY = abs((owner->GetPos().y - GetPos().y));
+
+	float deltaX = distanceX - (owner->GetSize().x / 2.f);
+	float deltaY = distanceY - (owner->GetSize().y / 2.f);
+
+	Vec2 velocity = rigidbody->GetVelocity();
+
+	//cout << velocity.x << ' ' << velocity.y << endl;
+	//cout << deltaX << ' ' << deltaY << endl;
+	//cout << owner->GetSize().x << ' ' << owner->GetSize().y << endl;
+
+	if (deltaX > deltaY) 
+	{
+		velocity = Vec2(-velocity.x, velocity.y);
+	}
+	else
+	{
+		velocity = Vec2(velocity.x, -velocity.y);
+	}
+	rigidbody->SetVelocity(velocity);
+
+	//cout << velocity.x << ' ' << velocity.y;
+
+}
+
+void Projectile::StayCollision(Collider* _other)
+{
+}
+
+void Projectile::ExitCollision(Collider* _other)
+{
+}
+//
