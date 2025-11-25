@@ -10,6 +10,7 @@
 #include "Animator.h"
 #include "Animation.h"
 #include "Rigidbody.h"
+#include "Health.h"
 Player::Player()
 	: m_pTex(nullptr)
 {
@@ -24,6 +25,10 @@ Player::Player()
 	anim->Play(L"JiwooFront");
 	rb = AddComponent<Rigidbody>();
 	rb->SetUseGravity(false);
+
+
+	Health* health = AddComponent<Health>();
+	health->SetHealth(100);
 }
 Player::~Player()
 {
