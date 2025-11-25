@@ -82,7 +82,7 @@ void Player::CreateProjectile()
 	proj->SetPos(pos);
 	proj->SetSize({ 20.f,20.f });
 	//proj->SetAngle(angle * PI / 180);
-	proj->SetDir(GetShootDir() * 500);
+	proj->Shoot(GetShootDir() * 500);
 	GET_SINGLE(SceneManager)->GetCurScene()->AddObject(proj, Layer::PROJECTILE);
 }
 
