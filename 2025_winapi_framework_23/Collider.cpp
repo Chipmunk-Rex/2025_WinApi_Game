@@ -28,9 +28,7 @@ void Collider::LateUpdate()
 
 void Collider::Render(HDC _hdc)
 {
-	::TextOut(_hdc, 0, 0, L"╬хЁГ", 2);
-	GDISelector font(_hdc, FontType::TITLE);
-	::TextOut(_hdc, 10, 10, L"го╪ю", 2);
+	
 	PenType penColor = PenType::GREEN;
 	if (m_showDebug)
 		penColor = PenType::RED;

@@ -168,7 +168,8 @@
     <ClInclude Include="Animation.h" />
     <ClInclude Include="Animator.h" />
     <ClInclude Include="BaseWindow.h" />
-    <ClInclude Include="CloseRangeEnemy.h" />
+    <ClInclude Include="CardDB.h" />
+    <ClInclude Include="CardInfo.h" />
     <ClInclude Include="CoreWindow.h" />
     <ClInclude Include="Collider.h" />
     <ClInclude Include="CollisionManager.h" />
@@ -176,20 +177,17 @@
     <ClInclude Include="Core.h" />
     <ClInclude Include="Defines.h" />
     <ClInclude Include="DevScene.h" />
+    <ClInclude Include="EnchantCard.h" />
     <ClInclude Include="Enemy.h" />
-    <ClInclude Include="EnemyProjectile.h" />
-    <ClInclude Include="EnemyTestScene.h" />
     <ClInclude Include="Enums.h" />
     <ClInclude Include="Floor.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="GDISelector.h" />
-    <ClInclude Include="Health.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Projectile.h" />
-    <ClInclude Include="RangedEnemy.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="ResourceBase.h" />
     <ClInclude Include="ResourceManager.h" />
@@ -201,25 +199,24 @@
     <ClInclude Include="TestScene.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TimeManager.h" />
+    <ClInclude Include="UIScene.h" />
     <ClInclude Include="Vec2.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="Animator.cpp" />
     <ClCompile Include="BaseWindow.cpp" />
-    <ClCompile Include="CloseRangeEnemy.cpp" />
+    <ClCompile Include="CardDB.cpp" />
     <ClCompile Include="CoreWindow.cpp" />
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="Core.cpp" />
     <ClCompile Include="DevScene.cpp" />
+    <ClCompile Include="EnchantCard.cpp" />
     <ClCompile Include="Enemy.cpp" />
-    <ClCompile Include="EnemyProjectile.cpp" />
-    <ClCompile Include="EnemyTestScene.cpp" />
     <ClCompile Include="Floor.cpp" />
     <ClCompile Include="GDISelector.cpp" />
-    <ClCompile Include="Health.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="main.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -230,7 +227,6 @@
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Projectile.cpp" />
-    <ClCompile Include="RangedEnemy.cpp" />
     <ClCompile Include="ResourceBase.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="Rigidbody.cpp" />
@@ -240,6 +236,7 @@
     <ClCompile Include="TestScene.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TimeManager.cpp" />
+    <ClCompile Include="UIScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="2025_winapi_framework_23.rc" />
