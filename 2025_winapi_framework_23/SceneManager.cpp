@@ -8,21 +8,6 @@
 #include "Core.h"
 #include "UIScene.h"
 #include "EnemyTestScene.h"
-void SceneManager::PhysicsSyncColliders()
-{
-	for (UINT i = 0; i < (UINT)Layer::END; ++i)
-	{
-		const auto& objects = m_curScene->GetLayerObjects((Layer)i);
-		for (Object* obj : objects)
-		{
-			if (!obj)
-				continue;
-
-			if (auto* col = obj->GetComponent<Collider>())
-				col->LateUpdate(); // sync  
-		}
-	}
-}
 void SceneManager::Init()
 {
 	m_curScene = nullptr;
@@ -51,7 +36,6 @@ void SceneManager::FixedUpdate(float _fixedDT)
 	if (m_curScene == nullptr)
 		return;
 	m_curScene->FixedUpdate(_fixedDT);
-	PhysicsSyncColliders();
 }
 
 void SceneManager::Render(HDC _hdc)

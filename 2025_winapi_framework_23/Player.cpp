@@ -10,6 +10,7 @@
 #include "Animator.h"
 #include "Animation.h"
 #include "Rigidbody.h"
+#include "Health.h"
 Player::Player()
 	: m_pTex(nullptr)
 {
@@ -18,12 +19,17 @@ Player::Player()
 	//path += L"Texture\\planem.bmp";
 	//m_pTex->Load(path); 
 	m_pTex = GET_SINGLE(ResourceManager)->GetTexture(L"Jiwoo");
-	AddComponent<Collider>();
+	AddComponent<Collider>()->SetName(L"Player");
 	auto* anim = AddComponent<Animator>();
 	anim->CreateAnimation(L"JiwooFront", m_pTex, { 0.f, 150.f }, { 50.f,50.f }, { 50.f,0.f }, 5, 0.1f);
 	anim->Play(L"JiwooFront");
 	rb = AddComponent<Rigidbody>();
 	rb->SetUseGravity(false);
+
+
+	Health* health = AddComponent<Health>();
+	health->SetHealth(100);
+
 }
 Player::~Player()
 {
@@ -76,7 +82,7 @@ void Player::CreateProjectile()
 	proj->SetPos(pos);
 	proj->SetSize({ 20.f,20.f });
 	//proj->SetAngle(angle * PI / 180);
-	proj->SetDir(GetShootDir() * 500);
+	proj->Shoot(GetShootDir() * 500);
 	GET_SINGLE(SceneManager)->GetCurScene()->AddObject(proj, Layer::PROJECTILE);
 }
 
@@ -176,3 +182,4 @@ void Player::ExitCollision(Collider* _other)
 }
 
 
+////////////////////////////////////////////////////////////////////
