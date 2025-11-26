@@ -61,7 +61,7 @@ void UIScene::SpawnCards(int count)
         EnchantCard *card = Spawn<EnchantCard>(Layer::UI,
             { centerX, centerY }, size);
 
-        card->SetInfo(vec[0].name.c_str(), vec[0].desc.c_str());
+        card->SetInfo(vec[0].name.c_str(), vec[0].desc.c_str(), vec[0].fileName.c_str());
         return;
     }
 
@@ -71,11 +71,11 @@ void UIScene::SpawnCards(int count)
         EnchantCard* card = Spawn<EnchantCard>(Layer::UI,
             { centerX - spacing / 2, centerY }, size);
 
-        card->SetInfo(vec[0].name.c_str(), vec[0].desc.c_str());
+        card->SetInfo(vec[0].name.c_str(), vec[0].desc.c_str(), vec[0].fileName.c_str());
 
         EnchantCard* card2 = Spawn<EnchantCard>(Layer::UI,
             { centerX + spacing / 2, centerY }, size);
-        card2->SetInfo(vec[1].name.c_str(), vec[1].desc.c_str());
+        card2->SetInfo(vec[1].name.c_str(), vec[1].desc.c_str(), vec[1].fileName.c_str());
         return;
     }
 
@@ -84,15 +84,15 @@ void UIScene::SpawnCards(int count)
         EnchantCard* card = Spawn<EnchantCard>(Layer::UI,
             { centerX - spacing, centerY }, size);
 
-        card->SetInfo(vec[0].name.c_str(), vec[0].desc.c_str());
+        card->SetInfo(vec[0].name.c_str(), vec[0].desc.c_str(), vec[0].fileName.c_str());
         EnchantCard* card2 = Spawn<EnchantCard>(Layer::UI,
             { centerX, centerY }, size);
 
-        card2->SetInfo(vec[1].name.c_str(), vec[1].desc.c_str());
+        card2->SetInfo(vec[1].name.c_str(), vec[1].desc.c_str(), vec[1].fileName.c_str());
 
         EnchantCard* card3 = Spawn<EnchantCard>(Layer::UI,
             { centerX + spacing, centerY }, size);
-        card3->SetInfo(vec[2].name.c_str(), vec[2].desc.c_str());
+        card3->SetInfo(vec[2].name.c_str(), vec[2].desc.c_str(),vec[2].fileName.c_str());
         return;
     }
 }

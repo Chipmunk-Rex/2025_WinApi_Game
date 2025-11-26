@@ -3,13 +3,16 @@
 #include "Collider.h"
 #include "SceneManager.h"
 #include "InputManager.h"
+#include "ResourceManager.h"
+#include "Animator.h"
 
 EnchantCard::EnchantCard()
 {
     AddComponent<Collider>()->SetSize({ 200, 300 });
     isHovered = false;
     targetScale = 1;
-    hoverScale = 0;
+    hoverScale = 0; 
+
 }
 
 EnchantCard::~EnchantCard()
@@ -33,11 +36,14 @@ void EnchantCard::Render(HDC _hdc)
 {
     Vec2 pos = GetPos();
     Vec2 size = GetSize();
+
+   
+
     Vec2 scaledSize = size * hoverScale;
 
     PenType borderColor = isHovered ? PenType::RED : PenType::GREEN;
 
-    RECT_RENDER(_hdc, pos.x, pos.y, scaledSize.x, scaledSize.y);
+    //RECT_RENDER(_hdc, pos.x, pos.y, scaledSize.x, scaledSize.y);
 
     RECT rc;
     rc.left = (LONG)(pos.x - scaledSize.x / 2);
@@ -51,6 +57,23 @@ void EnchantCard::Render(HDC _hdc)
     nameRc.right = (LONG)(pos.x + scaledSize.x / 2);
     nameRc.bottom = (LONG)(pos.y + scaledSize.y / 2) - 50;
 
+    GDISelector pen(_hdc, borderColor);
+    GDISelector brush(_hdc, BrushType::HOLLOW);
+    RECT_RENDER(_hdc, pos.x, pos.y, scaledSize.x, scaledSize.y);
+    TransparentBlt(
+        _hdc,
+        (int)(pos.x - scaledSize.x / 2),
+        (int)(pos.y - scaledSize.y / 2),
+        (int)scaledSize.x,
+        (int)scaledSize.y,
+        itemTex->GetTextureDC(),
+        0,
+        0,
+        itemTex->GetWidth(),
+        itemTex->GetHeight(),
+        RGB(255, 0, 255)
+    );
+
     GDISelector namefont(_hdc, FontType::TITLE);
     DrawText(_hdc, name.c_str(), -1, &nameRc, DT_CENTER | DT_BOTTOM | DT_SINGLELINE);
 
@@ -59,9 +82,7 @@ void EnchantCard::Render(HDC _hdc)
     GDISelector descfont(_hdc, FontType::UI);
     DrawText(_hdc, desc.c_str(), -1, &descRc, DT_CENTER | DT_BOTTOM | DT_WORDBREAK);
 
-    GDISelector pen(_hdc, borderColor);
-    GDISelector brush(_hdc, BrushType::HOLLOW);
-    RECT_RENDER(_hdc, pos.x, pos.y, scaledSize.x, scaledSize.y);
+
 }
 
 void EnchantCard::EnterCollision(Collider* _other)
@@ -82,8 +103,10 @@ void EnchantCard::ExitCollision(Collider* _other)
     targetScale = 1.0f;
 }
 
-void EnchantCard::SetInfo(const wchar_t* name, const wchar_t* desc)
+void EnchantCard::SetInfo(const wchar_t* name, const wchar_t* desc, const wchar_t* fileName)
 {
     this->name = name;
     this->desc = desc;
+    this->fileName = fileName;
+    itemTex = GET_SINGLE(ResourceManager)->GetTexture(fileName);
 }
