@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "Projectile.h"
 #include "ResourceManager.h"
 #include "Texture.h"
@@ -14,6 +14,7 @@ Projectile::Projectile()
 	compo->SetTrigger(true);
 
 	rigidbody = AddComponent<Rigidbody>();
+	rigidbody->SetContiniuouse(true);
 }
 
 Projectile::~Projectile()
@@ -85,4 +86,4 @@ void Projectile::StayCollision(Collider* _other)
 void Projectile::ExitCollision(Collider* _other)
 {
 }
-//
+//////

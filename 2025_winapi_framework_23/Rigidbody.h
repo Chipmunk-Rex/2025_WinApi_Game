@@ -1,52 +1,56 @@
-#pragma once
+ï»¿#pragma once
 #include "Component.h"
 class Rigidbody :
-    public Component
+	public Component
 
 {
 public:
-    Rigidbody();
-    ~Rigidbody();
+	Rigidbody();
+	~Rigidbody();
 public:
-    // ComponentÀ»(¸¦) ÅëÇØ »ó¼ÓµÊ
-    void Init() override;
-    void LateUpdate() override;
-    void FixedUpdate(float _fixedDT); // ¹°¸® °è»ê
-    void Render(HDC hDC) override;
+	// Componentì„(ë¥¼) í†µí•´ ìƒì†ë¨
+	void Init() override;
+	void LateUpdate() override;
+	void FixedUpdate(float _fixedDT); // ë¬¼ë¦¬ ê³„ì‚°
+	void Render(HDC hDC) override;
 public:
-    void SetMass(float _mass) { m_mass = _mass; }
-    void AddForce(Vec2 _force) { m_force += _force; }
+	void SetMass(float _mass) { m_mass = _mass; }
+	void AddForce(Vec2 _force) { m_force += _force; }
 
-    // ¼ø°£ÀûÀÎ Èû (Á¡ÇÁ, ÇÇ°İ ³Ë¹é, Æø¹ß)
-    void AddImpulse(Vec2 _impulse)
-    {
-        //m_velocity += _impulse / m_mass; // ÀÌ°ÅÇÏ¸é getmassÇØ¼­ °öÇØÁà¾ßÇÔ.
-        m_velocity += _impulse;
-    }
-    void SetGrounded(bool _ground) { m_grounded = _ground; }
-    bool IsGrounded() const { return m_grounded; }
+	// ìˆœê°„ì ì¸ í˜ (ì í”„, í”¼ê²© ë„‰ë°±, í­ë°œ)
+	void AddImpulse(Vec2 _impulse)
+	{
+		//m_velocity += _impulse / m_mass; // ì´ê±°í•˜ë©´ getmassí•´ì„œ ê³±í•´ì¤˜ì•¼í•¨.
+		m_velocity += _impulse;
+	}
+	void SetGrounded(bool _ground) { m_grounded = _ground; }
+	bool IsGrounded() const { return m_grounded; }
 
-    void SetUseGravity(bool _useGravity) { m_useGravity = _useGravity; }
+	void SetUseGravity(bool _useGravity) { m_useGravity = _useGravity; }
 
-    void SetIsKinematic(bool _isKinematic) { m_isKinematic = _isKinematic; }
-    bool IsKinematic() const { return m_isKinematic; }
+	void SetIsKinematic(bool _isKinematic) { m_isKinematic = _isKinematic; }
+	bool IsKinematic() const { return m_isKinematic; }
 
-    void SetVelocity(Vec2 _velocity) { m_velocity = _velocity; }
-    const Vec2& GetVelocity() const { return m_velocity; }
+	bool IsContiniuouse() const { return continiuousCollision; }
+	void SetContiniuouse(bool _continiuous) { continiuousCollision = _continiuous; }
 
-    void SetFriction(float _friction) { m_friction = _friction; }
+	void SetVelocity(Vec2 _velocity) { m_velocity = _velocity; }
+	const Vec2& GetVelocity() const { return m_velocity; }
+
+	void SetFriction(float _friction) { m_friction = _friction; }
 private:
-    bool m_grounded;
-    bool m_useGravity;
-    bool m_isKinematic;
+	bool m_grounded;
+	bool m_useGravity;
+	bool m_isKinematic;
+	bool continiuousCollision;
 
-    float m_mass; // Áú·®
-    float m_friction; // ¸¶Âû·Â
-    float m_airDrag;  // °øÁß °¨¼Ó (Drag)
+	float m_mass; // ì§ˆëŸ‰
+	float m_friction; // ë§ˆì°°ë ¥
+	float m_airDrag;  // ê³µì¤‘ ê°ì† (Drag)
 
-    Vec2 m_force; // Èû
-    Vec2 m_velocity; // ¼Óµµ
-    Vec2 m_maxVelocity; // Á¦ÇÑ¼Óµµ
-    Vec2 m_gravity; // Áß·Â
-    Vec2 m_accelation; // °¡¼Óµµ
+	Vec2 m_force; // í˜
+	Vec2 m_velocity; // ì†ë„
+	Vec2 m_maxVelocity; // ì œí•œì†ë„
+	Vec2 m_gravity; // ì¤‘ë ¥
+	Vec2 m_accelation; // ê°€ì†ë„
 };

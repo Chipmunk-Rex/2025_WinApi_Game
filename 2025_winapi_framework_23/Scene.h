@@ -1,6 +1,6 @@
-#pragma once
-//#include "Object.h"
-class Object;
+ï»¿#pragma once
+#include "Object.h"
+//class Object;
 struct SpawnObject
 {
 	Object* obj;
@@ -25,23 +25,39 @@ public:
 		return m_vecObj[(UINT)_type];
 	}
 
+	const vector<Object*>& GetLayerObjects(LayerMask layermask) const
+	{
+		static vector<Object*> result;
+		result.clear();
+		for (UINT i = 0; i < (UINT)Layer::END; ++i)
+		{
+			if (layermask & (1 << i))
+			{
+				const vector<Object*>& layerObjects = m_vecObj[i];
+				result.insert(result.end(), layerObjects.begin(), layerObjects.end());
+			}
+		}
+		return result;
+	}
+
 public:
 	void AddObject(Object* _obj, Layer _type)
 	{
 		m_vecObj[(UINT)_type].push_back(_obj);
+		_obj->SetLayer(_type);
 	}
 	template<typename T>
 	T* Spawn(Layer _type, Vec2 _pos, Vec2 _size)
 	{
-		static_assert(std::is_base_of<Object,T>::value, "Object·ÎºÎÅÍ »ó¼Ó¹Ş¾Æ¾ß ÇÔ");
+		static_assert(std::is_base_of<Object,T>::value, "Objectë¡œë¶€í„° ìƒì†ë°›ì•„ì•¼ í•¨");
 		T* obj = new T;
 		obj->SetPos(_pos);
 		obj->SetSize(_size);
 		AddObject(obj, _type);
 		return obj;
 	}
-	void RequestDestroy(Object* obj); // Áö¿¬»èÁ¦
-	void RequestSpawn(Object* obj, Layer _type); // Áö¿¬»ı¼º
+	void RequestDestroy(Object* obj); // ì§€ì—°ì‚­ì œ
+	void RequestSpawn(Object* obj, Layer _type); // ì§€ì—°ìƒì„±
 	void FlushEvent();
 private:
 	void RemoveObject(Object* _obj);

@@ -1,4 +1,4 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "Animation.h"
 #include "Animator.h"
 #include "Object.h"
@@ -32,7 +32,7 @@ void Animation::Create(Texture* _tex, Vec2 _lt, Vec2 _sliceSize,
     m_frames.reserve(_frameCount);
     for (UINT i = 0; i < _frameCount; ++i)
     {
-        // °¡µ¶¼º
+        // ê°€ë…ì„±
         tAnimFrame _fr;
         _fr.vLT = _lt + _step * i;
         _fr.vSlice = _sliceSize;
@@ -45,7 +45,7 @@ void Animation::Create(Texture* _tex, Vec2 _lt, Vec2 _sliceSize,
 void Animation::ConfigurePlayback(PlayMode _mode, int _loopCount, float _speed)
 {
     m_mode = _mode;
-    m_loopCount = (_mode == PlayMode::Counted) ? std::max(1, _loopCount) : 1;
+    m_loopCount = (_mode == PlayMode::Counted) ? max(1, _loopCount) : 1;
     m_speed = _speed;
     m_finished = false;
 }
@@ -122,13 +122,13 @@ void Animation::Render(HDC _hdc)
     const tAnimFrame& fr = m_frames[(size_t)m_curFrame];
     pos = pos + fr.vOffset;
 
-    // ¸ñÀûÁö(È­¸é) »ç°¢Çü: ½ºÇÁ¶óÀÌÆ® Áß½É Á¤·Ä
+    // ëª©ì ì§€(í™”ë©´) ì‚¬ê°í˜•: ìŠ¤í”„ë¼ì´íŠ¸ ì¤‘ì‹¬ ì •ë ¬
     int dx = (int)(pos.x - fr.vSlice.x / 2);
     int dy = (int)(pos.y - fr.vSlice.y / 2);
     int dw = (int)fr.vSlice.x;
     int dh = (int)fr.vSlice.y;
 
-    // ¼Ò½º(½ÃÆ®) »ç°¢Çü
+    // ì†ŒìŠ¤(ì‹œíŠ¸) ì‚¬ê°í˜•
     int sx = (int)fr.vLT.x;
     int sy = (int)fr.vLT.y;
     int sw = (int)fr.vSlice.x;
