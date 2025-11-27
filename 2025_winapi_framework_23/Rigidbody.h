@@ -12,6 +12,7 @@ public:
 	void Init() override;
 	void LateUpdate() override;
 	void FixedUpdate(float _fixedDT); // 물리 계산
+	void ApplyMovement(float _fixedDT);
 	void Render(HDC hDC) override;
 public:
 	void SetMass(float _mass) { m_mass = _mass; }
@@ -34,6 +35,9 @@ public:
 	bool IsContiniuouse() const { return continiuousCollision; }
 	void SetContiniuouse(bool _continiuous) { continiuousCollision = _continiuous; }
 
+	bool IsBounciness() const { return m_bounciness > 0.f; }
+	void SetBounciness(float _bounciness) { m_bounciness = _bounciness; }
+
 	void SetVelocity(Vec2 _velocity) { m_velocity = _velocity; }
 	const Vec2& GetVelocity() const { return m_velocity; }
 
@@ -47,6 +51,10 @@ private:
 	float m_mass; // 질량
 	float m_friction; // 마찰력
 	float m_airDrag;  // 공중 감속 (Drag)
+	/// <summary>
+	/// 탄성력, 0~1
+	/// </summary>
+	float m_bounciness; 
 
 	Vec2 m_force; // 힘
 	Vec2 m_velocity; // 속도

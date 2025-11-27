@@ -4,19 +4,15 @@
 #include "Scene.h"
 #include "Object.h"
 #include "Collider.h"
+CollisionManager::CollisionManager()
+{
+	m_mapCollisionInfo.reserve(10000);
+}
+CollisionManager::~CollisionManager()
+{
+}
 void CollisionManager::Update()
 {
-	for (UINT Row = 0; Row < (UINT)Layer::END; ++Row)
-	{
-		for (UINT Col = Row; Col < (UINT)Layer::END; ++Col)
-		{
-			if (m_objectLayer[Row] & (1 << Col))
-			{
-				CollisionLayerUpdate((Layer)Row, (Layer)Col);
-			}
-		}
-	}
-
 	for (UINT Row = 0; Row < (UINT)Layer::END; ++Row)
 	{
 		for (UINT Col = Row; Col < (UINT)Layer::END; ++Col)
@@ -71,7 +67,27 @@ bool CollisionManager::IsCollisionLayer(Layer _left, Layer _right)
 	return (m_objectLayer[Row] & (1 << Col)) != 0;
 }
 
-bool CollisionManager::BoxCast(Collider* collider, const Vec2 direction, const float maxDistance, const LayerMask layer, LaycastHit& outHit)
+void CollisionManager::SetCollisioned(Collider* pLeftCollider, Collider* pRightCollider)
+{
+	if (pRightCollider < pLeftCollider)
+		std::swap(pLeftCollider, pRightCollider);
+	COLLIDER_ID pairKey{pLeftCollider->GetID(), pRightCollider->GetID()};
+	m_mapCollisionInfo.insert_or_assign(pairKey.ID, true);
+	Object* pLeftObj = pLeftCollider->GetOwner();
+	Object* pRightObj = pRightCollider->GetOwner();
+	pLeftObj->EnterCollision(pRightCollider);
+	pRightObj->EnterCollision(pLeftCollider);
+}
+
+void CollisionManager::RequestCollisionCheck(Collider* pLeftCollider, Collider* pRightCollider)
+{
+	if (IsCollision(pLeftCollider, pRightCollider))
+	{
+		SetCollisioned(pLeftCollider, pRightCollider);
+	}
+}
+
+bool CollisionManager::BoxCast(Collider* collider, const Vec2 direction, const float maxDistance, const LayerMask layer, RaycastHit& outHit)
 {
 	if (nullptr == collider)
 		return false;
@@ -80,7 +96,7 @@ bool CollisionManager::BoxCast(Collider* collider, const Vec2 direction, const f
 	return BoxCast(origin, size, direction, maxDistance, layer, outHit);
 }
 
-bool CollisionManager::BoxCast(const Vec2 origin, const Vec2 size, const Vec2 direction, const float maxDistance, const LayerMask layermask, LaycastHit& outHit)
+bool CollisionManager::BoxCast(const Vec2 origin, const Vec2 size, const Vec2 direction, const float maxDistance, const LayerMask layermask, RaycastHit& outHit)
 {
 
 	std::shared_ptr<Scene> currentScene = GET_SINGLE(SceneManager)->GetCurScene();
@@ -92,7 +108,7 @@ bool CollisionManager::BoxCast(const Vec2 origin, const Vec2 size, const Vec2 di
 		Collider* pLeftCollider = layerObjects[i]->GetComponent<Collider>();
 		if (nullptr == pLeftCollider)
 			continue;
-		LaycastHit currentHit;
+		RaycastHit currentHit;
 		if (BoxCast(origin, size, direction, maxDistance, pLeftCollider, currentHit))
 		{
 			float hitDistance = (currentHit.point - origin).Length();
@@ -106,7 +122,7 @@ bool CollisionManager::BoxCast(const Vec2 origin, const Vec2 size, const Vec2 di
 	return false;
 }
 
-bool CollisionManager::BoxCast(const Vec2 origin, const Vec2 size, const Vec2 direction, const float maxDistance, Collider* collider, LaycastHit& hit)
+bool CollisionManager::BoxCast(const Vec2 origin, const Vec2 size, const Vec2 direction, const float maxDistance, Collider* collider, RaycastHit& hit)
 {
 	if (nullptr == collider)
 		return false;
@@ -177,39 +193,45 @@ void CollisionManager::CollisionLayerUpdate(Layer _left, Layer _right)
 	const vector<Object*>& vecLeftLayer = pCurrentScene->GetLayerObjects(_left);
 	const vector<Object*>& vecRightLayer = pCurrentScene->GetLayerObjects(_right);
 	std::unordered_map<ULONGLONG, bool>::iterator iter;
+	bool sameLayer = _left == _right;
 	for (size_t i = 0; i < vecLeftLayer.size(); ++i)
 	{
-		Collider* pLeftCollider = vecLeftLayer[i]->GetComponent<Collider>();
+		Object* pLeftObj = vecLeftLayer[i];
+		Collider* pLeftCollider = pLeftObj->GetComponent<Collider>();
 		// 충돌체 없는 경우
 		if (nullptr == pLeftCollider)
 			continue;
-		for (size_t j = 0; j < vecRightLayer.size(); j++)
+
+		size_t jStart = 0;
+		if (sameLayer)
+			jStart = i + 1; // same layer: avoid duplicate pair checks and self-check
+
+		for (size_t j = jStart; j < vecRightLayer.size(); ++j)
 		{
-			Collider* pRightCollider = vecRightLayer[j]->GetComponent<Collider>();
+			Object* pRightObj = vecRightLayer[j];
+			Collider* pRightCollider = pRightObj->GetComponent<Collider>();
 			// 충돌체가 없거나, 자기자신과의 충돌인 경우
-			if (nullptr == pRightCollider || vecLeftLayer[i] == vecRightLayer[j])
+			if (nullptr == pRightCollider || pLeftObj == pRightObj)
 				continue;
 
 			// 두 충돌체로만 만들 수 있는 ID
 			ULONGLONG colliderID = MakePairKey(pLeftCollider->GetID(), pRightCollider->GetID());
 
-			iter = m_mapCollisionInfo.find(colliderID);
-			// 이전 프레임 충돌한 적 없다.
-			if (iter == m_mapCollisionInfo.end())
-			{
-				// 충돌 정보가 미등록된 상태인 경우 등록(충돌하지 않았다로)
-				m_mapCollisionInfo.insert({ colliderID, false });
-				//m_mapCollisionInfo[colliderID.ID] = false;
-				iter = m_mapCollisionInfo.find(colliderID);
-			}
+			// try_emplace avoids a separate find+insert and returns iterator
+			auto emplaceResult = m_mapCollisionInfo.try_emplace(colliderID, false);
+			iter = emplaceResult.first;
 
-			// 충돌여부 확인
-			if (IsCollision(pLeftCollider, pRightCollider))
+			bool currentlyColliding = IsCollision(pLeftCollider, pRightCollider);
+
+			// 캐시된 죽음 상태 확인 (호출 횟수 최소화)
+			bool leftDead = pLeftObj->GetIsDead();
+			bool rightDead = pRightObj->GetIsDead();
+
+			if (currentlyColliding)
 			{
-				// 이전에도 충돌중
 				if (iter->second)
 				{
-					if (vecLeftLayer[i]->GetIsDead() || vecRightLayer[j]->GetIsDead())
+					if (leftDead || rightDead)
 					{
 						pLeftCollider->ExitCollision(pRightCollider);
 						pRightCollider->ExitCollision(pLeftCollider);
@@ -221,9 +243,9 @@ void CollisionManager::CollisionLayerUpdate(Layer _left, Layer _right)
 						pRightCollider->StayCollision(pLeftCollider);
 					}
 				}
-				else // 이전에 충돌 x
+				else
 				{
-					if (!vecLeftLayer[i]->GetIsDead() && !vecRightLayer[j]->GetIsDead())
+					if (!leftDead && !rightDead)
 					{
 						pLeftCollider->EnterCollision(pRightCollider);
 						pRightCollider->EnterCollision(pLeftCollider);
@@ -231,9 +253,9 @@ void CollisionManager::CollisionLayerUpdate(Layer _left, Layer _right)
 					}
 				}
 			}
-			else // 충돌 안하네?
+			else
 			{
-				if (iter->second) // 근데 이전에 충돌중
+				if (iter->second)
 				{
 					pLeftCollider->ExitCollision(pRightCollider);
 					pRightCollider->ExitCollision(pLeftCollider);
@@ -246,19 +268,22 @@ void CollisionManager::CollisionLayerUpdate(Layer _left, Layer _right)
 
 bool CollisionManager::IsCollision(Collider* _left, Collider* _right)
 {
-	Vec2 leftPos = _left->GetWorldPos();
-	Vec2 rightPos = _right->GetWorldPos();
-	Vec2 leftSize = _left->GetSize();
-	Vec2 rightSize = _right->GetSize();
+	const Vec2& leftPos = _left->GetWorldPos();
+	const Vec2& rightPos = _right->GetWorldPos();
+	const Vec2& leftSize = _left->GetSize();
+	const Vec2& rightSize = _right->GetSize();
 
-	return (fabsf(rightPos.x - leftPos.x) < (leftSize.x + rightSize.x) / 2.f
-		&& fabsf(rightPos.y - leftPos.y) < (leftSize.y + rightSize.y) / 2.f);
+	float halfWidthSum = (leftSize.x + rightSize.x) * 0.5f;
+	float halfHeightSum = (leftSize.y + rightSize.y) * 0.5f;
+	float dx = fabsf(rightPos.x - leftPos.x);
+	if (dx >= halfWidthSum)
+		return false;
+	float dy = fabsf(rightPos.y - leftPos.y);
+	return dy < halfHeightSum;
 }
 
 ULONGLONG CollisionManager::MakePairKey(UINT a, UINT b)
-{
-	// ?¿? ?????? ????????: ???? ???? lo, ? ???? hi
-	COLLIDER_ID id = {};
+{	COLLIDER_ID id = {};
 	id.lo_ID = (a < b) ? a : b;
 	id.hi_ID = (a < b) ? b : a;
 	return id.ID;

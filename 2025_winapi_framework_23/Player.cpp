@@ -92,8 +92,7 @@ Vec2 Player::GetShootDir()
 	POINT mousePos = GET_SINGLE(InputManager)->GetMousePos();
 	Vec2 playerPos = GetPos();
 	Vec2 dir = { mousePos.x - playerPos.x, mousePos.y - playerPos.y };
-	dir.Normalize();
-	return dir;
+	return dir.Normalize();
 }
 
 void Player::Render(HDC _hdc)
@@ -161,12 +160,12 @@ void Player::Render(HDC _hdc)
 		(POINT)rightTop,
 		(POINT)leftTop
 	};
-	//Polygon(_hdc, arr, 4);
+	Polygon(_hdc, arr, 4);
 
-	LaycastHit hit;
-	GET_SINGLE(CollisionManager)->BoxCast(GetPos(), GetSize(), GetShootDir(), 10000, Layer::DEFAULT | Layer::PROJECTILE, hit);
+	//LaycastHit hit;
+	//GET_SINGLE(CollisionManager)->BoxCast(GetPos(), GetSize(), GetShootDir(), 10000, Layer::DEFAULT | Layer::PROJECTILE, hit);
 
-	RECT_RENDER(_hdc, hit.point.x, hit.point.y, GetSize().x, GetSize().y);
+	//RECT_RENDER(_hdc, hit.point.x, hit.point.y, GetSize().x, GetSize().y);
 }
 
 void Player::EnterCollision(Collider* _other)

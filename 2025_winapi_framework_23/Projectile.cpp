@@ -15,6 +15,7 @@ Projectile::Projectile()
 
 	rigidbody = AddComponent<Rigidbody>();
 	rigidbody->SetContiniuouse(true);
+	rigidbody->SetBounciness(1.f);
 }
 
 Projectile::~Projectile()
@@ -49,31 +50,31 @@ void Projectile::Render(HDC _hdc)
 
 void Projectile::EnterCollision(Collider* _other)
 {
-	if (_other->GetName() == L"EnemyProjectile")
-		return;
+	//if (_other->GetName() == L"EnemyProjectile")
+	//	return;
 
-	Object* owner = _other->GetOwner();
-	float distanceX = abs((owner->GetPos().x - GetPos().x));
-	float distanceY = abs((owner->GetPos().y - GetPos().y));
+	//Object* owner = _other->GetOwner();
+	//float distanceX = abs((owner->GetPos().x - GetPos().x));
+	//float distanceY = abs((owner->GetPos().y - GetPos().y));
 
-	float deltaX = distanceX - (_other->GetSize().x / 2.f);
-	float deltaY = distanceY - (_other->GetSize().y / 2.f);
+	//float deltaX = distanceX - (_other->GetSize().x / 2.f);
+	//float deltaY = distanceY - (_other->GetSize().y / 2.f);
 
-	Vec2 velocity = rigidbody->GetVelocity();
+	//Vec2 velocity = rigidbody->GetVelocity();
 
 	//cout << velocity.x << ' ' << velocity.y << endl;
 	//cout << deltaX << ' ' << deltaY << endl;
 	//cout << owner->GetSize().x << ' ' << owner->GetSize().y << endl;
 
-	if (deltaX > deltaY) 
-	{
-		velocity = Vec2(-velocity.x, velocity.y);
-	}
-	else
-	{
-		velocity = Vec2(velocity.x, -velocity.y);
-	}
-	rigidbody->SetVelocity(velocity);
+	//if (deltaX > deltaY) 
+	//{
+	//	velocity = Vec2(-velocity.x, velocity.y);
+	//}
+	//else
+	//{
+	//	velocity = Vec2(velocity.x, -velocity.y);
+	//}
+	//rigidbody->SetVelocity(velocity);
 
 	//cout << velocity.x << ' ' << velocity.y;
 

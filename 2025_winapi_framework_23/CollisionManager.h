@@ -9,7 +9,7 @@ union COLLIDER_ID
 	ULONGLONG ID;
 };
 class Collider;
-struct LaycastHit
+struct RaycastHit
 {
 	Collider* collider = nullptr;
 	Vec2 point = Vec2();
@@ -17,16 +17,22 @@ struct LaycastHit
 };
 class CollisionManager
 {
-	DECLARE_SINGLE(CollisionManager);
+	//CollisionManager();
+	DECLARE_SINGLE_CD(CollisionManager);
 public:
 	void Update();
 	void CheckLayer(Layer _left, Layer _right);
 	void CheckReset();
 	bool IsCollisionLayer(Layer _left, Layer _right);
-	bool BoxCast(Collider* collider, const Vec2 direction, const float maxDistance, const LayerMask layer, LaycastHit& outHit);
-	bool BoxCast(const Vec2 origin, const Vec2 size, const Vec2 direction, const float maxDistance, const LayerMask layer, LaycastHit& outHit);
+	/// <summary>
+	/// 강제로 충돌처리 요청
+	/// </summary>
+	void SetCollisioned(Collider* pLeftCollider, Collider* pRightCollider);
+	void RequestCollisionCheck(Collider* pLeftCollider, Collider* pRightCollider);
+	bool BoxCast(Collider* collider, const Vec2 direction, const float maxDistance, const LayerMask layer, RaycastHit& outHit);
+	bool BoxCast(const Vec2 origin, const Vec2 size, const Vec2 direction, const float maxDistance, const LayerMask layer, RaycastHit& outHit);
 private:
-	bool BoxCast(const Vec2 origin, const Vec2 size, const Vec2 direction, const float maxDistance, Collider* collider, LaycastHit& outHit);
+	bool BoxCast(const Vec2 origin, const Vec2 size, const Vec2 direction, const float maxDistance, Collider* collider, RaycastHit& outHit);
 	void CollisionLayerUpdate(Layer _left, Layer _right);
 	bool IsCollision(Collider* _left, Collider* _right);
 	ULONGLONG MakePairKey(UINT a, UINT b);

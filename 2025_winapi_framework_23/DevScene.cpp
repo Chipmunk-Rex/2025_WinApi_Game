@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "DevScene.h"
 #include "Object.h"
 #include "Player.h"
@@ -10,7 +10,7 @@
 #include "Floor.h"
 void DevScene::Init()
 {
-	// obj ��ġ
+	// obj 배치
 	//Object* obj = new Player;
 	//obj->SetPos({ 300.f, 300.f });
 	//obj->SetSize({100.f,100.f});

@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "Component.h"
 #include "Object.h"
 class Collider :   public Component
@@ -7,7 +7,7 @@ public:
     Collider();
     ~Collider();
 public:
-	// ComponentÀ»(¸¦) ÅëÇØ »ó¼ÓµÊ
+	// Componentì„(ë¥¼) í†µí•´ ìƒì†ë¨
 	void Init() override;
 	void LateUpdate() override;
 	void Render(HDC _hdc) override;
@@ -21,8 +21,7 @@ public:
     const Vec2& GetOffSetPos() const { return m_offsetPos; }
     const Vec2& GetWorldPos() const
     {
-		Vec2 ownerPos = GetOwner()->GetPos();
-        return ownerPos + m_offsetPos;
+        return m_worldPos;
     }
     UINT GetID() const { return m_ID; }
     void EnterCollision(Collider* _other);
@@ -34,10 +33,11 @@ public:
     void SetTrigger(bool t) { m_isTrigger = t; }
     bool IsTrigger() const { return m_isTrigger; }
 private:
-    Vec2 m_size; // Äİ¶óÀÌ´õ Å©±â
-    // Object·ÎºÎÅÍ »ó´ëÀûÀÎ À§Ä¡
+    Vec2 m_size; // ì½œë¼ì´ë” í¬ê¸°
+    // Objectë¡œë¶€í„° ìƒëŒ€ì ì¸ ìœ„ì¹˜
     Vec2 m_offsetPos;
-    UINT m_ID; // Ãæµ¹Ã¼ °íÀ¯ ID°ª
+    Vec2 m_worldPos; // cached world position
+    UINT m_ID; // ì¶©ëŒì²´ ê³ ìœ  IDê°’
     static UINT m_nextID;
     bool m_showDebug;
     wstring m_name;
