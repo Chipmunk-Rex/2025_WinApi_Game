@@ -36,7 +36,7 @@ void RangedEnemy::Update()
 		Vec2 playerPos = player->GetPos();
 		proj->SetPos(pos);
 		proj->SetSize({ 20.f,20.f });
-		proj->SetDir(playerPos - pos);
+		proj->Shoot(playerPos - pos);
 		proj->SetDamage(_damage);
 		curScene->AddObject(proj,Layer::ENEMYPROJECTILE);
 		_projectile = proj;

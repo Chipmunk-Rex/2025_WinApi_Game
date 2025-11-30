@@ -55,8 +55,8 @@ void Projectile::EnterCollision(Collider* _other)
 	float distanceX = abs((owner->GetPos().x - GetPos().x));
 	float distanceY = abs((owner->GetPos().y - GetPos().y));
 
-	float deltaX = distanceX - (owner->GetSize().x / 2.f);
-	float deltaY = distanceY - (owner->GetSize().y / 2.f);
+	float deltaX = distanceX - (_other->GetSize().x / 2.f);
+	float deltaY = distanceY - (_other->GetSize().y / 2.f);
 
 	Vec2 velocity = rigidbody->GetVelocity();
 

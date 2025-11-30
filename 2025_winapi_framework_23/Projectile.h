@@ -14,7 +14,7 @@ public:
     // Object을(를) 통해 상속됨
     void Render(HDC _hdc) override;
 public:
-    void SetDir(Vec2 _dir)
+    void Shoot(Vec2 _dir)
     {
         rigidbody->SetVelocity(_dir);
     }

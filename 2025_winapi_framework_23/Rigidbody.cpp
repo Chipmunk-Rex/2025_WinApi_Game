@@ -10,7 +10,7 @@ Rigidbody::Rigidbody()
 	, m_isKinematic(false)       // 키네마틱 여부
 
 	, m_velocity(0.f, 0.f)       // 현재 속도
-	, m_maxVelocity(200.f, 1000.f) // 속도 제한 (x, y)
+	, m_maxVelocity(1000.f, 1000.f) // 속도 제한 (x, y)
 	, m_gravity(0.f, 400.f)      // 중력 가속도
 	, m_accelation(0.f, 0.f)     // 가속도
 	, m_grounded(false)          // 접지 여부
