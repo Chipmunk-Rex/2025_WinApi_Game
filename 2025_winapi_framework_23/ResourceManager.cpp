@@ -56,6 +56,9 @@ void ResourceManager::RegisterTexture()
 	LoadTexture(L"Jiwoo", L"Texture\\jiwoo.bmp");
 	LoadTexture(L"Ball", L"Texture\\Ball.bmp");
 	LoadTexture(L"Dotted_line", L"Texture\\dotted_line.bmp");
+	LoadTexture(L"Red_Brick_1", L"Texture\\red_brick_1.bmp");
+	LoadTexture(L"Red_Brick_2", L"Texture\\red_brick_2.bmp");
+	LoadTexture(L"Red_Brick_3", L"Texture\\red_brick_3.bmp");
 
 
 }

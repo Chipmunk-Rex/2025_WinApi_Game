@@ -3,11 +3,16 @@
 #include "Health.h"
 #include "Collider.h"
 #include "SceneManager.h"
+#include "ResourceManager.h"
 
 EnemyProjectile::EnemyProjectile(): _damage(0),_timer(0.f),_lifeTime(5.f)
 {
+	Projectile::Projectile();
+
 	auto* col = GetComponent<Collider>();
 	col->SetName(L"EnemyProjectile");
+
+	SetTexture(GET_SINGLE(ResourceManager)->GetTexture(L"Bullet"));
 }
 
 EnemyProjectile::~EnemyProjectile()

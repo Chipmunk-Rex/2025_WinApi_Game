@@ -35,13 +35,27 @@ void Health::SetHealth(double value)
 void Health::TakeDamage(double damage)
 {
 	m_health -= damage;
+	RaiseEvent();
 	if (m_health <= 0)
 	{
 		m_isDead = true;
 	}
 }
 
+void Health::RaiseEvent()
+{
+	for (auto a : functions)
+	{
+		a(m_health);
+	}
+}
+
 bool Health::GetIsDead()
 {
 	return m_isDead;
+}
+
+void Health::AddListener(std::function<void(int)> delegate)
+{
+	functions.push_back(delegate);
 }

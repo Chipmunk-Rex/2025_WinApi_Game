@@ -7,14 +7,28 @@
 #include "Rigidbody.h"
 #include "Health.h"
 #include "TimeManager.h"
-Enemy::Enemy()
+#include "Animator.h"
+Enemy::Enemy() : m_pTex(nullptr)
 {
+	m_pTex = GET_SINGLE(ResourceManager)->GetTexture(L"Red_Brick_1");
+
+	if (m_pTex == nullptr)
+		cout << endl << "ming" << endl;
+	/*auto* anim = AddComponent<Animator>();
+	anim->CreateAnimation(L"JiwooFront", m_pTex, { 0.f, 150.f }, { 50.f,50.f }, { 50.f,0.f }, 5, 0.1f);
+	anim->Play(L"JiwooFront");*/
+
 	auto* col = AddComponent<Collider>();
 	Rigidbody* rb = AddComponent<Rigidbody>();
-	Health* health = AddComponent<Health>();
+	m_healthCompo = AddComponent<Health>();
+
+	std::function<void(int)> delegate =
+		[this](int x) { HandleChangeHealth(x); };
+
+	m_healthCompo->SetHealth(100);
+	m_healthCompo->AddListener(delegate);
 	rb->SetMass(1.f);
 	rb->SetUseGravity(false);
-	health->SetHealth(10);
 	col->SetSize({ 50,50 });
 }
 
@@ -29,16 +43,23 @@ void Enemy::Update()
 
 void Enemy::Render(HDC _hdc)
 {
-	//HBRUSH hbrush = ::CreateSolidBrush(RGB(rand() % 255, rand() % 255, rand() % 255));
-	//HBRUSH holdbrush = (HBRUSH)::SelectObject(_hdc, hbrush);
 	Vec2 pos = GetPos();
 	Vec2 size = GetSize();
-	RECT_RENDER(_hdc, pos.x, pos.y
-		, size.x, size.y);
-	//::SelectObject(_hdc, holdbrush);
-	//::DeleteObject(hbrush);
-	ComponentRender(_hdc);
 
+	/*ELLIPSE_RENDER(_hdc, pos.x, pos.y
+		, size.x, size.y);*/
+	LONG width = m_pTex->GetWidth();
+	LONG height = m_pTex->GetHeight();
+
+	::TransparentBlt(_hdc
+		, (int)(pos.x - size.x / 2)
+		, (int)(pos.y - size.y / 2)
+		, size.x
+		, size.y
+		, m_pTex->GetTextureDC()
+		, 0, 0, width, height, RGB(255, 0, 255));
+
+	ComponentRender(_hdc);
 }
 
 void Enemy::EnterCollision(Collider* _other)
