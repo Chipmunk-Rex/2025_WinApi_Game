@@ -2,6 +2,7 @@
 #include "RangedEnemy.h"
 #include "EnemyProjectile.h"
 #include "SceneManager.h"
+#include "ResourceManager.h"
 
 
 RangedEnemy::RangedEnemy() : _timer(0), _attackDelay(10), _attackTime(2), _damage(3), _projectile(nullptr)
@@ -51,4 +52,20 @@ void RangedEnemy::SetAttack(double delay, int damage)
 {
 	_attackDelay = delay;
 	_damage = damage;
+}
+
+void RangedEnemy::HandleHitEvent(double _prev, double _health)
+{
+	double maxHealth = GetMaxHealth();
+
+	double normal = _health / maxHealth;
+
+	if (normal <= 0.3f)
+	{
+		SetTex(GET_SINGLE(ResourceManager)->GetTexture(L"Red_Brick_3"));
+	}
+	else if(normal <= 0.7f)
+	{
+		SetTex(GET_SINGLE(ResourceManager)->GetTexture(L"Red_Brick_2"));
+	}
 }

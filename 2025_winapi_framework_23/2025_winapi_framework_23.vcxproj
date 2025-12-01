@@ -177,6 +177,7 @@
     <ClInclude Include="CollisionManager.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="Core.h" />
+    <ClInclude Include="DamageText.h" />
     <ClInclude Include="Defines.h" />
     <ClInclude Include="DevScene.h" />
     <ClInclude Include="EnchantCard.h" />
@@ -221,6 +222,7 @@
     <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="Core.cpp" />
+    <ClCompile Include="DamageText.cpp" />
     <ClCompile Include="DevScene.cpp" />
     <ClCompile Include="EnchantCard.cpp" />
     <ClCompile Include="Enemy.cpp" />
