@@ -20,6 +20,7 @@ void DamageText::Update()
 void DamageText::Render(HDC _hdc)
 {
 	Vec2 pos = GetPos();
+	
 	std::string str = std::format("{:.3f}", text);
 	
 	const wstring wstr = std::to_wstring(std::stod(str));

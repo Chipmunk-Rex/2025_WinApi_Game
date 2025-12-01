@@ -75,6 +75,8 @@ void RangedEnemy::HandleHitEvent(double _prev, double _health)
 	double defaultVal = _prev - _health;
 			
 	Vec2 pos = GetPos();
+	pos.x += rand() % 60 - 30;
+	pos.y += rand() % 30 - 15;
 	DamageText* damageText = curScene->Spawn<DamageText>(Layer::DAMAGETEXT, pos, { 50,50 });
 	damageText->SetDamage(defaultVal);
 }
