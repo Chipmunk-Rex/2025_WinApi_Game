@@ -3,6 +3,7 @@
 #include "EnemyProjectile.h"
 #include "SceneManager.h"
 #include "ResourceManager.h"
+#include "DamageText.h"
 
 
 RangedEnemy::RangedEnemy() : _timer(0), _attackDelay(10), _attackTime(2), _damage(3), _projectile(nullptr)
@@ -68,4 +69,12 @@ void RangedEnemy::HandleHitEvent(double _prev, double _health)
 	{
 		SetTex(GET_SINGLE(ResourceManager)->GetTexture(L"Red_Brick_2"));
 	}
+
+	std::shared_ptr<Scene> curScene = GET_SINGLE(SceneManager)->GetCurScene();
+
+	double defaultVal = _prev - _health;
+			
+	Vec2 pos = GetPos();
+	DamageText* damageText = curScene->Spawn<DamageText>(Layer::DAMAGETEXT, pos, { 50,50 });
+	damageText->SetDamage(defaultVal);
 }

@@ -1,14 +1,29 @@
 #include "pch.h"
 #include "DamageText.h"
+#include "SceneManager.h"
+#include <sstream>
 
-DamageText::DamageText()
+DamageText::DamageText() : text(0), lifeTime(1.2f), timer(0)
 {
+
 }
 
 void DamageText::Update()
 {
+	timer += fDT;
+	if (timer >= lifeTime)
+		GET_SINGLE(SceneManager)->RequestDestroy(this);
+
+	Translate({ fDT * 5.f, fDT * -10.f, });
 }
 
 void DamageText::Render(HDC _hdc)
 {
+	Vec2 pos = GetPos();
+	std::string str = std::format("{:.3f}", text);
+	
+	const wstring wstr = std::to_wstring(std::stod(str));
+
+	TextOut(_hdc, pos.x, pos.y, wstr.c_str(), str.length());
+	SetBkMode(_hdc, TRANSPARENT);
 }
