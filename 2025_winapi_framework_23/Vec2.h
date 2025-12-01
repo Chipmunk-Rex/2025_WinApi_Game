@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 struct Vec2
 {
 public:
@@ -29,11 +29,15 @@ public:
 	{
 		return Vec2(x / _val, y / _val);
 	}
+	Vec2 operator / (Vec2 _val) const
+	{
+		return Vec2(x / _val.x, y / _val.y);
+	}
 	Vec2 operator -() const
 	{
 		return Vec2(-x, -y);
 	}
-	// º¸·ù
+	// ë³´ë¥˜
 	//Vec2 operator / (const Vec2& _vOther)
 	//{
 	//	assert(!(0.f == _vOther.x || 0.f == _vOther.y));
@@ -62,11 +66,10 @@ public:
 		float len = Length();
 		if (len < FLT_EPSILON)
 			return *this;
-		x /= len;
-		y /= len;
-		return *this;
+		Vec2 normalizedVec = { x / len, y / len };
+		return normalizedVec;
 	}
-	float Dot(Vec2 _other)
+	float Dot(const Vec2 &_other) const
 	{
 		return x * _other.x + y * _other.y;
 	}
@@ -79,6 +82,12 @@ public:
 		float cosA = cosf(_angle);
 		float sinA = sinf(_angle);
 		return Vec2(x * cosA - y * sinA, x * sinA + y * cosA);
+	}
+	Vec2 Abs() 
+	{
+		float absX = abs(x);
+		float absY = abs(y);
+		return Vec2(absX, absY);
 	}
 	explicit operator POINT()
 	{

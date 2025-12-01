@@ -1,4 +1,4 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "Core.h"
 #include "TimeManager.h"
 #include "InputManager.h"
@@ -15,15 +15,15 @@ bool Core::Init(HWND _hWnd)
     m_hBackBit = 0;
     m_hBackDC = 0;
 
-    // ´õºí¹öÆÛ¸µ
-    // 1. ÇÊ¿äÇÑ ÀÛ¾÷ ¼¼ÆÃ
-    // µµÈ­Áö¸¦ ¸¸µå´Â°Å°í
+    // ë”ë¸”ë²„í¼ë§
+    // 1. í•„ìš”í•œ ì‘ì—… ì„¸íŒ…
+    // ë„í™”ì§€ë¥¼ ë§Œë“œëŠ”ê±°ê³ 
     m_hBackBit = ::CreateCompatibleBitmap(m_hDC, WINDOW_WIDTH, WINDOW_HEIGHT);
 
-    // È£È¯µÇ´Â DC¸¦ ¸¸µé¾îÁÖ¼¼¿ä
+    // í˜¸í™˜ë˜ëŠ” DCë¥¼ ë§Œë“¤ì–´ì£¼ì„¸ìš”
     m_hBackDC = ::CreateCompatibleDC(m_hDC);
 
-    // 2. ¿¬°á
+    // 2. ì—°ê²°
     ::SelectObject(m_hBackDC, m_hBackBit);
 
     // == Manager == 

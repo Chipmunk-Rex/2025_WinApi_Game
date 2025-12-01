@@ -1,4 +1,4 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "Player.h"
 #include "InputManager.h"
 #include "Projectile.h"	
@@ -6,6 +6,7 @@
 #include "Scene.h"
 #include "Texture.h"
 #include "ResourceManager.h"
+#include "CollisionManager.h"
 #include "Collider.h"
 #include "Animator.h"
 #include "Animation.h"
@@ -59,7 +60,7 @@ void Player::Update()
 
 	//Translate({ dir.x * 300.f * fDT, dir.y * 300.f * fDT });
 	rb->SetVelocity(dir.Normalize() * 300.f);
-	// Å©±âº¯°æ
+	// í¬ê¸°ë³€ê²½
 	float scaleDelta = 0.f;
 	float scaleSpeed = 1.f;
 	if (GET_KEY(KEY_TYPE::Q))
@@ -91,8 +92,7 @@ Vec2 Player::GetShootDir()
 	POINT mousePos = GET_SINGLE(InputManager)->GetMousePos();
 	Vec2 playerPos = GetPos();
 	Vec2 dir = { mousePos.x - playerPos.x, mousePos.y - playerPos.y };
-	dir.Normalize();
-	return dir;
+	return dir.Normalize();
 }
 
 void Player::Render(HDC _hdc)
@@ -106,10 +106,10 @@ void Player::Render(HDC _hdc)
 	LONG width = m_pTex->GetWidth();
 	LONG height = m_pTex->GetHeight();
 
-	//// blt Á¾·ù
+	//// blt ì¢…ë¥˜
 	// bitblt >>>>>> stretch >>> transparenblt
 	// 
-	//// 1. bitblt - 1:1 ¸ÅÄª, °í¼Ó º¹»ç
+	//// 1. bitblt - 1:1 ë§¤ì¹­, ê³ ì† ë³µì‚¬
 	//::BitBlt(_hdc
 	//	,(int)(pos.x - size.x / 2)
 	//	, (int)(pos.y - size.y / 2)
@@ -118,7 +118,7 @@ void Player::Render(HDC _hdc)
 	//	,m_pTex->GetTextureDC()
 	//	,0,0, SRCCOPY);
 
-	//// 2. transparentblt - »ö±ò »¬¶§
+	//// 2. transparentblt - ìƒ‰ê¹” ëº„ë•Œ
 	//::TransparentBlt(_hdc
 	//	, (int)(pos.x - size.x / 2)
 	//	, (int)(pos.y - size.y / 2)
@@ -129,7 +129,7 @@ void Player::Render(HDC _hdc)
 
 	ComponentRender(_hdc);
 
-	//// 3. Stretcthblt - È®´ë, Ãà¼Ò
+	//// 3. Stretcthblt - í™•ëŒ€, ì¶•ì†Œ
 	//::StretchBlt(_hdc
 	//	, (int)(pos.x - size.x / 2)
 	//	, (int)(pos.y - size.y / 2)
@@ -138,10 +138,10 @@ void Player::Render(HDC _hdc)
 	//	, m_pTex->GetTextureDC()
 	//	, 0, 0, width, height,SRCCOPY);
 
-	// 4. - ¾ËÆÄ°ª Á¶Àý
+	// 4. - ì•ŒíŒŒê°’ ì¡°ì ˆ
 	//::AlphaBlend()
 
-	// 5.  - È¸Àü
+	// 5.  - íšŒì „
 	//::PlgBlt();
 
 	const float lineDistance = 100;
@@ -161,6 +161,11 @@ void Player::Render(HDC _hdc)
 		(POINT)leftTop
 	};
 	Polygon(_hdc, arr, 4);
+
+	//LaycastHit hit;
+	//GET_SINGLE(CollisionManager)->BoxCast(GetPos(), GetSize(), GetShootDir(), 10000, Layer::DEFAULT | Layer::PROJECTILE, hit);
+
+	//RECT_RENDER(_hdc, hit.point.x, hit.point.y, GetSize().x, GetSize().y);
 }
 
 void Player::EnterCollision(Collider* _other)

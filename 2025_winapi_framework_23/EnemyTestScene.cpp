@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "Enemy.h"
 #include "Player.h"
 #include "EnemyTestScene.h"
@@ -66,7 +66,7 @@ void EnemyTestScene::EnemySpawn()
 	{
 		if (rand() % 100 <= _spawnPercent)
 		{
-			if (rand() % 100 <= 50)
+			if (true)
 			{
 				Spawn<CloseRangeEnemy>
 					(

@@ -1,6 +1,6 @@
-#pragma once
+ï»¿#pragma once
 
-// Ç¥ÁØ Çì´õ
+// í‘œì¤€ í—¤ë”
 #define WIN32_LEAN_AND_MEAN
 #include<Windows.h>
 #include<tchar.h>
@@ -10,6 +10,7 @@
 #include<map>
 #include<unordered_map>
 #include<set>
+#include<unordered_set>
 #include<string>
 #include<algorithm>
 #include<ctime>
@@ -17,9 +18,10 @@
 #include<format>
 #include<assert.h>
 #include<filesystem>
+#include<stdlib.h>
 namespace fs = std::filesystem;
 
-// My Çì´õ
+// My í—¤ë”
 #include "Defines.h"
 #include "Vec2.h"
 #include "Enums.h"
@@ -27,23 +29,23 @@ namespace fs = std::filesystem;
 #include "TimeManager.h"
 
 //#include "InputManager.h"
-// Á¤Àû ¶óÀÌºê·¯¸®
+// ì •ì  ë¼ì´ë¸ŒëŸ¬ë¦¬
 #pragma comment(lib, "winmm.lib")
 #pragma comment(lib, "Msimg32.lib")
 
 
-// °¢Á¾ using
+// ê°ì¢… using
 using std::vector;
 using std::list;
 using std::map;
 using std::wstring;
 
-// °¢Á¾ define°ª
+// ê°ì¢… defineê°’
 #define PI 3.14159265358979f
 #define WINDOW_WIDTH 1280
 #define WINDOW_HEIGHT 720
 
-// ¸Ş¸ğ¸® ¸¯
+// ë©”ëª¨ë¦¬ ë¦­
 #ifdef _DEBUG
 #define _CREDBG_MAP_ALLOC
 #include<cstdlib>
@@ -51,7 +53,7 @@ using std::wstring;
 #define new new(_NORMAL_BLOCK, __FILE__, __LINE__)
 #endif
 
-// µğ¹ö±ë¿ë ÄÜ¼ÖÃ¢
+// ë””ë²„ê¹…ìš© ì½˜ì†”ì°½
 #ifdef _DEBUG
 #ifdef UNICODE
 #pragma comment(linker, "/entry:wWinMainCRTStartup /subsystem:console")
@@ -62,6 +64,3 @@ using std::wstring;
 #include<iostream>
 using std::cout;
 using std::endl;
-
-#undef max;
-#undef min;

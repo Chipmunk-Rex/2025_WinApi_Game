@@ -1,4 +1,4 @@
-#include "pch.h"
+Ôªø#include "pch.h"
 #include "Enemy.h"
 #include "Collider.h"
 #include "SceneManager.h"
@@ -64,27 +64,24 @@ void Enemy::Render(HDC _hdc)
 
 void Enemy::EnterCollision(Collider* _other)
 {
-	cout << "EnterCollision" << endl;
-	// √—æÀ?
-	// ∆Æ∏Æ∞≈ ?
+	// Ï¥ùÏïå?
+	// Ìä∏Î¶¨Í±∞ ?
 	if (_other->GetName() == L"PlayerBullet")
 	{
 		GetComponent<Health>()->TakeDamage(5);
 		//GET_SINGLE(SceneManager)->RequestDestroy(_other->GetOwner());
 	}
 
-	// π∞∏Æ√Êµπ 
+	// Î¨ºÎ¶¨Ï∂©Îèå 
 
 }
 
 void Enemy::StayCollision(Collider* _other)
 {
-	cout << "StayCollision" << endl;
 }
 
 void Enemy::ExitCollision(Collider* _other)
 {
-	cout << "ExitCollision" << endl;
 }
 
 

@@ -1,19 +1,22 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "Rigidbody.h"
 #include "Object.h"
+#include "CollisionManager.h"
+#include "Collider.h"
 Rigidbody::Rigidbody()
-	: m_mass(1.f)                // Áú·® (1~5)
-	, m_friction(2.5f)           // Áö¸é ¸¶Âû
-	, m_force(0.f, 0.f)          // ´©Àû Èû
-	, m_airDrag(0.f)            // °øÁß °¨¼Ó
-	, m_useGravity(false)         // Áß·Â »ç¿ë ¿©ºÎ
-	, m_isKinematic(false)       // Å°³×¸¶Æ½ ¿©ºÎ
-
-	, m_velocity(0.f, 0.f)       // ÇöÀç ¼Óµµ
-	, m_maxVelocity(1000.f, 1000.f) // ¼Óµµ Á¦ÇÑ (x, y)
-	, m_gravity(0.f, 400.f)      // Áß·Â °¡¼Óµµ
-	, m_accelation(0.f, 0.f)     // °¡¼Óµµ
-	, m_grounded(false)          // Á¢Áö ¿©ºÎ
+	: m_mass(1.f)                // ì§ˆëŸ‰ (1~5)
+	, m_friction(2.5f)           // ì§€ë©´ ë§ˆì°°
+	, m_force(0.f, 0.f)          // ëˆ„ì  í˜
+	, m_airDrag(0.f)            // ê³µì¤‘ ê°ì†
+	, m_useGravity(false)         // ì¤‘ë ¥ ì‚¬ìš© ì—¬ë¶€
+	, m_isKinematic(false)       // í‚¤ë„¤ë§ˆí‹± ì—¬ë¶€
+	, continiuousCollision(false) // ì—°ì† ì¶©ëŒ ê²€ì‚¬ ì—¬ë¶€
+	, m_bounciness(0.f)          // íƒ„ì„±ë ¥
+	, m_velocity(0.f, 0.f)       // í˜„ì¬ ì†ë„
+	, m_maxVelocity(1000.f, 1000.f) // ì†ë„ ì œí•œ (x, y)
+	, m_gravity(0.f, 400.f)      // ì¤‘ë ¥ ê°€ì†ë„
+	, m_accelation(0.f, 0.f)     // ê°€ì†ë„
+	, m_grounded(false)          // ì ‘ì§€ ì—¬ë¶€
 {
 }
 Rigidbody::~Rigidbody()
@@ -35,11 +38,11 @@ void Rigidbody::FixedUpdate(float _fixedDT)
 		m_force = { 0.f,0.f };
 		return;
 	}
-	// Èû -> °¡¼Óµµ
+	// í˜ -> ê°€ì†ë„
 	m_accelation = m_force / m_mass;
 	m_velocity += m_accelation * _fixedDT;
 
-	// Áß·Â Àû¿ë
+	// ì¤‘ë ¥ ì ìš©
 	if (m_useGravity)
 	{
 		if (!m_grounded)
@@ -48,37 +51,146 @@ void Rigidbody::FixedUpdate(float _fixedDT)
 			m_velocity.y = 0.f;
 	}
 
-	// °¨¼Ó Ã³¸®
+	// ê°ì† ì²˜ë¦¬
 	if (m_velocity.Length() > 0.f)
 	{
 		if (m_grounded)
 		{
-			// ¹Ù´Ú ¸¶Âû
+			// ë°”ë‹¥ ë§ˆì°°
 			float frictionAmount = m_friction * _fixedDT;
 			m_velocity.x = std::lerp(m_velocity.x, 0.f, frictionAmount);
 		}
 		else
 		{
-			// °øÁß °¨¼Ó
+			// ê³µì¤‘ ê°ì†
 			float dragAmount = m_airDrag * _fixedDT;
 			m_velocity.x = std::lerp(m_velocity.x, 0.f, dragAmount);
 		}
 	}
 
-	// ¼Óµµ Á¦ÇÑ(Ãà ±âÁØ ´Ü¼øÈ­)
+	// ì†ë„ ì œí•œ(ì¶• ê¸°ì¤€ ë‹¨ìˆœí™”)
 	m_velocity.x = std::clamp(m_velocity.x, -m_maxVelocity.x, m_maxVelocity.x);
 	m_velocity.y = std::clamp(m_velocity.y, -m_maxVelocity.y, m_maxVelocity.y);
 
+	ApplyMovement(_fixedDT);
 
+	// í˜ì€ í•œë²ˆ ì²˜ë¦¬í•˜ê³  ì´ˆê¸°í™”, 1í”„ë ˆì„ ë‹¨ìœ„ë¡œ ìœ íš¨
+	m_force = Vec2(0.f, 0.f);
+}
+
+void Rigidbody::ApplyMovement(float _fixedDT)
+{
 	Object* owner = GetOwner();
 	Vec2 pos = owner->GetPos();
-	// °Å¼Ó½Ã
+
+	if (continiuousCollision)
+	{
+		Collider* col = owner->GetComponent<Collider>();
+		if (col)
+		{
+			auto collisionManager = GET_SINGLE(CollisionManager);
+			Layer ownerLayer = owner->GetLayer();
+
+			float velLen = m_velocity.Length();
+			if (velLen > FLT_EPSILON)
+			{
+				// ì¶©ëŒ ë§ˆìŠ¤í¬ êµ¬ì„±
+				LayerMask collisionMask = 0;
+				for (int i = 0; i < (int)Layer::END; ++i)
+				{
+					if (collisionManager->IsCollisionLayer(ownerLayer, (Layer)i))
+						collisionMask |= (1u << i);
+				}
+
+				Vec2 normalizedDirection = { m_velocity.x / velLen, m_velocity.y / velLen };
+
+				RaycastHit hit;
+				collisionManager->BoxCast(col, normalizedDirection, velLen * _fixedDT, collisionMask, hit);
+				if (hit.collider)
+				{
+
+					// Colliderì˜ collisionInfoì— í•´ë‹¹ ì¶©ëŒì´ ë“±ë¡ë˜ì–´ìˆëŠ”ì§€ í™•ì¸
+					const auto& infos = col->GetCollisionInfos();
+					bool registered = false;
+					for (const auto& info : infos)
+					{
+						if ((info.left == col && info.right == hit.collider) || (info.right == col && info.left == hit.collider))
+						{
+							registered = true;
+							break;
+						}
+					}
+
+					if (registered)
+					{
+						pos += m_velocity * _fixedDT;
+						owner->SetPos(pos);
+						return;
+					}
+					GET_SINGLE(CollisionManager)->SetCollisioned(col, hit.collider);
+
+
+					// ì¶©ëŒ ì§€ì ê¹Œì§€ ì´ë™
+					float distanceToHit = (hit.point - pos).Length();
+					pos += normalizedDirection * distanceToHit;
+					owner->SetPos(pos);
+
+					// ë‚¨ì€ ì´ë™ ê±°ë¦¬ ê³„ì‚°
+					float totalMoveDist = velLen * _fixedDT;
+					float remainingDist = totalMoveDist - distanceToHit;
+					if (remainingDist > FLT_EPSILON)
+					{
+						// Projectile ìŠ¤íƒ€ì¼ì˜ ì¶• ë°˜ì‚¬ ì ìš©
+						if (m_bounciness > 0.f)
+						{
+							Object* otherOwner = hit.collider->GetOwner();
+							// ìƒëŒ€ ë¬¼ì²´ ì¤‘ì‹¬ê³¼ í¬ê¸° ê¸°ë°˜ìœ¼ë¡œ ì–´ëŠ ì¶• ì¶©ëŒì¸ì§€ íŒë‹¨
+							float distanceX = fabs(otherOwner->GetPos().x - owner->GetPos().x);
+							float distanceY = fabs(otherOwner->GetPos().y - owner->GetPos().y);
+
+							float deltaX = distanceX - (hit.collider->GetSize().x / 2.f);
+							float deltaY = distanceY - (hit.collider->GetSize().y / 2.f);
+
+							Vec2 v = m_velocity;
+							if (deltaX > deltaY)
+								v = Vec2(-v.x, v.y);
+							else
+								v = Vec2(v.x, -v.y);
+
+							// íƒ„ì„± ê³„ìˆ˜ ì ìš©
+							m_velocity = v * m_bounciness;
+
+							// ë‚¨ì€ ì‹œê°„ìœ¼ë¡œ ì¬ê·€ ì´ë™
+							float newVelLen = m_velocity.Length();
+							if (newVelLen > FLT_EPSILON)
+							{
+								float remainingDT = remainingDist / newVelLen;
+								if (remainingDT > FLT_EPSILON)
+								{
+									ApplyMovement(remainingDT);
+								}
+							}
+						}
+						else
+						{
+							// íƒ„ì„± ì—†ìŒ: ì¦‰ì‹œ ì •ì§€
+							m_velocity = Vec2(0.f, 0.f);
+						}
+					}
+					return; // ì¶©ëŒ ì²˜ë¦¬ í›„ ì¢…ë£Œ
+				}
+			}
+		}
+	}
+
+	// ì¶©ëŒì´ ì—†ìœ¼ë©´ ì¼ë°˜ ì´ë™
 	pos += m_velocity * _fixedDT;
 	owner->SetPos(pos);
-	// ÈûÀº ÇÑ¹ø Ã³¸®ÇÏ°í ÃÊ±âÈ­, 1ÇÁ·¹ÀÓ ´ÜÀ§·Î À¯È¿
-	m_force = Vec2(0.f, 0.f);
 }
 
 void Rigidbody::Render(HDC hDC)
 {
 }
+////////////////////
+
+////////////////////
