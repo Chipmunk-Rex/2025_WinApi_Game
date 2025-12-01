@@ -10,9 +10,7 @@
 
 void UIScene::Init()
 {
-    Spawn<MouseObject>(Layer::PLAYER, { 0,0 }, { 10,10 });
-    GET_SINGLE(CollisionManager)->CheckLayer(Layer::PLAYER, Layer::UI);
-
+    cardMgr = (GET_SINGLE(CardManager));
 }
 
 void UIScene::Update()
@@ -20,82 +18,65 @@ void UIScene::Update()
     Scene::Update();
 
     if (GET_SINGLE(InputManager)->IsDown(KEY_TYPE::A))
-        SpawnCards(1);
+        GET_SINGLE(CardManager)->RequestSpawnCards(1);
 
     if (GET_SINGLE(InputManager)->IsDown(KEY_TYPE::B))
-        SpawnCards(2);
+        GET_SINGLE(CardManager)->RequestSpawnCards(2);
 
     if (GET_SINGLE(InputManager)->IsDown(KEY_TYPE::C))
-        SpawnCards(3);
+        GET_SINGLE(CardManager)->RequestSpawnCards(3);
 
-    
- 
+    if (GET_SINGLE(CardManager)->HasSpawnRequest())
+    {
+        int count = GET_SINGLE(CardManager)->GetSpawnRequest().count;
+        GET_SINGLE(CardManager)->ClearSpawnRequest();
+        SpawnCards(count); 
+    }
 }
 
 void UIScene::ClearCards()
 {
-   
-    auto& objs = GetLayerObjects(Layer::UI);
-
-    for (auto obj : objs)
-    {
-        if (dynamic_cast<EnchantCard*>(obj))
-            obj->SetDead();
-    }
+    GET_SINGLE(CardManager)->ClearCards();
 }
-
 
 void UIScene::SpawnCards(int count)
 {
-    ClearCards();
-    cout << "³ª¿È";
+    GET_SINGLE(CardManager)->ClearCards(); 
     Vec2 size = { 200, 300 };
-    float spacing = 250;   
-    float centerX = WINDOW_WIDTH / 2;
-    float centerY = WINDOW_HEIGHT / 2;
-    vector<CardInfo> vec = CardDB::GetRandomCard(count);
+    float spacing = 250;
+    float cx = WINDOW_WIDTH / 2;
+    float cy = WINDOW_HEIGHT / 2;
+
+    vector<CardInfo> infos = CardDB::GetRandomCard(count);
+
+    auto SpawnOne = [&](Vec2 pos, CardInfo& info)
+        {
+            EnchantCard* card = Spawn<EnchantCard>(Layer::UI, pos, size);
+            card->SetInfo(info.name.c_str(), info.desc.c_str(), info.fileName.c_str());
+            GET_SINGLE(CardManager)->AddCard(card);
+        };
+
     if (count == 1)
     {
-
-
-        EnchantCard *card = Spawn<EnchantCard>(Layer::UI,
-            { centerX, centerY }, size);
-
-        card->SetInfo(vec[0].name.c_str(), vec[0].desc.c_str(), vec[0].fileName.c_str());
+        SpawnOne({ cx, cy }, infos[0]);
         return;
     }
-
     if (count == 2)
     {
-    
-        EnchantCard* card = Spawn<EnchantCard>(Layer::UI,
-            { centerX - spacing / 2, centerY }, size);
-
-        card->SetInfo(vec[0].name.c_str(), vec[0].desc.c_str(), vec[0].fileName.c_str());
-
-        EnchantCard* card2 = Spawn<EnchantCard>(Layer::UI,
-            { centerX + spacing / 2, centerY }, size);
-        card2->SetInfo(vec[1].name.c_str(), vec[1].desc.c_str(), vec[1].fileName.c_str());
+        SpawnOne({ cx - spacing / 2, cy }, infos[0]);
+        SpawnOne({ cx + spacing / 2, cy }, infos[1]);
         return;
     }
-
     if (count == 3)
     {
-        EnchantCard* card = Spawn<EnchantCard>(Layer::UI,
-            { centerX - spacing, centerY }, size);
-
-        card->SetInfo(vec[0].name.c_str(), vec[0].desc.c_str(), vec[0].fileName.c_str());
-        EnchantCard* card2 = Spawn<EnchantCard>(Layer::UI,
-            { centerX, centerY }, size);
-
-        card2->SetInfo(vec[1].name.c_str(), vec[1].desc.c_str(), vec[1].fileName.c_str());
-
-        EnchantCard* card3 = Spawn<EnchantCard>(Layer::UI,
-            { centerX + spacing, centerY }, size);
-        card3->SetInfo(vec[2].name.c_str(), vec[2].desc.c_str(),vec[2].fileName.c_str());
+        SpawnOne({ cx - spacing, cy }, infos[0]);
+        SpawnOne({ cx, cy }, infos[1]);
+        SpawnOne({ cx + spacing, cy }, infos[2]);
         return;
     }
 }
+
+
 
 
 void UIScene::Render(HDC _hdc)

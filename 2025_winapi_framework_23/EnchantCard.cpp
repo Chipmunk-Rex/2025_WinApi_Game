@@ -4,6 +4,7 @@
 #include "SceneManager.h"
 #include "InputManager.h"
 #include "ResourceManager.h"
+#include "UIScene.h"
 #include "Animator.h"
 
 EnchantCard::EnchantCard()
@@ -26,9 +27,7 @@ void EnchantCard::Update()
 
     if (GET_KEYDOWN(KEY_TYPE::LBUTTON) && isHovered)
     {
-        targetScale = 0;
-        hoverScale = 0;
-       
+        OnClick();
     }
 }
 
@@ -83,6 +82,20 @@ void EnchantCard::Render(HDC _hdc)
     DrawText(_hdc, desc.c_str(), -1, &descRc, DT_CENTER | DT_BOTTOM | DT_WORDBREAK);
 
 
+}
+
+void EnchantCard::OnClick()
+{
+   // GET_SINGLE(CardManager)->ClearAllCards();
+
+    targetScale = 0;
+    hoverScale = 0;
+}
+
+void EnchantCard::DisappearCard()
+{
+    targetScale = 0;
+    hoverScale = 0;
 }
 
 void EnchantCard::EnterCollision(Collider* _other)

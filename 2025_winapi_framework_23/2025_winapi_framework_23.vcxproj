@@ -171,6 +171,7 @@
     <ClInclude Include="Button.h" />
     <ClInclude Include="CardDB.h" />
     <ClInclude Include="CardInfo.h" />
+    <ClInclude Include="CardManager.h" />
     <ClInclude Include="CloseRangeEnemy.h" />
     <ClInclude Include="CoreWindow.h" />
     <ClInclude Include="Collider.h" />
@@ -215,6 +216,7 @@
     <ClCompile Include="BaseWindow.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="CardDB.cpp" />
+    <ClCompile Include="CardManager.cpp" />
     <ClCompile Include="CloseRangeEnemy.cpp" />
     <ClCompile Include="CoreWindow.cpp" />
     <ClCompile Include="Collider.cpp" />

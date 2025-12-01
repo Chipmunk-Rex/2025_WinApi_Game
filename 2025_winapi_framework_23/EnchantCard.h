@@ -12,10 +12,13 @@ public:
     void Update() override;
     // Object을(를) 통해 상속됨
     void Render(HDC _hdc) override;
+    
 public:
     void EnterCollision(Collider* _other) override;
     void StayCollision(Collider* _other) override;
     void ExitCollision(Collider* _other) override;
+    void OnClick();
+    void DisappearCard();
     void SetInfo(const wchar_t* name, const wchar_t* desc, const wchar_t* fileName);
 private:
     std::wstring name;
