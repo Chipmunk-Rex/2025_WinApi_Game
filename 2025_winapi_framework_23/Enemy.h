@@ -19,7 +19,7 @@ public:
 	double GetMaxHealth() {
 		return m_healthCompo->GetMaxHealth();
 	}
-	virtual void HandleChangeHealth(int _health) {}
+	virtual void HandleHitEvent(double _prev, double _health) {}
 private:
 	Texture* m_pTex;
 	Health* m_healthCompo;

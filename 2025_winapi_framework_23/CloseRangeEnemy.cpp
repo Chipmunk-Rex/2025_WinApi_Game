@@ -28,7 +28,7 @@ void CloseRangeEnemy::Render(HDC _hdc)
 	Enemy::Render(_hdc);
 }
 
-void CloseRangeEnemy::HandleChangeHealth(int _health)
+void CloseRangeEnemy::HandleHitEvent(double _prev, double _health)
 {
 	double maxHealth = GetMaxHealth();
 

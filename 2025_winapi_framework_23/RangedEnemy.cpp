@@ -54,7 +54,7 @@ void RangedEnemy::SetAttack(double delay, int damage)
 	_damage = damage;
 }
 
-void RangedEnemy::HandleChangeHealth(int _health)
+void RangedEnemy::HandleHitEvent(double _prev, double _health)
 {
 	double maxHealth = GetMaxHealth();
 

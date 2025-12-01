@@ -14,13 +14,13 @@ public:
 	void SetHealth(double value);
 	void TakeDamage(double damage);
 	bool GetIsDead();
-	void AddListener(std::function<void(int)> delegate);
-	void RaiseEvent();
+	void AddListener(std::function<void(double, double)> delegate);
+	void RaiseEvent(double _prevHealth);
 	double GetMaxHealth() { return m_maxHealth; }
 private:
 	double m_health;
 	double m_maxHealth;
 	bool m_isDead;
-	std::vector<std::function<void(int)>> functions;
+	std::vector<std::function<void(double, double)>> functions;
 };
 

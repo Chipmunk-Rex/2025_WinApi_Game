@@ -11,7 +11,7 @@ public:
     // Object을(를) 통해 상속됨'
     void Render(HDC _hdc) override;
     void SetAttack(double delay, int damage);
-    void HandleChangeHealth(int _health) override;
+    void HandleHitEvent(double _prev, double _health) override;
 private:
     double _timer;
     double _attackDelay;

@@ -22,8 +22,8 @@ Enemy::Enemy() : m_pTex(nullptr)
 	Rigidbody* rb = AddComponent<Rigidbody>();
 	m_healthCompo = AddComponent<Health>();
 
-	std::function<void(int)> delegate =
-		[this](int x) { HandleChangeHealth(x); };
+	std::function<void(double, double)> delegate =
+		[this](double x, double y) { HandleHitEvent(x,y); };
 
 	m_healthCompo->SetHealth(100);
 	m_healthCompo->AddListener(delegate);
