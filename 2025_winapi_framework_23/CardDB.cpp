@@ -9,7 +9,7 @@ const std::vector<CardInfo> CardDB::cards =
     { L"체력 증가", L"최대 체력이 10%만큼\n증가합니다", L"Plane" },
     { L"속도 증가", L"이동 속도가 20%만큼\n증가합니다." , L"Ball"},
     { L"회복", L"체력을 전부 회복합니다.", L"Jiwoo" },
-    { L""}
+   
 };
 
 const std::vector<CardInfo> CardDB::GetRandomCard(int count)

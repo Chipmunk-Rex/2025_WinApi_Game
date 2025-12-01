@@ -42,6 +42,7 @@ void UIScene::ClearCards()
 void UIScene::SpawnCards(int count)
 {
     GET_SINGLE(CardManager)->ClearCards(); 
+    ClearCards();
     Vec2 size = { 200, 300 };
     float spacing = 250;
     float cx = WINDOW_WIDTH / 2;
