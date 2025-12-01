@@ -1,6 +1,8 @@
 ﻿#pragma once
 #include "Component.h"
 #include "Object.h"
+#include "CollisionManager.h"
+struct CollisionInfo;
 class Collider :   public Component
 {
 public:
@@ -23,15 +25,17 @@ public:
     {
         return m_worldPos;
     }
-    UINT GetID() const { return m_ID; }
-    void EnterCollision(Collider* _other);
+    const UINT& GetID() const { return m_ID; }
+    void EnterCollision(Collider* _other, const CollisionInfo& collisionInfo);
     void StayCollision(Collider* _other);
-    void ExitCollision(Collider* _other);
+    void ExitCollision(Collider* _other, const CollisionInfo& collisionInfo);
     void SetName(const wstring& n) { m_name = n; }
     const wstring& GetName() const { return m_name; }
 
     void SetTrigger(bool t) { m_isTrigger = t; }
     bool IsTrigger() const { return m_isTrigger; }
+
+	const vector<CollisionInfo>& GetCollisionInfos() const { return m_collisionInfos; }
 private:
     Vec2 m_size; // 콜라이더 크기
     // Object로부터 상대적인 위치
@@ -42,5 +46,6 @@ private:
     bool m_showDebug;
     wstring m_name;
     bool m_isTrigger;
+	vector<CollisionInfo> m_collisionInfos;
 };
 

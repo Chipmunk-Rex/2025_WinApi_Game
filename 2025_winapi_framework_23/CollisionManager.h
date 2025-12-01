@@ -1,4 +1,7 @@
 ﻿#pragma once
+#include "Collider.h"
+#include "CollisionManager.h"
+
 union COLLIDER_ID
 {
 	struct
@@ -9,10 +12,31 @@ union COLLIDER_ID
 	ULONGLONG ID;
 };
 class Collider;
+struct CollisionInfo
+{
+	Collider* left = nullptr;
+	Collider* right = nullptr;
+	COLLIDER_ID id{};
+	bool operator==(const CollisionInfo& other) const noexcept
+	{
+		return id.ID == other.id.ID;
+	}
+	bool operator!=(const CollisionInfo& other) const noexcept
+	{
+		return !(*this == other);
+	}
+
+	CollisionInfo(Collider* _left, Collider* _right, ULONGLONG _id)
+		: left(_left), right(_right)
+	{
+		id.ID = _id;
+	}
+};
 struct RaycastHit
 {
 	Collider* collider = nullptr;
 	Vec2 point = Vec2();
+	Vec2 normal = Vec2();
 	float distance = 0.f;
 };
 class CollisionManager
@@ -39,5 +63,5 @@ private:
 private:
 	// 그룹 간의 충돌체크 배열
 	UINT m_objectLayer[(UINT)Layer::END];
-	std::unordered_map<ULONGLONG, bool> m_mapCollisionInfo;
+	std::unordered_map<ULONGLONG, CollisionInfo> m_CollisionInfo;
 };

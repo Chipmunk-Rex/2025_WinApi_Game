@@ -83,16 +83,6 @@ void Rigidbody::ApplyMovement(float _fixedDT)
 	Object* owner = GetOwner();
 	Vec2 pos = owner->GetPos();
 
-	static int callStackCount;
-	if (callStackCount > 15)
-	{
-		callStackCount = 0;
-
-		pos += m_velocity * _fixedDT;
-		owner->SetPos(pos);
-		return;
-	}
-
 	if (continiuousCollision)
 	{
 		Collider* col = owner->GetComponent<Collider>();
@@ -118,7 +108,28 @@ void Rigidbody::ApplyMovement(float _fixedDT)
 				collisionManager->BoxCast(col, normalizedDirection, velLen * _fixedDT, collisionMask, hit);
 				if (hit.collider)
 				{
+
+					// Collider의 collisionInfo에 해당 충돌이 등록되어있는지 확인
+					const auto& infos = col->GetCollisionInfos();
+					bool registered = false;
+					for (const auto& info : infos)
+					{
+						if ((info.left == col && info.right == hit.collider) || (info.right == col && info.left == hit.collider))
+						{
+							registered = true;
+							break;
+						}
+					}
+
+					if (registered)
+					{
+						pos += m_velocity * _fixedDT;
+						owner->SetPos(pos);
+						return;
+					}
 					GET_SINGLE(CollisionManager)->SetCollisioned(col, hit.collider);
+
+
 					// 충돌 지점까지 이동
 					float distanceToHit = (hit.point - pos).Length();
 					pos += normalizedDirection * distanceToHit;
@@ -154,9 +165,8 @@ void Rigidbody::ApplyMovement(float _fixedDT)
 							if (newVelLen > FLT_EPSILON)
 							{
 								float remainingDT = remainingDist / newVelLen;
-								if (remainingDT > FLT_EPSILON) 
+								if (remainingDT > FLT_EPSILON)
 								{
-									callStackCount++;
 									ApplyMovement(remainingDT);
 								}
 							}
@@ -167,7 +177,6 @@ void Rigidbody::ApplyMovement(float _fixedDT)
 							m_velocity = Vec2(0.f, 0.f);
 						}
 					}
-					callStackCount = 0;
 					return; // 충돌 처리 후 종료
 				}
 			}
@@ -177,8 +186,6 @@ void Rigidbody::ApplyMovement(float _fixedDT)
 	// 충돌이 없으면 일반 이동
 	pos += m_velocity * _fixedDT;
 	owner->SetPos(pos);
-
-	callStackCount = 0;
 }
 
 void Rigidbody::Render(HDC hDC)
@@ -186,4 +193,4 @@ void Rigidbody::Render(HDC hDC)
 }
 ////////////////////
 
-////
+////////////////////

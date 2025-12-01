@@ -49,7 +49,7 @@
     </Filter>
     <Filter Include="Engine\06. Component\Health">
       <UniqueIdentifier>{cda78c28-d70c-4626-bf6e-fbdbeb548ad9}</UniqueIdentifier>
-	</Filter>
+    </Filter>
     <Filter Include="Engine\09. Window">
       <UniqueIdentifier>{9f02ea37-503b-4644-8c4a-e11afc734cae}</UniqueIdentifier>
     </Filter>
@@ -153,7 +153,7 @@
     </ClInclude>
     <ClInclude Include="Health.h">
       <Filter>Engine\06. Component\Health</Filter>
-	</ClInclude>
+    </ClInclude>
     <ClInclude Include="UIScene.h">
       <Filter>Engine\04. Scene</Filter>
     </ClInclude>
@@ -178,6 +178,9 @@
     <ClInclude Include="MouseObject.h">
       <Filter>Engine\03. Object</Filter>
     </ClInclude>
+    <ClInclude Include="CloseRangeEnemy.h" />
+    <ClInclude Include="EnemyProjectile.h" />
+    <ClInclude Include="RangedEnemy.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="2025_winapi_framework_23.rc">
@@ -270,7 +273,7 @@
     </ClCompile>
     <ClCompile Include="Health.cpp">
       <Filter>Engine\06. Component\Health</Filter>
-	</ClCompile>
+    </ClCompile>
     <ClCompile Include="UIScene.cpp">
       <Filter>Engine\04. Scene</Filter>
     </ClCompile>
@@ -292,5 +295,8 @@
     <ClCompile Include="MouseObject.cpp">
       <Filter>Engine\03. Object</Filter>
     </ClCompile>
+    <ClCompile Include="CloseRangeEnemy.cpp" />
+    <ClCompile Include="EnemyProjectile.cpp" />
+    <ClCompile Include="RangedEnemy.cpp" />
   </ItemGroup>
 </Project>
