@@ -49,7 +49,7 @@
     </Filter>
     <Filter Include="Engine\06. Component\Health">
       <UniqueIdentifier>{cda78c28-d70c-4626-bf6e-fbdbeb548ad9}</UniqueIdentifier>
-	</Filter>
+    </Filter>
     <Filter Include="Engine\09. Window">
       <UniqueIdentifier>{9f02ea37-503b-4644-8c4a-e11afc734cae}</UniqueIdentifier>
     </Filter>
@@ -153,7 +153,7 @@
     </ClInclude>
     <ClInclude Include="Health.h">
       <Filter>Engine\06. Component\Health</Filter>
-	</ClInclude>
+    </ClInclude>
     <ClInclude Include="UIScene.h">
       <Filter>Engine\04. Scene</Filter>
     </ClInclude>
@@ -176,6 +176,18 @@
       <Filter>Engine\03. Object</Filter>
     </ClInclude>
     <ClInclude Include="MouseObject.h">
+      <Filter>Engine\03. Object</Filter>
+    </ClInclude>
+    <ClInclude Include="DamageText.h">
+      <Filter>Engine\03. Object</Filter>
+    </ClInclude>
+    <ClInclude Include="RangedEnemy.h">
+      <Filter>Engine\03. Object</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyProjectile.h">
+      <Filter>Engine\03. Object</Filter>
+    </ClInclude>
+    <ClInclude Include="CloseRangeEnemy.h">
       <Filter>Engine\03. Object</Filter>
     </ClInclude>
   </ItemGroup>
@@ -270,7 +282,7 @@
     </ClCompile>
     <ClCompile Include="Health.cpp">
       <Filter>Engine\06. Component\Health</Filter>
-	</ClCompile>
+    </ClCompile>
     <ClCompile Include="UIScene.cpp">
       <Filter>Engine\04. Scene</Filter>
     </ClCompile>
@@ -290,6 +302,18 @@
       <Filter>Engine\03. Object</Filter>
     </ClCompile>
     <ClCompile Include="MouseObject.cpp">
+      <Filter>Engine\03. Object</Filter>
+    </ClCompile>
+    <ClCompile Include="DamageText.cpp">
+      <Filter>Engine\03. Object</Filter>
+    </ClCompile>
+    <ClCompile Include="RangedEnemy.cpp">
+      <Filter>Engine\03. Object</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyProjectile.cpp">
+      <Filter>Engine\03. Object</Filter>
+    </ClCompile>
+    <ClCompile Include="CloseRangeEnemy.cpp">
       <Filter>Engine\03. Object</Filter>
     </ClCompile>
   </ItemGroup>

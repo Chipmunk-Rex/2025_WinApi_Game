@@ -34,14 +34,29 @@ void Health::SetHealth(double value)
 
 void Health::TakeDamage(double damage)
 {
+	double prev = m_health;
 	m_health -= damage;
+	RaiseEvent(prev);
 	if (m_health <= 0)
 	{
 		m_isDead = true;
 	}
 }
 
+void Health::RaiseEvent(double _prevHealth)
+{
+	for (auto a : functions)
+	{
+		a(_prevHealth,m_health);
+	}
+}
+
 bool Health::GetIsDead()
 {
 	return m_isDead;
+}
+
+void Health::AddListener(std::function<void(double, double)> delegate)
+{
+	functions.push_back(delegate);
 }

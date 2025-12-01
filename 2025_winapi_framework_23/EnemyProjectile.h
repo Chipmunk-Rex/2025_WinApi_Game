@@ -13,6 +13,7 @@ public:
     void StayCollision(Collider* _other) override;
     void ExitCollision(Collider* _other) override;
 private:
+    Texture* m_pTex;
     int _damage;
     double _timer;
     double _lifeTime;
