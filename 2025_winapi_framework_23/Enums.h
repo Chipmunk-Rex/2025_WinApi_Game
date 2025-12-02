@@ -8,6 +8,7 @@ enum class Layer
 	ENEMY,
 	PROJECTILE,
 	ENEMYPROJECTILE,
+	DAMAGETEXT,
 	END
 };
 
