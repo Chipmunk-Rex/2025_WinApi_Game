@@ -41,6 +41,8 @@ void PlayerProjectile::ExitCollision(Collider* _other)
 void PlayerProjectile::Shoot(Vec2 _dir)
 {
 	Projectile::Shoot(_dir);
-	
+	SetActive(true);
+	shootTimer = 0;
+	cout << "PlayerProjectile Shoot!" << endl;
 }
 ////////////

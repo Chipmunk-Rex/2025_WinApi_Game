@@ -130,7 +130,10 @@ bool CollisionManager::OverlapBox(const Vec2 origin, const Vec2 size, const Laye
     outColliders.clear();
     for (size_t i = 0; i < layerObjects.size(); ++i)
     {
-        Collider* pCollider = layerObjects[i]->GetComponent<Collider>();
+		Object* pObj = layerObjects[i];
+		if (pObj->IsActive() == false)
+            continue;
+        Collider* pCollider = pObj->GetComponent<Collider>();
         if (nullptr == pCollider)
             continue;
         Vec2 targetSize = pCollider->GetSize();
@@ -157,8 +160,8 @@ bool CollisionManager::BoxCast(const Vec2 origin, const Vec2 size, const Vec2 di
 {
     if (nullptr == collider)
         return false;
-	//if (collider->GetOwner()->IsActive() == false)
- //       return false;
+	if (collider->GetOwner()->IsActive() == false)
+        return false;
 
     Vec2 targetSize = collider->GetSize();
     Vec2 targetPos = collider->GetWorldPos();
@@ -301,6 +304,7 @@ bool CollisionManager::IsCollision(Collider* _left, Collider* _right)
 {
 	if (!_left->GetOwner()->IsActive() || !_right->GetOwner()->IsActive())
         return false;
+
     const Vec2& leftPos = _left->GetWorldPos();
     const Vec2& rightPos = _right->GetWorldPos();
     const Vec2& leftSize = _left->GetSize();
