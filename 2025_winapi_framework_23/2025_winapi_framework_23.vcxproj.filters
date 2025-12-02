@@ -196,7 +196,6 @@
     <ClInclude Include="CloseRangeEnemy.h">
       <Filter>Engine\03. Object</Filter>
 	</ClInclude>
-    </ClInclude>
     <ClInclude Include="CardManager.h">
       <Filter>Engine\02. Manager</Filter>
     </ClInclude>
@@ -330,7 +329,6 @@
     </ClCompile>
     <ClCompile Include="CloseRangeEnemy.cpp">
       <Filter>Engine\03. Object</Filter>
-	</ClCompile>
     </ClCompile>
     <ClCompile Include="CardManager.cpp">
       <Filter>Engine\02. Manager</Filter>
