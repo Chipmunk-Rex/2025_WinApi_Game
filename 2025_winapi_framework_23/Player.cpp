@@ -13,8 +13,12 @@
 #include "Rigidbody.h"
 #include "Health.h"
 #include "PlayerProjectile.h"
+#include "LaserProjectile.h"
+#include "PlayerManager.h"
+
 Player::Player()
 	: m_pTex(nullptr)
+	, m_lineTex(nullptr)
 {
 	//m_pTex = new Texture;
 	//wstring path = GET_SINGLE(ResourceManager)->GetResPath();
@@ -38,13 +42,24 @@ Player::Player()
 
 	fireCooldown = 0.2f;
 
+
+	PlayerProjectile* proj = GET_SINGLE(SceneManager)->GetCurScene()->Spawn<PlayerProjectile>(Layer::PROJECTILE, { 0,0 }, { 50,50 });
+	AddProjectile(proj);
+	cout << "Player Created\n";
+	cout << projectiles.size() << "\n";
+	cout << CanShoot() << "\n";
+
+	GET_SINGLE(PlayerManager)->SetPlayer(this);
 }
 Player::~Player()
 {
 	//SAFE_DELETE(m_pTex);
+	GET_SINGLE(PlayerManager)->SetPlayer(nullptr);
 }
 void Player::Update()
 {
+
+	//cout << CanShoot() << "\n";
 	Vec2 dir = {};
 	if (GET_KEY(KEY_TYPE::A)) dir.x -= 1.f;
 	if (GET_KEY(KEY_TYPE::D)) dir.x += 1.f;
@@ -68,7 +83,7 @@ void Player::Update()
 		if (GET_KEYDOWN(KEY_TYPE::LBUTTON) || GET_KEY(KEY_TYPE::LBUTTON))
 			ShootProjectile();
 	}
-	else
+	else if(fireTimer < fireCooldown)
 	{
 		fireTimer += fDT;
 	}
@@ -82,18 +97,18 @@ void Player::FixedUpdate(float _fixedDT)
 	{
 		if (PlayerProjectile* proj = dynamic_cast<PlayerProjectile*>(col->GetOwner()))
 			if (proj->CanCollect())
-				proj->SetActive(false);
+				this->AddProjectile(proj);
 	}
 }
 
 void Player::ShootProjectile()
 {
-	Projectile* proj = new PlayerProjectile;
+	Projectile* proj = projectiles.front();
+	projectiles.pop();
 	Vec2 pos = GetPos();
 	proj->SetPos(pos);
 	proj->SetSize({ 20.f,20.f });
 	proj->Shoot(GetShootDir() * 500);
-	GET_SINGLE(SceneManager)->GetCurScene()->AddObject(proj, Layer::PROJECTILE);
 
 	fireTimer -= fireCooldown;
 }

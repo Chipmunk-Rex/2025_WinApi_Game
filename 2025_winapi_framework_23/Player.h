@@ -1,5 +1,7 @@
 ﻿#pragma once
 #include "Object.h"
+#include "PlayerProjectile.h"
+//class PlayerProjectile;
 class Texture;
 class Rigidbody;
 class Player :
@@ -19,13 +21,17 @@ private:
     void ShootProjectile();
     Vec2 GetShootDir();
 public:
-    bool CanShoot() const { return fireTimer >= fireCooldown; }
+    bool CanShoot() const { return fireTimer >= fireCooldown && projectiles.size() != 0;}
+    void AddProjectile(PlayerProjectile* _proj) { projectiles.push(_proj); _proj->SetActive(false); 
+    cout << "Player Col with Projectile\n";
+    }
 private:
     Texture* m_pTex;
     Texture* m_lineTex;
     Rigidbody* rb;
 	float fireCooldown;
 	float fireTimer = 0;
+	std::queue<PlayerProjectile*> projectiles;
 	//vector<PlayerProjectile*> projectiles;
 };
 

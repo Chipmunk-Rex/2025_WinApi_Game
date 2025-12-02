@@ -3,6 +3,9 @@
 #include "InputManager.h"
 #include "ResourceManager.h"
 #include "CardManager.h"
+#include "PlayerManager.h"
+#include "SceneManager.h"
+#include "LaserProjectile.h"
 
 EnchantCard::EnchantCard()
 {
@@ -111,6 +114,14 @@ void EnchantCard::OnClick()
 
 
     GET_SINGLE(CardManager)->DelayClearCards(0.2f);
+
+	Player* player = GET_SINGLE(PlayerManager)->GetPlayer();
+    if (player)
+    {
+        LaserProjectile* laser = GET_SINGLE(SceneManager)->GetCurScene()->Spawn<LaserProjectile>(Layer::PROJECTILE, {0,0},{0,50});
+		player->AddProjectile(laser);
+	}
+
 }
 
 void EnchantCard::DisappearCard()

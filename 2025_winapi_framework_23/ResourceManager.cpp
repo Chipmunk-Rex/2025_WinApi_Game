@@ -1,17 +1,17 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "ResourceManager.h"
 #include "Texture.h"
 bool ResourceManager::Init()
 {
 	//fs::path curPath = fs::current_path();
 	//m_resourcePath = curPath.parent_path() / L"Output\\build\\Resource\\";
-	wchar_t buf[MAX_PATH] = {}; // windows ÃÖ´ë °æ·Î ±æÀÌ
-	::GetModuleFileNameW(nullptr, buf, MAX_PATH); // ÇöÀç ½ÇÇàÁßÀÎ exe °æ·Î buf¿¡ ÀúÀå   
-	fs::path exeDir = fs::path(buf).parent_path();                //  buf ÀüÃ¼ °æ·Î¸¦ path °´Ã¼·Î °¡¼­ µğ·ºÅä¸®¸¸ ÃßÃâ
-	fs::path resourceDir = exeDir.parent_path() / L"build" / L"Resource\\"; // release¸ğµåÀÏ¶§ build ÇÑ¹ø´õ ºÙÀÌ´Â°Å ¹«½Ã
+	wchar_t buf[MAX_PATH] = {}; // windows ìµœëŒ€ ê²½ë¡œ ê¸¸ì´
+	::GetModuleFileNameW(nullptr, buf, MAX_PATH); // í˜„ì¬ ì‹¤í–‰ì¤‘ì¸ exe ê²½ë¡œ bufì— ì €ì¥   
+	fs::path exeDir = fs::path(buf).parent_path();                //  buf ì „ì²´ ê²½ë¡œë¥¼ path ê°ì²´ë¡œ ê°€ì„œ ë””ë ‰í† ë¦¬ë§Œ ì¶”ì¶œ
+	fs::path resourceDir = exeDir.parent_path() / L"build" / L"Resource\\"; // releaseëª¨ë“œì¼ë•Œ build í•œë²ˆë” ë¶™ì´ëŠ”ê±° ë¬´ì‹œ
 	m_resourcePath = resourceDir.native();
 
-	if (!RegisterFontFile(L"Font\\³ª´®¼Õ±Û¾¾ ¾Ï½ºÅ×¸£´ã.ttf"))
+	if (!RegisterFontFile(L"Font\\ë‚˜ëˆ”ì†ê¸€ì”¨ ì•”ìŠ¤í…Œë¥´ë‹´.ttf"))
 		return false;
 	if (!RegisterFontFile(L"Font\\Galmuri11.ttf") )
 		return false;
@@ -58,7 +58,7 @@ void ResourceManager::RegisterTexture()
 	LoadTexture(L"Jiwoo", L"Texture\\jiwoo.bmp");
 	LoadTexture(L"CardBackground1", L"Texture\\Level1CardBack.bmp");
 	LoadTexture(L"Ball", L"Texture\\Ball.bmp");
-	//LoadTexture(L"123", L"Texture\\123.bmp");
+	LoadTexture(L"Ball2", L"Texture\\Ball2.bmp");
 	LoadTexture(L"Dotted_line", L"Texture\\dotted_line.bmp");
 	LoadTexture(L"Red_Brick_1", L"Texture\\red_brick_1.bmp");
 	LoadTexture(L"Red_Brick_2", L"Texture\\red_brick_2.bmp");
@@ -79,9 +79,9 @@ void ResourceManager::RegisterGDI()
 	m_Pens[(UINT)PenType::GREEN] = ::CreatePen(PS_SOLID, 1, RGB(0, 255, 0));
 	m_Pens[(UINT)PenType::CARDTEXT] = ::CreatePen(PS_SOLID, 1, RGB(227, 253, 255));
 
-	// ÆùÆ® µî·Ï
-	RegisterFont(FontType::TITLE, L"³ª´®¼Õ±Û¾¾ ¾Ï½ºÅ×¸£´ã", 60);
-	RegisterFont(FontType::UI, L"³ª´®¼Õ±Û¾¾ ¾Ï½ºÅ×¸£´ã", 0);
+	// ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
+	RegisterFont(FontType::TITLE, L"ï¿½ï¿½ï¿½ï¿½ï¿½Õ±Û¾ï¿½ ï¿½Ï½ï¿½ï¿½×¸ï¿½ï¿½ï¿½", 60);
+	RegisterFont(FontType::UI, L"ï¿½ï¿½ï¿½ï¿½ï¿½Õ±Û¾ï¿½ ï¿½Ï½ï¿½ï¿½×¸ï¿½ï¿½ï¿½", 0);
 	RegisterFont(FontType::CARDDESC, L"Galmuri11", 15);
 	RegisterFont(FontType::CARDTITLE, L"Galmuri11", 30);
 }
@@ -90,7 +90,7 @@ void ResourceManager::ReleaseGDI()
 	for (int i = 0; i < (UINT)PenType::END; ++i)
 		::DeleteObject(m_Pens[i]);
 	for (int i = 1; i < (UINT)BrushType::END; ++i)
-		// Hollow Á¦¿ÜÇÏ°í
+		// Hollow ì œì™¸í•˜ê³ 
 		::DeleteObject(m_Brushs[i]);
 	for (int i = 0; i < (UINT)FontType::END; ++i)
 		::DeleteObject(m_Fonts[i]);
@@ -129,16 +129,16 @@ void ResourceManager::LoadSound(const wstring& _key, const wstring& _path, bool 
 	std::string str;
 	str.assign(strFilePath.begin(), strFilePath.end());
 
-	// ·çÇÁÇÒÁö ¸»Áö °áÁ¤
-	FMOD_MODE eMode = FMOD_LOOP_NORMAL; // ¹İº¹ Ãâ·Â
+	// ë£¨í”„í• ì§€ ë§ì§€ ê²°ì •
+	FMOD_MODE eMode = FMOD_LOOP_NORMAL; // ë°˜ë³µ ì¶œë ¥
 	if (!_isLoop)
-		eMode = FMOD_DEFAULT; // »ç¿îµå 1¹ø¸¸ Ãâ·Â
+		eMode = FMOD_DEFAULT; // ì‚¬ìš´ë“œ 1ë²ˆë§Œ ì¶œë ¥
 	FMOD::Sound* p = nullptr;
 
-	// BGM¸é stream, ¾Æ´Ï¸é sound
-	// ÆÑÅä¸®ÇÔ¼ö
-	//// »ç¿îµå °´Ã¼¸¦ ¸¸µå´Â °ÍÀº systemÀÓ.
-	//						//ÆÄÀÏ°æ·Î,  FMOD_MODE, NULL, &sound
+	// BGMë©´ stream, ì•„ë‹ˆë©´ sound
+	// íŒ©í† ë¦¬í•¨ìˆ˜
+	//// ì‚¬ìš´ë“œ ê°ì²´ë¥¼ ë§Œë“œëŠ” ê²ƒì€ systemì„.
+	//						//íŒŒì¼ê²½ë¡œ,  FMOD_MODE, NULL, &sound
 	FMOD_RESULT r = _isLoop
 		? m_pSoundSystem->createStream(str.c_str(), eMode, nullptr, &p)
 		: m_pSoundSystem->createSound(str.c_str(), eMode, nullptr, &p);
@@ -161,7 +161,7 @@ void ResourceManager::Play(const wstring& _key)
 	SOUND_CHANNEL eChannel = SOUND_CHANNEL::BGM;
 	if (!pSound->IsLoop)
 		eChannel = SOUND_CHANNEL::EFFECT;
-	// »ç¿îµå Àç»ı ÇÔ¼ö. &channel·Î ¾î¶² Ã¤³ÎÀ» ÅëÇØ Àç»ıµÇ´ÂÁö Æ÷ÀÎÅÍ ³Ñ±è
+	// ì‚¬ìš´ë“œ ì¬ìƒ í•¨ìˆ˜. &channelë¡œ ì–´ë–¤ ì±„ë„ì„ í†µí•´ ì¬ìƒë˜ëŠ”ì§€ í¬ì¸í„° ë„˜ê¹€
 	m_pSoundSystem->playSound(pSound->pSound, nullptr, false, &m_pChannel[(UINT)eChannel]);
 
 }
@@ -174,7 +174,7 @@ void ResourceManager::Stop(SOUND_CHANNEL _channel)
 
 void ResourceManager::Volume(SOUND_CHANNEL _channel, float _vol)
 {
-	// 0.0 ~ 1.0 º¼·ı Á¶Àı
+	// 0.0 ~ 1.0 ë³¼ë¥¨ ì¡°ì ˆ
 	m_pChannel[(UINT)_channel]->setVolume(_vol);
 
 }
@@ -199,7 +199,7 @@ void ResourceManager::LoadTexture(const wstring& _key, const wstring& _path)
 	if (nullptr != tex)
 		return;
 
-	// »ı¼º
+	// ìƒì„±
 	wstring texPath = m_resourcePath;
 	texPath += _path;
 

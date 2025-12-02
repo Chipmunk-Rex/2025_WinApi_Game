@@ -2,6 +2,7 @@
 #include "Object.h"
 #include "Texture.h"
 #include "Health.h"
+#include "Rigidbody.h"
 class Enemy : public Object
 {
 public:
@@ -23,5 +24,6 @@ public:
 private:
 	Texture* m_pTex;
 	Health* m_healthCompo;
+	Rigidbody* m_rbCompo;
 };
 
