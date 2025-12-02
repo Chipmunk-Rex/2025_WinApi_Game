@@ -19,7 +19,7 @@ Enemy::Enemy() : m_pTex(nullptr)
 	anim->Play(L"JiwooFront");*/
 
 	auto* col = AddComponent<Collider>();
-	Rigidbody* rb = AddComponent<Rigidbody>();
+	m_rbCompo = AddComponent<Rigidbody>();
 	m_healthCompo = AddComponent<Health>();
 
 	std::function<void(double, double)> delegate =
@@ -27,8 +27,9 @@ Enemy::Enemy() : m_pTex(nullptr)
 
 	m_healthCompo->SetHealth(100);
 	m_healthCompo->AddListener(delegate);
-	rb->SetMass(1.f);
-	rb->SetUseGravity(false);
+	m_rbCompo->SetMass(1.f);
+	m_rbCompo->SetUseGravity(false);
+	m_rbCompo->SetVelocity({0,-20});
 	col->SetSize({ 50,50 });
 }
 
@@ -38,7 +39,7 @@ Enemy::~Enemy()
 
 void Enemy::Update()
 {
-	Translate({ 0.f, fDT * 20.f, });
+	m_rbCompo->SetVelocity({ 0,20 });
 }
 
 void Enemy::Render(HDC _hdc)

@@ -195,7 +195,7 @@
     </ClInclude>
     <ClInclude Include="CloseRangeEnemy.h">
       <Filter>Engine\03. Object</Filter>
-    </ClInclude>
+	</ClInclude>
     <ClInclude Include="CardManager.h">
       <Filter>Engine\02. Manager</Filter>
     </ClInclude>
