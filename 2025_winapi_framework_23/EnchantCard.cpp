@@ -3,14 +3,20 @@
 #include "InputManager.h"
 #include "ResourceManager.h"
 #include "CardManager.h"
+#include "PlayerManager.h"
+#include "SceneManager.h"
+#include "LaserProjectile.h"
 
 EnchantCard::EnchantCard()
 {
     isHovered = false;
     wasHovered = false;
 
-    targetScale = 1;
-    hoverScale = 0;
+    targetScale = 1.f;
+    hoverScale = 0.f;
+
+    destroyDelay = -1;
+    waitingDestroy = false;
 }
 
 EnchantCard::~EnchantCard()
@@ -33,25 +39,30 @@ void EnchantCard::Update()
     {
         isHovered = true;
         targetScale = 1.1f;
-        cout << "enter\n";
     }
 
     if (!inside && wasHovered)
     {
         isHovered = false;
         targetScale = 1.0f;
-        cout << "exit\n";
     }
 
     wasHovered = inside;
 
     if (inside && GET_SINGLE(InputManager)->IsDown(KEY_TYPE::LBUTTON))
-    {
         OnClick();
-    }
-
-    float t = 5.0f * fDT;
+    float t = 15.0f * fDT;
     hoverScale += (targetScale - hoverScale) * t;
+
+    if (waitingDestroy)
+    {
+        destroyDelay -= fDT;
+        if (destroyDelay <= 0.f)
+        {
+            waitingDestroy = false;
+            SetDead();
+        }
+    }
 }
 
 void EnchantCard::Render(HDC _hdc)
@@ -75,10 +86,8 @@ void EnchantCard::Render(HDC _hdc)
 
     TransparentBlt(
         _hdc,
-        rc.left,
-        rc.top,
-        (int)scaled.x,
-        (int)scaled.y,
+        rc.left, rc.top,
+        (int)scaled.x, (int)scaled.y,
         itemTex->GetTextureDC(),
         0, 0,
         itemTex->GetWidth(),
@@ -99,16 +108,27 @@ void EnchantCard::Render(HDC _hdc)
 
 void EnchantCard::OnClick()
 {
-    GET_SINGLE(CardManager)->ClearCards();
+    targetScale = 0.f;
 
-    targetScale = 0;
-    hoverScale = 0;
+
+    GET_SINGLE(CardManager)->DelayClearCards(0.2f);
+
+	Player* player = GET_SINGLE(PlayerManager)->GetPlayer();
+    if (player)
+    {
+        LaserProjectile* laser = GET_SINGLE(SceneManager)->GetCurScene()->Spawn<LaserProjectile>(Layer::PROJECTILE, {0,0},{0,50});
+		player->AddProjectile(laser);
+	}
+
 }
 
 void EnchantCard::DisappearCard()
 {
-    targetScale = 0;
-    hoverScale = 0;
+    targetScale = 0.f;
+
+
+    destroyDelay = .5f;
+    waitingDestroy = true;
 }
 
 void EnchantCard::SetInfo(const wchar_t* name, const wchar_t* desc, const wchar_t* fileName)

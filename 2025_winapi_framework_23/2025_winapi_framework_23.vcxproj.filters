@@ -196,9 +196,12 @@
     <ClInclude Include="CloseRangeEnemy.h">
       <Filter>Engine\03. Object</Filter>
 	</ClInclude>
+    </ClInclude>
     <ClInclude Include="CardManager.h">
       <Filter>Engine\02. Manager</Filter>
     </ClInclude>
+    <ClInclude Include="LaserProjectile.h" />
+    <ClInclude Include="PlayerManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="2025_winapi_framework_23.rc">
@@ -328,8 +331,11 @@
     <ClCompile Include="CloseRangeEnemy.cpp">
       <Filter>Engine\03. Object</Filter>
 	</ClCompile>
+    </ClCompile>
     <ClCompile Include="CardManager.cpp">
       <Filter>Engine\02. Manager</Filter>
     </ClCompile>
+    <ClCompile Include="LaserProjectile.cpp" />
+    <ClCompile Include="PlayerManager.cpp" />
   </ItemGroup>
 </Project>

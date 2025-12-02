@@ -1,7 +1,7 @@
 ﻿#pragma once
 enum class Layer
 {
-	UI,
+
 	BACKGROUND,
 	DEFAULT,
 	PLAYER,
@@ -9,6 +9,7 @@ enum class Layer
 	PROJECTILE,
 	ENEMYPROJECTILE,
 	DAMAGETEXT,
+	UI,
 	END
 };
 

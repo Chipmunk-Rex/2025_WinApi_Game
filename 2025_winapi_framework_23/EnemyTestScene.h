@@ -8,6 +8,7 @@ public:
 	void Render(HDC _hdc) override;
 public:
 	void EnemySpawn();
+	void SpawnCards(int count);
 private:
 	double _enemySpawnTime;
 	double _timer;
