@@ -55,6 +55,7 @@ public:
 	void RequestCollisionCheck(Collider* pLeftCollider, Collider* pRightCollider);
 	bool BoxCast(Collider* collider, const Vec2 direction, const float maxDistance, const LayerMask layer, RaycastHit& outHit);
 	bool BoxCast(const Vec2 origin, const Vec2 size, const Vec2 direction, const float maxDistance, const LayerMask layer, RaycastHit& outHit);
+	bool OverlapBox(const Vec2 origin, const Vec2 size, const LayerMask layer, std::vector<Collider*>& outColliders);
 private:
 	bool BoxCast(const Vec2 origin, const Vec2 size, const Vec2 direction, const float maxDistance, Collider* collider, RaycastHit& outHit);
 	void CollisionLayerUpdate(Layer _left, Layer _right);

@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include "Component.h"
+class Collider;
 class Rigidbody :
 	public Component
 
@@ -14,6 +15,7 @@ public:
 	void FixedUpdate(float _fixedDT); // 물리 계산
 	void ApplyMovement(float _fixedDT);
 	void Render(HDC hDC) override;
+	void OnCollisionEnter(Collider* _other);
 public:
 	void SetMass(float _mass) { m_mass = _mass; }
 	void AddForce(Vec2 _force) { m_force += _force; }
@@ -35,8 +37,8 @@ public:
 	bool IsContiniuouse() const { return continiuousCollision; }
 	void SetContiniuouse(bool _continiuous) { continiuousCollision = _continiuous; }
 
-	bool IsBounciness() const { return m_bounciness > 0.f; }
-	void SetBounciness(float _bounciness) { m_bounciness = _bounciness; }
+	bool IsBounciness() const { return _bounciness > 0.f; }
+	void SetBounciness(float _bounciness) { this->_bounciness = _bounciness; }
 
 	void SetVelocity(Vec2 _velocity) { m_velocity = _velocity; }
 	const Vec2& GetVelocity() const { return m_velocity; }
@@ -54,7 +56,7 @@ private:
 	/// <summary>
 	/// 탄성력, 0~1
 	/// </summary>
-	float m_bounciness; 
+	float _bounciness; 
 
 	Vec2 m_force; // 힘
 	Vec2 m_velocity; // 속도

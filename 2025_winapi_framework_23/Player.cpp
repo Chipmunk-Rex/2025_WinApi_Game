@@ -12,6 +12,7 @@
 #include "Animation.h"
 #include "Rigidbody.h"
 #include "Health.h"
+#include "PlayerProjectile.h"
 Player::Player()
 	: m_pTex(nullptr)
 {
@@ -20,16 +21,22 @@ Player::Player()
 	//path += L"Texture\\planem.bmp";
 	//m_pTex->Load(path); 
 	m_pTex = GET_SINGLE(ResourceManager)->GetTexture(L"Jiwoo");
-	AddComponent<Collider>()->SetName(L"Player");
+	Collider* collider = AddComponent<Collider>();
+	collider->SetName(L"Player");
+	collider->SetSize({ 50.f,50.f });
 	auto* anim = AddComponent<Animator>();
 	anim->CreateAnimation(L"JiwooFront", m_pTex, { 0.f, 150.f }, { 50.f,50.f }, { 50.f,0.f }, 5, 0.1f);
 	anim->Play(L"JiwooFront");
 	rb = AddComponent<Rigidbody>();
 	rb->SetUseGravity(false);
+	rb->SetBounciness(0.f);
+	rb->SetContiniuouse(true);
 
 
 	Health* health = AddComponent<Health>();
 	health->SetHealth(100);
+
+	fireCooldown = 0.2f;
 
 }
 Player::~Player()
@@ -38,20 +45,6 @@ Player::~Player()
 }
 void Player::Update()
 {
-	// transform.translate 
-	// rigidbody
-	//
-	//Vec2 pos = GetPos();
-	//if (GET_KEY(KEY_TYPE::A))
-	//	pos.x -= 300.f * fDT;
-	//if (GET_KEY(KEY_TYPE::D))
-	//	pos.x += 300.f * fDT;
-	//if (GET_KEY(KEY_TYPE::W))
-	//	pos.y -= 300.f * fDT;
-	//if (GET_KEY(KEY_TYPE::S))
-	//	pos.y += 300.f * fDT;
-	//SetPos(pos);
-
 	Vec2 dir = {};
 	if (GET_KEY(KEY_TYPE::A)) dir.x -= 1.f;
 	if (GET_KEY(KEY_TYPE::D)) dir.x += 1.f;
@@ -70,21 +63,39 @@ void Player::Update()
 
 	float factor = 1.f + scaleDelta;
 	Scale({ factor, factor });
-	if (GET_KEYDOWN(KEY_TYPE::SPACE))
-		CreateProjectile();
-
+	if (CanShoot())
+	{
+		if (GET_KEYDOWN(KEY_TYPE::LBUTTON) || GET_KEY(KEY_TYPE::LBUTTON))
+			ShootProjectile();
+	}
+	else
+	{
+		fireTimer += fDT;
+	}
 }
 
-void Player::CreateProjectile()
+void Player::FixedUpdate(float _fixedDT)
 {
-	Projectile* proj = new Projectile;
+	std::vector<Collider*> outColliders;
+	GET_SINGLE(CollisionManager)->OverlapBox(GetPos(), GetSize(), LayerToMask(Layer::PROJECTILE), outColliders);
+	for (auto col : outColliders)
+	{
+		if (PlayerProjectile* proj = dynamic_cast<PlayerProjectile*>(col->GetOwner()))
+			if (proj->CanCollect())
+				proj->SetActive(false);
+	}
+}
+
+void Player::ShootProjectile()
+{
+	Projectile* proj = new PlayerProjectile;
 	Vec2 pos = GetPos();
-	//pos.y -= GetSize().y / 2.f;
 	proj->SetPos(pos);
 	proj->SetSize({ 20.f,20.f });
-	//proj->SetAngle(angle * PI / 180);
 	proj->Shoot(GetShootDir() * 500);
 	GET_SINGLE(SceneManager)->GetCurScene()->AddObject(proj, Layer::PROJECTILE);
+
+	fireTimer -= fireCooldown;
 }
 
 Vec2 Player::GetShootDir()
@@ -145,7 +156,7 @@ void Player::Render(HDC _hdc)
 	//::PlgBlt();
 
 	const float lineDistance = 100;
-	const float lineWidth= 10;
+	const float lineWidth = 10;
 	Vec2 shootDir = this->GetShootDir();
 
 	Vec2 leftBottom = GetPos() + shootDir.Rotate(-90) * lineWidth;
@@ -170,12 +181,11 @@ void Player::Render(HDC _hdc)
 
 void Player::EnterCollision(Collider* _other)
 {
-	if (_other->GetName() == L"Floor")
+
+	if (PlayerProjectile* myProjectile = dynamic_cast<PlayerProjectile*>(_other->GetOwner()))
 	{
-		Rigidbody* rb = GetComponent<Rigidbody>();
-		rb->SetGrounded(true);
+		//myProjectile->SetActive(false);
 	}
-	cout << "hi";
 }
 
 void Player::StayCollision(Collider* _other)
@@ -187,4 +197,4 @@ void Player::ExitCollision(Collider* _other)
 }
 
 
-////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////

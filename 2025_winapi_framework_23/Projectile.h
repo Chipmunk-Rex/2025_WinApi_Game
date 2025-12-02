@@ -11,17 +11,20 @@ public:
     ~Projectile();
 public:
     void Update() override;
-    // ObjectÀ»(¸¦) ÅëÇØ »ó¼ÓµÊ
+    // Objectì„(ë¥¼) í†µí•´ ìƒì†ë¨
     void Render(HDC _hdc) override;
 public:
-    void Shoot(Vec2 _dir)
-    {
-        rigidbody->SetVelocity(_dir);
-    }
 	void EnterCollision(Collider* _other) override;
 	void StayCollision(Collider* _other) override;
 	void ExitCollision(Collider* _other) override;
-    void SetTexture(Texture* tex) { m_pTex = tex; }
+public:
+    virtual void Shoot(Vec2 _dir)
+    {
+        GetRigidbody()->SetVelocity(_dir);
+    }
+protected:
+	void SetTexture(Texture* _tex) { m_pTex = _tex; }
+	Rigidbody* GetRigidbody() const { return rigidbody; }
 private:
     Texture* m_pTex;
 	Rigidbody* rigidbody;

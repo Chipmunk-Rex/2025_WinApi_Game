@@ -7,11 +7,10 @@
 Projectile::Projectile()
 {
 	m_pTex = GET_SINGLE(ResourceManager)->GetTexture(L"Ball");
-	auto* compo = AddComponent<Collider>();
-	//GetComponent<Collider>()->SetSize({ 20.f,20.f });
-	compo->SetSize({ 20.f,20.f });
-	compo->SetName(L"PlayerBullet");
-	compo->SetTrigger(true);
+	auto* collider = AddComponent<Collider>();
+	collider->SetSize({ 20.f,20.f });
+	collider->SetName(L"PlayerBullet");
+	collider->SetTrigger(true);
 
 	rigidbody = AddComponent<Rigidbody>();
 	rigidbody->SetContiniuouse(true);
@@ -24,15 +23,12 @@ Projectile::~Projectile()
 
 void Projectile::Update()
 {
-	//Translate({ cosf(m_angle) * 500.f * fDT, sinf(m_angle) * 500.f * fDT});
 }
 
 void Projectile::Render(HDC _hdc)
 {
 	Vec2 pos = GetPos();
 	Vec2 size = GetSize();
-	/*ELLIPSE_RENDER(_hdc, pos.x, pos.y
-		, size.x, size.y);*/
 	LONG width = m_pTex->GetWidth();
 	LONG height = m_pTex->GetHeight();
 
@@ -87,4 +83,3 @@ void Projectile::StayCollision(Collider* _other)
 void Projectile::ExitCollision(Collider* _other)
 {
 }
-//////

@@ -53,6 +53,9 @@
     <Filter Include="Engine\09. Window">
       <UniqueIdentifier>{9f02ea37-503b-4644-8c4a-e11afc734cae}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\03. Object\Players">
+      <UniqueIdentifier>{37f3e9a5-9c34-4297-bb20-69b4c3df4358}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="2025_WinApi_Game.h">
@@ -97,17 +100,11 @@
     <ClInclude Include="DevScene.h">
       <Filter>Engine\04. Scene</Filter>
     </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>Engine\03. Object</Filter>
-    </ClInclude>
     <ClInclude Include="Enemy.h">
       <Filter>Engine\03. Object</Filter>
     </ClInclude>
     <ClInclude Include="TestScene.h">
       <Filter>Engine\04. Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="Projectile.h">
-      <Filter>Engine\03. Object</Filter>
     </ClInclude>
     <ClInclude Include="ResourceBase.h">
       <Filter>Engine\05. Resource</Filter>
@@ -178,6 +175,15 @@
     <ClInclude Include="MouseObject.h">
       <Filter>Engine\03. Object</Filter>
     </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Engine\03. Object\Players</Filter>
+    </ClInclude>
+    <ClInclude Include="Projectile.h">
+      <Filter>Engine\03. Object</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerProjectile.h">
+      <Filter>Engine\03. Object\Players</Filter>
+    </ClInclude>
     <ClInclude Include="DamageText.h">
       <Filter>Engine\03. Object</Filter>
     </ClInclude>
@@ -228,17 +234,11 @@
     <ClCompile Include="DevScene.cpp">
       <Filter>Engine\04. Scene</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Engine\03. Object</Filter>
-    </ClCompile>
     <ClCompile Include="Enemy.cpp">
       <Filter>Engine\03. Object</Filter>
     </ClCompile>
     <ClCompile Include="TestScene.cpp">
       <Filter>Engine\04. Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="Projectile.cpp">
-      <Filter>Engine\03. Object</Filter>
     </ClCompile>
     <ClCompile Include="ResourceBase.cpp">
       <Filter>Engine\05. Resource</Filter>
@@ -305,6 +305,15 @@
     </ClCompile>
     <ClCompile Include="MouseObject.cpp">
       <Filter>Engine\03. Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Engine\03. Object\Players</Filter>
+    </ClCompile>
+    <ClCompile Include="Projectile.cpp">
+      <Filter>Engine\03. Object</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerProjectile.cpp">
+      <Filter>Engine\03. Object\Players</Filter>
     </ClCompile>
     <ClCompile Include="DamageText.cpp">
       <Filter>Engine\03. Object</Filter>
