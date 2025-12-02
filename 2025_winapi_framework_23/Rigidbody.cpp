@@ -11,7 +11,7 @@ Rigidbody::Rigidbody()
 	, m_useGravity(false)         // 중력 사용 여부
 	, m_isKinematic(false)       // 키네마틱 여부
 	, continiuousCollision(false) // 연속 충돌 검사 여부
-	, m_bounciness(0.f)          // 탄성력
+	, _bounciness(0.f)          // 탄성력
 	, m_velocity(0.f, 0.f)       // 현재 속도
 	, m_maxVelocity(1000.f, 1000.f) // 속도 제한 (x, y)
 	, m_gravity(0.f, 400.f)      // 중력 가속도
@@ -33,11 +33,15 @@ void Rigidbody::LateUpdate()
 
 void Rigidbody::FixedUpdate(float _fixedDT)
 {
+	if (GetOwner()->IsActive() == false)
+		return;
 	if (m_isKinematic)
 	{
 		m_force = { 0.f,0.f };
 		return;
 	}
+
+
 	// 힘 -> 가속도
 	m_accelation = m_force / m_mass;
 	m_velocity += m_accelation * _fixedDT;
@@ -131,7 +135,7 @@ void Rigidbody::ApplyMovement(float _fixedDT)
 
 
 					// 충돌 지점까지 이동
-					float distanceToHit = (hit.point - pos).Length();
+					float distanceToHit = (hit.point - pos).Length() - 0.001f;
 					pos += normalizedDirection * distanceToHit;
 					owner->SetPos(pos);
 
@@ -140,27 +144,8 @@ void Rigidbody::ApplyMovement(float _fixedDT)
 					float remainingDist = totalMoveDist - distanceToHit;
 					if (remainingDist > FLT_EPSILON)
 					{
-						// Projectile 스타일의 축 반사 적용
-						if (m_bounciness > 0.f)
+						if (_bounciness > 0.f)
 						{
-							Object* otherOwner = hit.collider->GetOwner();
-							// 상대 물체 중심과 크기 기반으로 어느 축 충돌인지 판단
-							float distanceX = fabs(otherOwner->GetPos().x - owner->GetPos().x);
-							float distanceY = fabs(otherOwner->GetPos().y - owner->GetPos().y);
-
-							float deltaX = distanceX - (hit.collider->GetSize().x / 2.f);
-							float deltaY = distanceY - (hit.collider->GetSize().y / 2.f);
-
-							Vec2 v = m_velocity;
-							if (deltaX > deltaY)
-								v = Vec2(-v.x, v.y);
-							else
-								v = Vec2(v.x, -v.y);
-
-							// 탄성 계수 적용
-							m_velocity = v * m_bounciness;
-
-							// 남은 시간으로 재귀 이동
 							float newVelLen = m_velocity.Length();
 							if (newVelLen > FLT_EPSILON)
 							{
@@ -191,6 +176,24 @@ void Rigidbody::ApplyMovement(float _fixedDT)
 void Rigidbody::Render(HDC hDC)
 {
 }
-////////////////////
+void Rigidbody::OnCollisionEnter(Collider* _other)
+{
+	if (_bounciness <= 0.f)
+		return;
 
-////////////////////
+	Object* selfOwner = GetOwner();
+	Object* otherOwner = _other->GetOwner();
+
+	float distanceX = fabs(otherOwner->GetPos().x - selfOwner->GetPos().x);
+	float distanceY = fabs(otherOwner->GetPos().y - selfOwner->GetPos().y);
+	float deltaX = distanceX - (_other->GetSize().x / 2.f);
+	float deltaY = distanceY - (_other->GetSize().y / 2.f);
+
+	Vec2 v = m_velocity;
+	if (deltaX > deltaY)
+		v = Vec2(-v.x, v.y);
+	else
+		v = Vec2(v.x, -v.y);
+
+	m_velocity = v * _bounciness;
+}

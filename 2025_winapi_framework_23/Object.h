@@ -9,6 +9,7 @@ public:
 public:
 	virtual void Update() abstract;
 	virtual void LateUpdate();
+	virtual void FixedUpdate(float _fixedDT) {}
 	virtual void Render(HDC _hdc) abstract;
 	void ComponentRender(HDC _hdc);
 	virtual void EnterCollision(Collider* _other) {}
@@ -60,11 +61,15 @@ public:
 		}
 		return compo;
 	}
+public:
+	void SetActive(bool active) { _isActive = active; }
+	bool IsActive() const { return _isActive; }
 private:
 	Vec2 m_pos;
 	Vec2 m_size;
 	vector<Component*> m_vecComponents;
 	bool m_isDie;
 	Layer m_layer;
+	bool _isActive = true;
 };
 

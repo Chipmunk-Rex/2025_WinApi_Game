@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "Object.h"
 #include "InputManager.h"
 #include "Component.h"
@@ -6,6 +6,7 @@ Object::Object()
 	: m_pos{}
 	, m_size{}
 	, m_isDie(false)
+	, _isActive(true)
 {
 
 }

@@ -1,6 +1,7 @@
 ﻿#include "pch.h"
 #include "Collider.h"
 #include "Object.h"
+#include "Rigidbody.h"
 UINT Collider::m_nextID = 0;
 Collider::Collider()
 	: m_ID(m_nextID++)
@@ -44,6 +45,9 @@ void Collider::EnterCollision(Collider* _other, const CollisionInfo& collisionIn
 {
 	m_showDebug = true;
 	GetOwner()->EnterCollision(_other);
+	Rigidbody* rigid = GetOwner()->GetComponent<Rigidbody>();
+	if(rigid != nullptr)
+		rigid->OnCollisionEnter(_other);
 	m_collisionInfos.push_back(collisionInfo);
 }
 
@@ -62,3 +66,4 @@ void Collider::ExitCollision(Collider* _other, const CollisionInfo& collisionInf
 		m_collisionInfos.erase(it);
 	}
 }
+//////

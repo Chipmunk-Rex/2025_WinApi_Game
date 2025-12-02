@@ -1,4 +1,4 @@
-#include "pch.h"
+Ôªø#include "pch.h"
 #include "Scene.h"
 #include "Object.h"
 #include "CollisionManager.h"
@@ -43,6 +43,7 @@ void Scene::FixedUpdate(float _fixedDT)
 		auto& vec = m_vecObj[i];
 		for (auto* obj : vec)
 		{
+			obj->FixedUpdate(_fixedDT);
 			if (auto rb = obj->GetComponent<Rigidbody>())
 			{
 				if (rb != nullptr)
@@ -80,7 +81,7 @@ void Scene::Release()
 
 void Scene::FlushEvent()
 {
-	// ªË¡¶
+	// ÏÇ≠Ï†ú
 	for (Object* obj : m_killObject)
 	{
 		if (obj != nullptr)
@@ -91,7 +92,7 @@ void Scene::FlushEvent()
 	}
 	m_killObject.clear();
 
-	// ª˝º∫
+	// ÏÉùÏÑ±
 }
 
 void Scene::RequestDestroy(Object* obj)

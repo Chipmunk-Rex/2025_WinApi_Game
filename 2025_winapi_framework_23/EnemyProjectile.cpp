@@ -3,6 +3,7 @@
 #include "Health.h"
 #include "Collider.h"
 #include "SceneManager.h"
+#include "Player.h"
 #include "ResourceManager.h"
 
 EnemyProjectile::EnemyProjectile(): _damage(0),_timer(0.f),_lifeTime(5.f)
@@ -53,7 +54,7 @@ void EnemyProjectile::LateUpdate()
 void EnemyProjectile::EnterCollision(Collider* _other)
 {
 	if (GetIsDead())return;
-	if (_other->GetName() == L"Player")
+	if (typeid(_other->GetOwner()) == typeid(Player))
 	{
 		_other->GetOwner()->GetComponent<Health>()->TakeDamage(5);
 		GET_SINGLE(SceneManager)->RequestDestroy(this);

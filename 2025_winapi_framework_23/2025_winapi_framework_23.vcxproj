@@ -171,6 +171,7 @@
     <ClInclude Include="Button.h" />
     <ClInclude Include="CardDB.h" />
     <ClInclude Include="CardInfo.h" />
+    <ClInclude Include="CardManager.h" />
     <ClInclude Include="CloseRangeEnemy.h" />
     <ClInclude Include="CoreWindow.h" />
     <ClInclude Include="Collider.h" />
@@ -190,10 +191,12 @@
     <ClInclude Include="GDISelector.h" />
     <ClInclude Include="Health.h" />
     <ClInclude Include="InputManager.h" />
+    <ClInclude Include="LaserProjectile.h" />
     <ClInclude Include="MouseObject.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="PlayerProjectile.h" />
     <ClInclude Include="Projectile.h" />
     <ClInclude Include="RangedEnemy.h" />
     <ClInclude Include="Resource.h" />
@@ -216,6 +219,7 @@
     <ClCompile Include="BaseWindow.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="CardDB.cpp" />
+    <ClCompile Include="CardManager.cpp" />
     <ClCompile Include="CloseRangeEnemy.cpp" />
     <ClCompile Include="CoreWindow.cpp" />
     <ClCompile Include="Collider.cpp" />
@@ -232,6 +236,7 @@
     <ClCompile Include="GDISelector.cpp" />
     <ClCompile Include="Health.cpp" />
     <ClCompile Include="InputManager.cpp" />
+    <ClCompile Include="LaserProjectile.cpp" />
     <ClCompile Include="main.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
@@ -241,6 +246,7 @@
     <ClCompile Include="MouseObject.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PlayerProjectile.cpp" />
     <ClCompile Include="Projectile.cpp" />
     <ClCompile Include="RangedEnemy.cpp" />
     <ClCompile Include="ResourceBase.cpp" />

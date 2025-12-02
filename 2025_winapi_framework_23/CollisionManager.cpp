@@ -123,10 +123,42 @@ bool CollisionManager::BoxCast(const Vec2 origin, const Vec2 size, const Vec2 di
     return false;
 }
 
+bool CollisionManager::OverlapBox(const Vec2 origin, const Vec2 size, const LayerMask layer, std::vector<Collider*>& outColliders)
+{
+    std::shared_ptr<Scene> currentScene = GET_SINGLE(SceneManager)->GetCurScene();
+    const vector<Object*>& layerObjects = currentScene->GetLayerObjects(layer);
+    outColliders.clear();
+    for (size_t i = 0; i < layerObjects.size(); ++i)
+    {
+        Collider* pCollider = layerObjects[i]->GetComponent<Collider>();
+        if (nullptr == pCollider)
+            continue;
+        Vec2 targetSize = pCollider->GetSize();
+        Vec2 targetPos = pCollider->GetWorldPos();
+
+        Vec2 halfSize = size / 2.f;
+        Vec2 targetHalf = targetSize / 2.f;
+        
+        Vec2 boxMin = origin - halfSize;
+        Vec2 boxMax = origin + halfSize;
+        
+        Vec2 targetMin = targetPos - targetHalf;
+        Vec2 targetMax = targetPos + targetHalf;
+        if (boxMin.x <= targetMax.x && boxMax.x >= targetMin.x &&
+            boxMin.y <= targetMax.y && boxMax.y >= targetMin.y)
+        {
+            outColliders.push_back(pCollider);
+        }
+    }
+	return !outColliders.empty();
+}
+
 bool CollisionManager::BoxCast(const Vec2 origin, const Vec2 size, const Vec2 direction, const float maxDistance, Collider* collider, RaycastHit& hit)
 {
     if (nullptr == collider)
         return false;
+	//if (collider->GetOwner()->IsActive() == false)
+ //       return false;
 
     Vec2 targetSize = collider->GetSize();
     Vec2 targetPos = collider->GetWorldPos();
@@ -267,6 +299,8 @@ void CollisionManager::CollisionLayerUpdate(Layer _left, Layer _right)
 
 bool CollisionManager::IsCollision(Collider* _left, Collider* _right)
 {
+	if (!_left->GetOwner()->IsActive() || !_right->GetOwner()->IsActive())
+        return false;
     const Vec2& leftPos = _left->GetWorldPos();
     const Vec2& rightPos = _right->GetWorldPos();
     const Vec2& leftSize = _left->GetSize();

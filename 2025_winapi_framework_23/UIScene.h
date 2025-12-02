@@ -1,5 +1,6 @@
 #pragma once
 #include "Scene.h"
+#include "CardManager.h"
 class UIScene : public Scene
 {
 public:
@@ -9,6 +10,9 @@ public:
 	void ClearCards();
 	void SpawnCards(int count);
 	void Render(HDC _hdc) override;
+	void ClickAllCards();
 
+private:
+	CardManager* cardMgr;
 };
 
