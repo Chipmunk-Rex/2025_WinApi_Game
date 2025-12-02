@@ -31,5 +31,6 @@ private:
     float destroyDelay;
     bool waitingDestroy;
 
+    Texture* backgroundTex;
     Texture* itemTex;
 };

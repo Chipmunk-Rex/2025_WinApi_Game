@@ -14,6 +14,8 @@ EnchantCard::EnchantCard()
 
     destroyDelay = -1;
     waitingDestroy = false;
+
+    
 }
 
 EnchantCard::~EnchantCard()
@@ -85,21 +87,21 @@ void EnchantCard::Render(HDC _hdc)
         _hdc,
         rc.left, rc.top,
         (int)scaled.x, (int)scaled.y,
-        itemTex->GetTextureDC(),
+        backgroundTex->GetTextureDC(),
         0, 0,
-        itemTex->GetWidth(),
-        itemTex->GetHeight(),
+        backgroundTex->GetWidth(),
+        backgroundTex->GetHeight(),
         RGB(255, 0, 255)
     );
-
+    SetTextColor(_hdc, RGB(227, 253, 255));
     RECT nameRc = rc;
     nameRc.bottom -= 50;
-    GDISelector namefont(_hdc, FontType::TITLE);
+    GDISelector namefont(_hdc, FontType::CARDTITLE);
     DrawText(_hdc, name.c_str(), -1, &nameRc, DT_CENTER | DT_BOTTOM | DT_SINGLELINE);
 
     RECT descRc = rc;
     descRc.top += 50;
-    GDISelector descfont(_hdc, FontType::UI);
+    GDISelector descfont(_hdc, FontType::CARDDESC);
     DrawText(_hdc, desc.c_str(), -1, &descRc, DT_CENTER | DT_BOTTOM | DT_WORDBREAK);
 }
 
@@ -125,5 +127,7 @@ void EnchantCard::SetInfo(const wchar_t* name, const wchar_t* desc, const wchar_
     this->name = name;
     this->desc = desc;
     this->fileName = fileName;
+ 
     itemTex = GET_SINGLE(ResourceManager)->GetTexture(fileName);
+    backgroundTex = GET_SINGLE(ResourceManager)->GetTexture(L"CardBackground1");
 }

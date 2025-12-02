@@ -39,16 +39,16 @@ constexpr bool HasFlag(LayerMask m, Layer l) noexcept { return (m & LayerToMask(
 
 enum class PenType
 {
-	RED, GREEN, END
+	RED, GREEN, CARDTEXT, END
 };
 enum class BrushType
 {
-	HOLLOW, RED, GREEN, END
+	HOLLOW, RED, GREEN,  END
 };
 
 enum class FontType
 {
-	UI, TITLE, END
+	UI, TITLE,CARDDESC, CARDTITLE, END
 };
 
 enum class PlayMode
