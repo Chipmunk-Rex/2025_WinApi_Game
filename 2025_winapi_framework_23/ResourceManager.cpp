@@ -67,6 +67,7 @@ void ResourceManager::RegisterTexture()
 	LoadTexture(L"Player_Middle", L"Texture\\Player\\Player_Middle.bmp");
 	LoadTexture(L"Player_Right", L"Texture\\Player\\Player_Right.bmp");
 	LoadTexture(L"Player_Turret", L"Texture\\Player\\Turret.bmp");
+	LoadTexture(L"Player_Turret_Mask", L"Texture\\Player\\Turret_Mask.bmp");
 }
 void ResourceManager::RegisterGDI()
 {

@@ -18,10 +18,11 @@
 
 Player::Player()
 	: m_pTex(nullptr)
-	, m_lineTex(nullptr)
+	, m_turretTex(nullptr)
 {
 	m_pTex = GET_SINGLE(ResourceManager)->GetTexture(L"Player_Middle");
-	m_lineTex = GET_SINGLE(ResourceManager)->GetTexture(L"Player_Turret");
+	m_turretTex = GET_SINGLE(ResourceManager)->GetTexture(L"Player_Turret");
+	m_turretMaskTex = GET_SINGLE(ResourceManager)->GetTexture(L"Player_Turret_Mask");
 
 	Collider* collider = AddComponent<Collider>();
 	collider->SetName(L"Player");
@@ -182,15 +183,15 @@ void Player::Render(HDC _hdc)
 		(POINT)rightTop,
 		(POINT)leftBottom
 	};
-	int lineTexW = (int)m_lineTex->GetWidth();
-	int lineTexH = (int)m_lineTex->GetHeight();
+	int lineTexW = (int)m_turretTex->GetWidth();
+	int lineTexH = (int)m_turretTex->GetHeight();
 	::PlgBlt(
 		_hdc,
 		plg,
-		m_lineTex->GetTextureDC(),
+		m_turretTex->GetTextureDC(),
 		0, 0,
 		lineTexW, lineTexH,
-		nullptr,
+		m_turretMaskTex->GetHBitmap(),
 		0, 0);
 	//else
 	//{
