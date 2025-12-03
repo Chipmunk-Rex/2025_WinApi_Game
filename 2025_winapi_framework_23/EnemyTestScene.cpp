@@ -68,20 +68,24 @@ void EnemyTestScene::Update()
 
 
 	if (GET_SINGLE(InputManager)->IsDown(KEY_TYPE::NUM_1))
-		GET_SINGLE(CardManager)->RequestSpawnCards(1);
+		SpawnCards(1);
+
+		//GET_SINGLE(CardManager)->RequestSpawnCards(1);
 
 	if (GET_SINGLE(InputManager)->IsDown(KEY_TYPE::NUM_2))
-		GET_SINGLE(CardManager)->RequestSpawnCards(2);
+		SpawnCards(2);
+
+		//GET_SINGLE(CardManager)->RequestSpawnCards(2);
 
 	if (GET_SINGLE(InputManager)->IsDown(KEY_TYPE::NUM_3))
-		GET_SINGLE(CardManager)->RequestSpawnCards(3);
+		SpawnCards(3);
+		//GET_SINGLE(CardManager)->RequestSpawnCards(3);
 
-	if (GET_SINGLE(CardManager)->HasSpawnRequest())
-	{
-		int count = GET_SINGLE(CardManager)->GetSpawnRequest().count;
-		GET_SINGLE(CardManager)->ClearSpawnRequest();
-		SpawnCards(count);
-	}
+	//if (GET_SINGLE(CardManager)->HasSpawnRequest())
+	//{
+	//	int count = GET_SINGLE(CardManager)->GetSpawnRequest().count;
+	//	GET_SINGLE(CardManager)->ClearSpawnRequest();
+	//}
 }
 
 void EnemyTestScene::SpawnCards(int count)
@@ -151,3 +155,4 @@ void EnemyTestScene::EnemySpawn()
 		}
 	}
 }
+//////////

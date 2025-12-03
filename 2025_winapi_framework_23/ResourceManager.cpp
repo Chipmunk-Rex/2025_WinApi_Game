@@ -63,8 +63,10 @@ void ResourceManager::RegisterTexture()
 	LoadTexture(L"Red_Brick_1", L"Texture\\red_brick_1.bmp");
 	LoadTexture(L"Red_Brick_2", L"Texture\\red_brick_2.bmp");
 	LoadTexture(L"Red_Brick_3", L"Texture\\red_brick_3.bmp");
-
-
+	LoadTexture(L"Player_Left", L"Texture\\Player\\Player_Left.bmp");
+	LoadTexture(L"Player_Middle", L"Texture\\Player\\Player_Middle.bmp");
+	LoadTexture(L"Player_Right", L"Texture\\Player\\Player_Right.bmp");
+	LoadTexture(L"Player_Turret", L"Texture\\Player\\Turret.bmp");
 }
 void ResourceManager::RegisterGDI()
 {

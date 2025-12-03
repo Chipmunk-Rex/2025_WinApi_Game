@@ -20,17 +20,15 @@ Player::Player()
 	: m_pTex(nullptr)
 	, m_lineTex(nullptr)
 {
-	//m_pTex = new Texture;
-	//wstring path = GET_SINGLE(ResourceManager)->GetResPath();
-	//path += L"Texture\\planem.bmp";
-	//m_pTex->Load(path); 
-	m_pTex = GET_SINGLE(ResourceManager)->GetTexture(L"Jiwoo");
+	m_pTex = GET_SINGLE(ResourceManager)->GetTexture(L"Player_Middle");
+	m_lineTex = GET_SINGLE(ResourceManager)->GetTexture(L"Player_Turret");
+
 	Collider* collider = AddComponent<Collider>();
 	collider->SetName(L"Player");
 	collider->SetSize({ 50.f,50.f });
-	auto* anim = AddComponent<Animator>();
-	anim->CreateAnimation(L"JiwooFront", m_pTex, { 0.f, 150.f }, { 50.f,50.f }, { 50.f,0.f }, 5, 0.1f);
-	anim->Play(L"JiwooFront");
+	//auto* anim = AddComponent<Animator>();
+	//anim->CreateAnimation(L"JiwooFront", m_pTex, { 0.f, 150.f }, { 50.f,50.f }, { 50.f,0.f }, 5, 0.1f);
+	//anim->Play(L"JiwooFront");
 	rb = AddComponent<Rigidbody>();
 	rb->SetUseGravity(false);
 	rb->SetBounciness(0.f);
@@ -83,7 +81,7 @@ void Player::Update()
 		if (GET_KEYDOWN(KEY_TYPE::LBUTTON) || GET_KEY(KEY_TYPE::LBUTTON))
 			ShootProjectile();
 	}
-	else if(fireTimer < fireCooldown)
+	else if (fireTimer < fireCooldown)
 	{
 		fireTimer += fDT;
 	}
@@ -145,13 +143,13 @@ void Player::Render(HDC _hdc)
 	//	,0,0, SRCCOPY);
 
 	//// 2. transparentblt - 색깔 뺄때
-	//::TransparentBlt(_hdc
-	//	, (int)(pos.x - size.x / 2)
-	//	, (int)(pos.y - size.y / 2)
-	//	, size.x
-	//	, size.y
-	//	, m_pTex->GetTextureDC()
-	//	, 0, 0, width,height, RGB(255,0,255));
+	::TransparentBlt(_hdc
+		, (int)(pos.x - size.x / 2)
+		, (int)(pos.y - size.y / 2)
+		, size.x
+		, size.y
+		, m_pTex->GetTextureDC()
+		, 0, 0, width, height, RGB(255, 255, 255));
 
 	ComponentRender(_hdc);
 
@@ -170,23 +168,41 @@ void Player::Render(HDC _hdc)
 	// 5.  - 회전
 	//::PlgBlt();
 
-	const float lineDistance = 100;
-	const float lineWidth = 10;
+	const float lineDistance = 50;
+	const float lineWidth = 50;
 	Vec2 shootDir = this->GetShootDir();
-
 	Vec2 leftBottom = GetPos() + shootDir.Rotate(-90) * lineWidth;
-	Vec2 rightBottom = GetPos() + shootDir.Rotate(90) * lineWidth;
+	//Vec2 rightBottom = GetPos() + shootDir.Rotate(90) * lineWidth;
 	Vec2 leftTop = GetPos() + shootDir * lineDistance + shootDir.Rotate(-90) * lineWidth;
 	Vec2 rightTop = GetPos() + shootDir * lineDistance + shootDir.Rotate(90) * lineWidth;
 
-	POINT arr[4] =
+	POINT plg[3] =
 	{
-		(POINT)leftBottom,
-		(POINT)rightBottom,
+		(POINT)leftTop,
 		(POINT)rightTop,
-		(POINT)leftTop
+		(POINT)leftBottom
 	};
-	Polygon(_hdc, arr, 4);
+	int lineTexW = (int)m_lineTex->GetWidth();
+	int lineTexH = (int)m_lineTex->GetHeight();
+	::PlgBlt(
+		_hdc,
+		plg,
+		m_lineTex->GetTextureDC(),
+		0, 0,
+		lineTexW, lineTexH,
+		nullptr,
+		0, 0);
+	//else
+	//{
+	//	POINT arr[4] =
+	//	{
+	//		(POINT)leftBottom,
+	//		(POINT)rightBottom,
+	//		(POINT)rightTop,
+	//		(POINT)leftTop
+	//	};
+	//	Polygon(_hdc, arr, 4);
+	//}
 
 	//LaycastHit hit;
 	//GET_SINGLE(CollisionManager)->BoxCast(GetPos(), GetSize(), GetShootDir(), 10000, Layer::DEFAULT | Layer::PROJECTILE, hit);
