@@ -17,12 +17,16 @@
 #include "PlayerManager.h"
 
 Player::Player()
-	: m_pTex(nullptr)
+	: middleTexture(nullptr)
 	, m_turretTex(nullptr)
 {
-	m_pTex = GET_SINGLE(ResourceManager)->GetTexture(L"Player_Middle");
+	leftTexture = GET_SINGLE(ResourceManager)->GetTexture(L"Player_Left");
+	middleTexture = GET_SINGLE(ResourceManager)->GetTexture(L"Player_Middle");
+	rightTexture = GET_SINGLE(ResourceManager)->GetTexture(L"Player_Right");
 	m_turretTex = GET_SINGLE(ResourceManager)->GetTexture(L"Player_Turret");
 	m_turretMaskTex = GET_SINGLE(ResourceManager)->GetTexture(L"Player_Turret_Mask");
+
+	currentTexture = middleTexture;
 
 	Collider* collider = AddComponent<Collider>();
 	collider->SetName(L"Player");
@@ -60,23 +64,22 @@ void Player::Update()
 
 	//cout << CanShoot() << "\n";
 	Vec2 dir = {};
-	if (GET_KEY(KEY_TYPE::A)) dir.x -= 1.f;
-	if (GET_KEY(KEY_TYPE::D)) dir.x += 1.f;
+	if (GET_KEY(KEY_TYPE::A))
+		dir.x -= 1.f;
+	if (GET_KEY(KEY_TYPE::D)) 
+		dir.x += 1.f;
 	if (GET_KEY(KEY_TYPE::W)) dir.y -= 1.f;
 	if (GET_KEY(KEY_TYPE::S)) dir.y += 1.f;
 
-	//Translate({ dir.x * 300.f * fDT, dir.y * 300.f * fDT });
-	rb->SetVelocity(dir.Normalize() * 300.f);
-	// 크기변경
-	float scaleDelta = 0.f;
-	float scaleSpeed = 1.f;
-	if (GET_KEY(KEY_TYPE::Q))
-		scaleDelta += scaleSpeed * fDT;
-	if (GET_KEY(KEY_TYPE::E))
-		scaleDelta -= scaleSpeed * fDT;
 
-	float factor = 1.f + scaleDelta;
-	Scale({ factor, factor });
+	if(dir.x < 0)
+		currentTexture = leftTexture;
+	else if(0 < dir.x)
+		currentTexture = rightTexture;
+	else
+		currentTexture = middleTexture;
+
+	rb->SetVelocity(dir.Normalize() * 300.f);
 	if (CanShoot())
 	{
 		if (GET_KEYDOWN(KEY_TYPE::LBUTTON) || GET_KEY(KEY_TYPE::LBUTTON))
@@ -128,8 +131,8 @@ void Player::Render(HDC _hdc)
 	 //                , size.x, size.y);
 	///m_pTex->getwidth();
 
-	LONG width = m_pTex->GetWidth();
-	LONG height = m_pTex->GetHeight();
+	LONG width = currentTexture->GetWidth();
+	LONG height = currentTexture->GetHeight();
 
 	//// blt 종류
 	// bitblt >>>>>> stretch >>> transparenblt
@@ -149,8 +152,8 @@ void Player::Render(HDC _hdc)
 		, (int)(pos.y - size.y / 2)
 		, size.x
 		, size.y
-		, m_pTex->GetTextureDC()
-		, 0, 0, width, height, RGB(255, 255, 255));
+		, currentTexture->GetTextureDC()
+		, 0, 0, width, height, RGB(255, 0, 255));
 
 	ComponentRender(_hdc);
 
@@ -169,8 +172,8 @@ void Player::Render(HDC _hdc)
 	// 5.  - 회전
 	//::PlgBlt();
 
-	const float lineDistance = 50;
-	const float lineWidth = 50;
+	const float lineDistance = 30;
+	const float lineWidth = 30;
 	Vec2 shootDir = this->GetShootDir();
 	Vec2 leftBottom = GetPos() + shootDir.Rotate(-90) * lineWidth;
 	//Vec2 rightBottom = GetPos() + shootDir.Rotate(90) * lineWidth;

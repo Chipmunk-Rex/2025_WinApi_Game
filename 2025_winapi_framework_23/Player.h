@@ -24,9 +24,13 @@ public:
     bool CanShoot() const { return fireTimer >= fireCooldown && projectiles.size() != 0;}
     void AddProjectile(PlayerProjectile* _proj) { projectiles.push(_proj); _proj->SetActive(false); }
 private:
-    Texture* m_pTex;
+    Texture* leftTexture;
+    Texture* middleTexture;
+    Texture* rightTexture;
     Texture* m_turretTex;
     Texture* m_turretMaskTex;
+private:
+	Texture* currentTexture;
     Rigidbody* rb;
 	float fireCooldown;
 	float fireTimer = 0;
