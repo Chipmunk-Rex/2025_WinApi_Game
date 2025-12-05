@@ -112,7 +112,6 @@ void Rigidbody::ApplyMovement(float _fixedDT)
 				collisionManager->BoxCast(col, normalizedDirection, velLen * _fixedDT, collisionMask, hit);
 				if (hit.collider)
 				{
-
 					// Collider의 collisionInfo에 해당 충돌이 등록되어있는지 확인
 					const auto& infos = col->GetCollisionInfos();
 					bool registered = false;

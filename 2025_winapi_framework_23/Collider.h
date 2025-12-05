@@ -23,7 +23,7 @@ public:
     const Vec2& GetOffSetPos() const { return m_offsetPos; }
     const Vec2& GetWorldPos() const
     {
-        return m_worldPos;
+        return GetOwner()->GetPos();
     }
     const UINT& GetID() const { return m_ID; }
     void EnterCollision(Collider* _other, const CollisionInfo& collisionInfo);

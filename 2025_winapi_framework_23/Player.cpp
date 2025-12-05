@@ -48,9 +48,6 @@ Player::Player()
 
 	PlayerProjectile* proj = GET_SINGLE(SceneManager)->GetCurScene()->Spawn<PlayerProjectile>(Layer::PROJECTILE, { 0,0 }, { 50,50 });
 	AddProjectile(proj);
-	cout << "Player Created\n";
-	cout << projectiles.size() << "\n";
-	cout << CanShoot() << "\n";
 
 	GET_SINGLE(PlayerManager)->SetPlayer(this);
 }

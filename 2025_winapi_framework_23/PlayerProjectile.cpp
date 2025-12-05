@@ -43,6 +43,6 @@ void PlayerProjectile::Shoot(Vec2 _dir)
 	Projectile::Shoot(_dir);
 	SetActive(true);
 	shootTimer = 0;
-	cout << "PlayerProjectile Shoot!" << endl;
+	//cout << "PlayerProjectile Shoot!" << endl;
 }
 ////////////

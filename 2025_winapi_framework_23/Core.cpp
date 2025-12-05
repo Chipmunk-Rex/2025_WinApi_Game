@@ -55,6 +55,7 @@ void Core::MainUpdate()
         accmulator += fDT;
         while (accmulator >= fixedDT)
         {
+			//cout << "FixedUpdate: " << accmulator << endl;
             GET_SINGLE(SceneManager)->FixedUpdate(fixedDT);
             GET_SINGLE(CollisionManager)->Update();
             accmulator -= fixedDT;
