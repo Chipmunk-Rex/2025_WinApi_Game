@@ -16,7 +16,10 @@ private:
     double _timer;
     double _attackDelay;
     double _attackTime;
+    double _hitTimer;
+    double _hitDelay;
     int _damage;
+    bool _isHit;
     EnemyProjectile* _projectile;
 };
 

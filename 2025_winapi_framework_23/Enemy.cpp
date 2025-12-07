@@ -31,6 +31,8 @@ Enemy::Enemy() : m_pTex(nullptr)
 	m_rbCompo->SetUseGravity(false);
 	m_rbCompo->SetVelocity({0,-20});
 	col->SetSize({ 50,50 });
+	Object* playerObject = GET_SINGLE(SceneManager)->GetCurScene()->GetLayerObjects(Layer::PLAYER)[0];
+	m_target = dynamic_cast<Player*>(playerObject);
 }
 
 Enemy::~Enemy()

@@ -17,6 +17,7 @@ public:
 	void AddListener(std::function<void(double, double)> delegate);
 	void RaiseEvent(double _prevHealth);
 	double GetMaxHealth() { return m_maxHealth; }
+	double GetCurrentHealth() { return m_health; }
 private:
 	double m_health;
 	double m_maxHealth;

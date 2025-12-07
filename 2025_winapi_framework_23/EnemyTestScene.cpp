@@ -24,10 +24,11 @@ void EnemyTestScene::Init()
 	//EnemySpawn();
 
 	Spawn<Player>(Layer::PLAYER, { WINDOW_WIDTH / 2 , WINDOW_HEIGHT / 4 }, { 100,100 });
+	
 	Spawn<Floor>(Layer::DEFAULT, { WINDOW_WIDTH / 2,  0 }, { 1000.f, 50.f });
 	Spawn<Floor>(Layer::DEFAULT, { WINDOW_WIDTH / 2, WINDOW_HEIGHT }, { 1000.f, 50.f });
-	Spawn<Floor>(Layer::DEFAULT, { 0, WINDOW_HEIGHT / 2}, { 50.f, 1000.f })->GetComponent<Collider>()->SetSize({ 50.f, 1000.f });
-	Spawn<Floor>(Layer::DEFAULT, { WINDOW_WIDTH,  WINDOW_HEIGHT / 2 }, { 50.f, 1000.f })->GetComponent<Collider>()->SetSize({ 50.f, 1000.f });
+	Spawn<Floor>(Layer::DEFAULT, { 0, WINDOW_HEIGHT / 2}, { 700.f, 1000.f })->GetComponent<Collider>()->SetSize({ 700.f, 1000.f });
+	Spawn<Floor>(Layer::DEFAULT, { WINDOW_WIDTH,  WINDOW_HEIGHT / 2 }, { 700.f, 1000.f })->GetComponent<Collider>()->SetSize({ 700.f, 1000.f });
 
 	GET_SINGLE(CollisionManager)->CheckLayer(Layer::PROJECTILE, Layer::ENEMY);
 	GET_SINGLE(CollisionManager)->CheckLayer(Layer::PROJECTILE, Layer::ENEMYPROJECTILE);
@@ -132,7 +133,7 @@ void EnemyTestScene::EnemySpawn()
 	{
 		if (rand() % 100 <= _spawnPercent)
 		{
-			if (true)
+			if (rand() % 100 <= 50)
 			{
 				Spawn<CloseRangeEnemy>
 					(

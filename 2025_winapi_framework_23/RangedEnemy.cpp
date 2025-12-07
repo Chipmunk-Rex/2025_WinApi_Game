@@ -6,7 +6,15 @@
 #include "DamageText.h"
 
 
-RangedEnemy::RangedEnemy() : _timer(0), _attackDelay(10), _attackTime(2), _damage(3), _projectile(nullptr)
+RangedEnemy::RangedEnemy() : 
+	_timer(0), 
+	_attackDelay(10), 
+	_attackTime(2),
+	_damage(3), 
+	_projectile(nullptr),
+	_isHit(false),
+	_hitDelay(0.1f),
+	_hitTimer(0)
 {
 }
 
@@ -20,6 +28,34 @@ void RangedEnemy::Update()
 {
 	Enemy::Update();
 	_timer += fDT;
+	
+	if (_isHit)
+	{
+		_hitTimer += fDT;
+		if (_hitDelay <= _hitTimer)
+		{
+
+			double normal = GetCurHealth() / GetMaxHealth();
+
+			if (normal <= 0.3f)
+			{
+				SetTex(GET_SINGLE(ResourceManager)->GetTexture(L"Red_Brick_3"));
+			}
+			else if (normal <= 0.7f)
+			{
+				SetTex(GET_SINGLE(ResourceManager)->GetTexture(L"Red_Brick_2"));
+			}
+			else
+			{
+				SetTex(GET_SINGLE(ResourceManager)->GetTexture(L"Red_Brick_1"));
+			}
+
+			_hitTimer = 0;
+			_isHit = false;
+		}
+	}
+	
+
 	if (_timer >= _attackTime)
 	{
 		_attackTime = (rand() % (int)_attackDelay + 2) + ((rand() % 9) / 10.f);
@@ -29,7 +65,8 @@ void RangedEnemy::Update()
 		auto playerLayerObjects = curScene->GetLayerObjects(Layer::PLAYER);
 		if (playerLayerObjects.empty()) return;
 
-		Object* player = curScene->GetLayerObjects(Layer::PLAYER)[0];
+		Object* player = GetTarget();
+		if (player == nullptr) return;
 		EnemyProjectile* proj = new EnemyProjectile;
 		Vec2 pos = GetPos();
 		pos.y += GetSize().y / 2;
@@ -63,11 +100,15 @@ void RangedEnemy::HandleHitEvent(double _prev, double _health)
 
 	if (normal <= 0.3f)
 	{
-		SetTex(GET_SINGLE(ResourceManager)->GetTexture(L"Red_Brick_3"));
+		SetTex(GET_SINGLE(ResourceManager)->GetTexture(L"Red_Brick_3_Hit"));
 	}
 	else if(normal <= 0.7f)
 	{
-		SetTex(GET_SINGLE(ResourceManager)->GetTexture(L"Red_Brick_2"));
+		SetTex(GET_SINGLE(ResourceManager)->GetTexture(L"Red_Brick_2_Hit"));
+	}
+	else
+	{
+		SetTex(GET_SINGLE(ResourceManager)->GetTexture(L"Red_Brick_2_Hit"));
 	}
 
 	std::shared_ptr<Scene> curScene = GET_SINGLE(SceneManager)->GetCurScene();
@@ -75,8 +116,10 @@ void RangedEnemy::HandleHitEvent(double _prev, double _health)
 	double defaultVal = _prev - _health;
 			
 	Vec2 pos = GetPos();
-	pos.x += rand() % 60 - 30;
-	pos.y += rand() % 30 - 15;
+	pos.x += rand() % 20 - 10;
+	pos.y += rand() % 10 - 5;
 	DamageText* damageText = curScene->Spawn<DamageText>(Layer::DAMAGETEXT, pos, { 50,50 });
 	damageText->SetDamage(defaultVal);
+
+	_isHit = true;
 }
