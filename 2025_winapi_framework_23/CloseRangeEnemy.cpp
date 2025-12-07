@@ -47,7 +47,7 @@ void CloseRangeEnemy::Update()
 		dir = dir.Normalize();
 		rbCompo->AddForce(dir * 1000.f);
 
-		Vec2 offset[2] = { {15,15},{-15,-15} };
+		Vec2 offset[2] = { {50,50},{-50,-50} };
 
 		if (p.x <= offset[0].x && p.x >= offset[1].x && p.y <= offset[0].y && p.y >= offset[1].y)
 		{
