@@ -46,7 +46,7 @@ void CardManager::SpawnCards(int count)
 {
     ClearCards();
     Vec2 size = { 200, 300 };
-    float spacing = 250;
+    float spacing = 250; // distance between card centers
     float cx = WINDOW_WIDTH / 2;
     float cy = WINDOW_HEIGHT / 2;
 
@@ -57,13 +57,18 @@ void CardManager::SpawnCards(int count)
         return;
 
     size_t n = infos.size();
+    if (n == 0)
+        return; // no eligible cards
+
     float startX = cx - spacing * (static_cast<float>(n - 1) * 0.5f);
 
     for (size_t i = 0; i < n; ++i)
     {
+        const CardInfo& info = infos[i];
+
         Vec2 pos = { startX + spacing * static_cast<float>(i), cy };
         CardUI* card = scene->Spawn<CardUI>(Layer::UI, pos, size);
-        card->SetInfo(infos[i]);
+        card->SetInfo(info);
         AddCard(card);
     }
 }

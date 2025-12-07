@@ -119,7 +119,12 @@ void CardUI::OnClick()
     if (player)
     {
         if (baseCard)
-            baseCard->Apply(*player);
+        {
+            if (baseCard->CanAcquire(maxCount))
+            {
+                baseCard->Apply(*player);
+            }
+        }
     }
 
 }
@@ -139,6 +144,7 @@ void CardUI::SetInfo(const CardInfo& info)
     this->desc = info.desc;
     this->fileName = info.fileName;
     this->baseCard = info.baseCard;
+    this->maxCount = info.maxCount;
  
     itemTex = GET_SINGLE(ResourceManager)->GetTexture(info.fileName.c_str());
     backgroundTex = GET_SINGLE(ResourceManager)->GetTexture(L"CardBackground1");

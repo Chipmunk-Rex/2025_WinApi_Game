@@ -2,7 +2,9 @@
 #include "CardDB.h"
 
 #include <cstdlib>
+#include <algorithm>
 #include "LaserBallCard.h"
+#include "BaseCard.h"
 
 const std::vector<CardInfo> CardDB::cards =
 {
@@ -15,13 +17,31 @@ const std::vector<CardInfo> CardDB::cards =
 
 const std::vector<CardInfo> CardDB::GetRandomCard(int count)
 {
-  
-    std::vector<CardInfo> vec;
-    for (int i = 0; i < count; i++)
+    // Build eligible list based on maxCount and current appliedCount
+    std::vector<CardInfo> eligible;
+    eligible.reserve(cards.size());
+    for (const auto& info : cards)
     {
-        int idx = rand() % cards.size();
-        vec.push_back(cards[idx]);
+        if (info.baseCard == nullptr)
+        {
+            //eligible.push_back(info);
+        }
+        else if (info.baseCard->CanAcquire(info.maxCount))
+        {
+            eligible.push_back(info);
+        }
     }
 
-    return vec;
+    std::vector<CardInfo> result;
+    if (eligible.empty() || count <= 0)
+        return result; // none available
+
+    // Allow duplicates like before, but only from eligible set
+    for (int i = 0; i < min(count, eligible.size()); ++i)
+    {
+        int idx = rand() % eligible.size();
+        result.push_back(eligible[idx]);
+    }
+
+    return result;
 }

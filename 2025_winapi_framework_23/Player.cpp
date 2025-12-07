@@ -15,6 +15,7 @@
 #include "PlayerProjectile.h"
 #include "LaserProjectile.h"
 #include "PlayerManager.h"
+#include "CardManager.h"
 
 Player::Player()
 	: middleTexture(nullptr)
@@ -230,3 +231,10 @@ void Player::ExitCollision(Collider* _other)
 
 
 ////////////////////////////////////////////////////////////////////////////////////
+
+void Player::LevelUp()
+{
+    ++level;
+    // Show card choices on level up
+    GET_SINGLE(CardManager)->ShowCard(3);
+}
