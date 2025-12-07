@@ -56,6 +56,9 @@
     <Filter Include="Engine\03. Object\Players">
       <UniqueIdentifier>{37f3e9a5-9c34-4297-bb20-69b4c3df4358}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\03. Object\Players\Cards">
+      <UniqueIdentifier>{6e36561e-ea79-4baa-9ab3-3fb911b9f91c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="2025_WinApi_Game.h">
@@ -154,7 +157,7 @@
     <ClInclude Include="UIScene.h">
       <Filter>Engine\04. Scene</Filter>
     </ClInclude>
-    <ClInclude Include="EnchantCard.h">
+    <ClInclude Include="CardUI.h">
       <Filter>Engine\07. UI</Filter>
     </ClInclude>
     <ClInclude Include="BaseWindow.h">
@@ -201,6 +204,9 @@
     </ClInclude>
     <ClInclude Include="LaserProjectile.h" />
     <ClInclude Include="PlayerManager.h" />
+    <ClInclude Include="BaseCard.h">
+      <Filter>Engine\03. Object\Players\Cards</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="2025_winapi_framework_23.rc">
@@ -291,7 +297,7 @@
     <ClCompile Include="UIScene.cpp">
       <Filter>Engine\04. Scene</Filter>
     </ClCompile>
-    <ClCompile Include="EnchantCard.cpp">
+    <ClCompile Include="CardUI.cpp">
       <Filter>Engine\07. UI</Filter>
     </ClCompile>
     <ClCompile Include="BaseWindow.cpp">
@@ -335,5 +341,8 @@
     </ClCompile>
     <ClCompile Include="LaserProjectile.cpp" />
     <ClCompile Include="PlayerManager.cpp" />
+    <ClCompile Include="BaseCard.cpp">
+      <Filter>Engine\03. Object\Players\Cards</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

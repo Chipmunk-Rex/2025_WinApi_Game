@@ -1,11 +1,12 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "CardDB.h"
 #include "UIScene.h"
-#include "EnchantCard.h"
+#include "CardUI.h"
 #include "SceneManager.h"
 #include "InputManager.h"
 #include "MouseObject.h"
 #include "CollisionManager.h"
+#include "CardInfo.h"
 
 
 void UIScene::Init()
@@ -17,21 +18,21 @@ void UIScene::Update()
 {
     Scene::Update();
 
-    if (GET_SINGLE(InputManager)->IsDown(KEY_TYPE::A))
-        GET_SINGLE(CardManager)->RequestSpawnCards(1);
+    //if (GET_SINGLE(InputManager)->IsDown(KEY_TYPE::A))
+    //    GET_SINGLE(CardManager)->RequestSpawnCards(1);
 
-    if (GET_SINGLE(InputManager)->IsDown(KEY_TYPE::B))
-        GET_SINGLE(CardManager)->RequestSpawnCards(2);
+    //if (GET_SINGLE(InputManager)->IsDown(KEY_TYPE::B))
+    //    GET_SINGLE(CardManager)->RequestSpawnCards(2);
 
-    if (GET_SINGLE(InputManager)->IsDown(KEY_TYPE::C))
-        GET_SINGLE(CardManager)->RequestSpawnCards(3);
+    //if (GET_SINGLE(InputManager)->IsDown(KEY_TYPE::C))
+    //    GET_SINGLE(CardManager)->RequestSpawnCards(3);
 
-    if (GET_SINGLE(CardManager)->HasSpawnRequest())
-    {
-        int count = GET_SINGLE(CardManager)->GetSpawnRequest().count;
-        GET_SINGLE(CardManager)->ClearSpawnRequest();
-        SpawnCards(count); 
-    }
+    //if (GET_SINGLE(CardManager)->HasSpawnRequest())
+    //{
+    //    int count = GET_SINGLE(CardManager)->GetSpawnRequest().count;
+    //    GET_SINGLE(CardManager)->ClearSpawnRequest();
+    //    SpawnCards(count); 
+    //}
 }
 
 
@@ -47,8 +48,8 @@ void UIScene::SpawnCards(int count)
 
     auto SpawnOne = [&](Vec2 pos, CardInfo& info)
         {
-            EnchantCard* card = Spawn<EnchantCard>(Layer::UI, pos, size);
-            card->SetInfo(info.name.c_str(), info.desc.c_str(), info.fileName.c_str());
+            CardUI* card = Spawn<CardUI>(Layer::UI, pos, size);
+            card->SetInfo(info);
             GET_SINGLE(CardManager)->AddCard(card);
         };
 

@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "Scene.h"
 class EnemyTestScene : public Scene
 {
@@ -8,7 +8,6 @@ public:
 	void Render(HDC _hdc) override;
 public:
 	void EnemySpawn();
-	void SpawnCards(int count);
 private:
 	double _enemySpawnTime;
 	double _timer;

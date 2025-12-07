@@ -1,5 +1,5 @@
-#include "pch.h"
-#include "EnchantCard.h"
+﻿#include "pch.h"
+#include "CardUI.h"
 #include "InputManager.h"
 #include "ResourceManager.h"
 #include "CardManager.h"
@@ -7,7 +7,7 @@
 #include "SceneManager.h"
 #include "LaserProjectile.h"
 
-EnchantCard::EnchantCard()
+CardUI::CardUI()
 {
     isHovered = false;
     wasHovered = false;
@@ -21,11 +21,11 @@ EnchantCard::EnchantCard()
     
 }
 
-EnchantCard::~EnchantCard()
+CardUI::~CardUI()
 {
 }
 
-void EnchantCard::Update()
+void CardUI::Update()
 {
     Vec2 mouse = GET_SINGLE(InputManager)->GetMousePos();
     Vec2 pos = GetPos();
@@ -67,7 +67,7 @@ void EnchantCard::Update()
     }
 }
 
-void EnchantCard::Render(HDC _hdc)
+void CardUI::Render(HDC _hdc)
 {
     Vec2 pos = GetPos();
     Vec2 size = GetSize();
@@ -108,7 +108,7 @@ void EnchantCard::Render(HDC _hdc)
     DrawText(_hdc, desc.c_str(), -1, &descRc, DT_CENTER | DT_BOTTOM | DT_WORDBREAK);
 }
 
-void EnchantCard::OnClick()
+void CardUI::OnClick()
 {
     targetScale = 0.f;
 
@@ -124,7 +124,7 @@ void EnchantCard::OnClick()
 
 }
 
-void EnchantCard::DisappearCard()
+void CardUI::DisappearCard()
 {
     targetScale = 0.f;
 
@@ -133,12 +133,12 @@ void EnchantCard::DisappearCard()
     waitingDestroy = true;
 }
 
-void EnchantCard::SetInfo(const wchar_t* name, const wchar_t* desc, const wchar_t* fileName)
+void CardUI::SetInfo(const CardInfo& info)
 {
-    this->name = name;
-    this->desc = desc;
-    this->fileName = fileName;
+    this->name = info.name;
+    this->desc = info.desc;
+    this->fileName = info.fileName;
  
-    itemTex = GET_SINGLE(ResourceManager)->GetTexture(fileName);
+    itemTex = GET_SINGLE(ResourceManager)->GetTexture(info.fileName.c_str());
     backgroundTex = GET_SINGLE(ResourceManager)->GetTexture(L"CardBackground1");
 }

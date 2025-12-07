@@ -35,6 +35,7 @@ private:
 	float fireCooldown;
 	float fireTimer = 0;
 	std::queue<PlayerProjectile*> projectiles;
+    int currentExp = 0;
 	//vector<PlayerProjectile*> projectiles;
 };
 

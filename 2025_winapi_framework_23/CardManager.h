@@ -1,34 +1,23 @@
-#pragma once
+﻿#pragma once
 #include <vector>
 
-class EnchantCard;
+class CardUI;
 
 class CardManager
 {
     DECLARE_SINGLE(CardManager);
 
 public:
-    void AddCard(EnchantCard* card);
+    void AddCard(CardUI* card);
     void ClearCards();
     void DelayClearCards(float delay);
     void ClearAllCards();
-
-    void RequestSpawnCards(int count);
-    bool HasSpawnRequest() const { return spawnRequest.count > 0; }
-    void ClearSpawnRequest() { spawnRequest.count = 0; }
-    auto GetSpawnRequest() const { return spawnRequest; }
-
     void Update();
+    void SpawnCards(int count);
 
 private:
-    struct CardSpawnRequest
-    {
-        int count = 0;
-    };
-
 private:
-    std::vector<EnchantCard*> m_cards;
-    CardSpawnRequest spawnRequest;
+    std::vector<CardUI*> m_cards;
 
     float clearDelay = 0.f;
     bool waitingClear = false;

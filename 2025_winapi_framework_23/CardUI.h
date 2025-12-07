@@ -1,13 +1,14 @@
-#pragma once
+﻿#pragma once
 #include "Object.h"
 #include <string>
 #include "Texture.h"
+#include "CardInfo.h"
 
-class EnchantCard : public Object
+class CardUI : public Object
 {
 public:
-    EnchantCard();
-    ~EnchantCard();
+    CardUI();
+    ~CardUI();
 
 public:
     void Update() override;
@@ -15,7 +16,7 @@ public:
 
     void OnClick();
     void DisappearCard();
-    void SetInfo(const wchar_t* name, const wchar_t* desc, const wchar_t* fileName);
+    void SetInfo(const CardInfo& info);
 
 private:
     std::wstring name;
