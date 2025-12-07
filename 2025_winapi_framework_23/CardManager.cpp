@@ -1,8 +1,11 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "CardManager.h"
-#include "EnchantCard.h"
+#include "CardUI.h"
+#include "CardDB.h"
+#include "SceneManager.h"
+#include "Scene.h"
 
-void CardManager::AddCard(EnchantCard* card)
+void CardManager::AddCard(CardUI* card)
 {
     m_cards.push_back(card);
 }
@@ -26,11 +29,6 @@ void CardManager::ClearAllCards()
         c->DisappearCard();
 }
 
-void CardManager::RequestSpawnCards(int count)
-{
-    spawnRequest.count = count;
-}
-
 void CardManager::Update()
 {
     if (waitingClear)
@@ -41,5 +39,31 @@ void CardManager::Update()
             waitingClear = false;
             ClearCards();
         }
+    }
+}
+
+void CardManager::SpawnCards(int count)
+{
+    ClearCards();
+    Vec2 size = { 200, 300 };
+    float spacing = 250;
+    float cx = WINDOW_WIDTH / 2;
+    float cy = WINDOW_HEIGHT / 2;
+
+    vector<CardInfo> infos = CardDB::GetRandomCard(count);
+
+    auto scene = GET_SINGLE(SceneManager)->GetCurScene();
+    if (!scene)
+        return;
+
+    size_t n = infos.size();
+    float startX = cx - spacing * (static_cast<float>(n - 1) * 0.5f);
+
+    for (size_t i = 0; i < n; ++i)
+    {
+        Vec2 pos = { startX + spacing * static_cast<float>(i), cy };
+        CardUI* card = scene->Spawn<CardUI>(Layer::UI, pos, size);
+        card->SetInfo(infos[i]);
+        AddCard(card);
     }
 }

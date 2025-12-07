@@ -17,20 +17,23 @@
 #include "PlayerManager.h"
 
 Player::Player()
-	: m_pTex(nullptr)
-	, m_lineTex(nullptr)
+	: middleTexture(nullptr)
+	, m_turretTex(nullptr)
 {
-	//m_pTex = new Texture;
-	//wstring path = GET_SINGLE(ResourceManager)->GetResPath();
-	//path += L"Texture\\planem.bmp";
-	//m_pTex->Load(path); 
-	m_pTex = GET_SINGLE(ResourceManager)->GetTexture(L"Jiwoo");
+	leftTexture = GET_SINGLE(ResourceManager)->GetTexture(L"Player_Left");
+	middleTexture = GET_SINGLE(ResourceManager)->GetTexture(L"Player_Middle");
+	rightTexture = GET_SINGLE(ResourceManager)->GetTexture(L"Player_Right");
+	m_turretTex = GET_SINGLE(ResourceManager)->GetTexture(L"Player_Turret");
+	m_turretMaskTex = GET_SINGLE(ResourceManager)->GetTexture(L"Player_Turret_Mask");
+
+	currentTexture = middleTexture;
+
 	Collider* collider = AddComponent<Collider>();
 	collider->SetName(L"Player");
 	collider->SetSize({ 50.f,50.f });
-	auto* anim = AddComponent<Animator>();
-	anim->CreateAnimation(L"JiwooFront", m_pTex, { 0.f, 150.f }, { 50.f,50.f }, { 50.f,0.f }, 5, 0.1f);
-	anim->Play(L"JiwooFront");
+	//auto* anim = AddComponent<Animator>();
+	//anim->CreateAnimation(L"JiwooFront", m_pTex, { 0.f, 150.f }, { 50.f,50.f }, { 50.f,0.f }, 5, 0.1f);
+	//anim->Play(L"JiwooFront");
 	rb = AddComponent<Rigidbody>();
 	rb->SetUseGravity(false);
 	rb->SetBounciness(0.f);
@@ -45,9 +48,6 @@ Player::Player()
 
 	PlayerProjectile* proj = GET_SINGLE(SceneManager)->GetCurScene()->Spawn<PlayerProjectile>(Layer::PROJECTILE, { 0,0 }, { 50,50 });
 	AddProjectile(proj);
-	cout << "Player Created\n";
-	cout << projectiles.size() << "\n";
-	cout << CanShoot() << "\n";
 
 	GET_SINGLE(PlayerManager)->SetPlayer(this);
 }
@@ -61,29 +61,28 @@ void Player::Update()
 
 	//cout << CanShoot() << "\n";
 	Vec2 dir = {};
-	if (GET_KEY(KEY_TYPE::A)) dir.x -= 1.f;
-	if (GET_KEY(KEY_TYPE::D)) dir.x += 1.f;
+	if (GET_KEY(KEY_TYPE::A))
+		dir.x -= 1.f;
+	if (GET_KEY(KEY_TYPE::D)) 
+		dir.x += 1.f;
 	if (GET_KEY(KEY_TYPE::W)) dir.y -= 1.f;
 	if (GET_KEY(KEY_TYPE::S)) dir.y += 1.f;
 
-	//Translate({ dir.x * 300.f * fDT, dir.y * 300.f * fDT });
-	rb->SetVelocity(dir.Normalize() * 300.f);
-	// 크기변경
-	float scaleDelta = 0.f;
-	float scaleSpeed = 1.f;
-	if (GET_KEY(KEY_TYPE::Q))
-		scaleDelta += scaleSpeed * fDT;
-	if (GET_KEY(KEY_TYPE::E))
-		scaleDelta -= scaleSpeed * fDT;
 
-	float factor = 1.f + scaleDelta;
-	Scale({ factor, factor });
+	if(dir.x < 0)
+		currentTexture = leftTexture;
+	else if(0 < dir.x)
+		currentTexture = rightTexture;
+	else
+		currentTexture = middleTexture;
+
+	rb->SetVelocity(dir.Normalize() * 300.f);
 	if (CanShoot())
 	{
 		if (GET_KEYDOWN(KEY_TYPE::LBUTTON) || GET_KEY(KEY_TYPE::LBUTTON))
 			ShootProjectile();
 	}
-	else if(fireTimer < fireCooldown)
+	else if (fireTimer < fireCooldown)
 	{
 		fireTimer += fDT;
 	}
@@ -129,8 +128,8 @@ void Player::Render(HDC _hdc)
 	 //                , size.x, size.y);
 	///m_pTex->getwidth();
 
-	LONG width = m_pTex->GetWidth();
-	LONG height = m_pTex->GetHeight();
+	LONG width = currentTexture->GetWidth();
+	LONG height = currentTexture->GetHeight();
 
 	//// blt 종류
 	// bitblt >>>>>> stretch >>> transparenblt
@@ -145,13 +144,13 @@ void Player::Render(HDC _hdc)
 	//	,0,0, SRCCOPY);
 
 	//// 2. transparentblt - 색깔 뺄때
-	//::TransparentBlt(_hdc
-	//	, (int)(pos.x - size.x / 2)
-	//	, (int)(pos.y - size.y / 2)
-	//	, size.x
-	//	, size.y
-	//	, m_pTex->GetTextureDC()
-	//	, 0, 0, width,height, RGB(255,0,255));
+	::TransparentBlt(_hdc
+		, (int)(pos.x - size.x / 2)
+		, (int)(pos.y - size.y / 2)
+		, size.x
+		, size.y
+		, currentTexture->GetTextureDC()
+		, 0, 0, width, height, RGB(255, 0, 255));
 
 	ComponentRender(_hdc);
 
@@ -170,23 +169,41 @@ void Player::Render(HDC _hdc)
 	// 5.  - 회전
 	//::PlgBlt();
 
-	const float lineDistance = 100;
-	const float lineWidth = 10;
+	const float lineDistance = 30;
+	const float lineWidth = 30;
 	Vec2 shootDir = this->GetShootDir();
-
 	Vec2 leftBottom = GetPos() + shootDir.Rotate(-90) * lineWidth;
-	Vec2 rightBottom = GetPos() + shootDir.Rotate(90) * lineWidth;
+	//Vec2 rightBottom = GetPos() + shootDir.Rotate(90) * lineWidth;
 	Vec2 leftTop = GetPos() + shootDir * lineDistance + shootDir.Rotate(-90) * lineWidth;
 	Vec2 rightTop = GetPos() + shootDir * lineDistance + shootDir.Rotate(90) * lineWidth;
 
-	POINT arr[4] =
+	POINT plg[3] =
 	{
-		(POINT)leftBottom,
-		(POINT)rightBottom,
+		(POINT)leftTop,
 		(POINT)rightTop,
-		(POINT)leftTop
+		(POINT)leftBottom
 	};
-	Polygon(_hdc, arr, 4);
+	int lineTexW = (int)m_turretTex->GetWidth();
+	int lineTexH = (int)m_turretTex->GetHeight();
+	::PlgBlt(
+		_hdc,
+		plg,
+		m_turretTex->GetTextureDC(),
+		0, 0,
+		lineTexW, lineTexH,
+		m_turretMaskTex->GetHBitmap(),
+		0, 0);
+	//else
+	//{
+	//	POINT arr[4] =
+	//	{
+	//		(POINT)leftBottom,
+	//		(POINT)rightBottom,
+	//		(POINT)rightTop,
+	//		(POINT)leftTop
+	//	};
+	//	Polygon(_hdc, arr, 4);
+	//}
 
 	//LaycastHit hit;
 	//GET_SINGLE(CollisionManager)->BoxCast(GetPos(), GetSize(), GetShootDir(), 10000, Layer::DEFAULT | Layer::PROJECTILE, hit);

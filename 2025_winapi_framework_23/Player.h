@@ -22,16 +22,20 @@ private:
     Vec2 GetShootDir();
 public:
     bool CanShoot() const { return fireTimer >= fireCooldown && projectiles.size() != 0;}
-    void AddProjectile(PlayerProjectile* _proj) { projectiles.push(_proj); _proj->SetActive(false); 
-    cout << "Player Col with Projectile\n";
-    }
+    void AddProjectile(PlayerProjectile* _proj) { projectiles.push(_proj); _proj->SetActive(false); }
 private:
-    Texture* m_pTex;
-    Texture* m_lineTex;
+    Texture* leftTexture;
+    Texture* middleTexture;
+    Texture* rightTexture;
+    Texture* m_turretTex;
+    Texture* m_turretMaskTex;
+private:
+	Texture* currentTexture;
     Rigidbody* rb;
 	float fireCooldown;
 	float fireTimer = 0;
 	std::queue<PlayerProjectile*> projectiles;
+    int currentExp = 0;
 	//vector<PlayerProjectile*> projectiles;
 };
 
