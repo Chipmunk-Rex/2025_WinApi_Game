@@ -207,10 +207,12 @@
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="SceneSelectWindow.h" />
+    <ClInclude Include="StartScene.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="TestScene.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TimeManager.h" />
+    <ClInclude Include="UIManager.h" />
     <ClInclude Include="UIScene.h" />
     <ClInclude Include="Vec2.h" />
   </ItemGroup>
@@ -257,9 +259,11 @@
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="SceneSelectWindow.cpp" />
+    <ClCompile Include="StartScene.cpp" />
     <ClCompile Include="TestScene.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TimeManager.cpp" />
+    <ClCompile Include="UIManager.cpp" />
     <ClCompile Include="UIScene.cpp" />
   </ItemGroup>
   <ItemGroup>

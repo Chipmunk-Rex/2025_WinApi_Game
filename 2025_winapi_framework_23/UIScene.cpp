@@ -18,20 +18,13 @@ void UIScene::Update()
     Scene::Update();
 
     if (GET_SINGLE(InputManager)->IsDown(KEY_TYPE::A))
-        GET_SINGLE(CardManager)->RequestSpawnCards(1);
+        SpawnCards(1);
 
     if (GET_SINGLE(InputManager)->IsDown(KEY_TYPE::B))
-        GET_SINGLE(CardManager)->RequestSpawnCards(2);
+        SpawnCards(2);
 
     if (GET_SINGLE(InputManager)->IsDown(KEY_TYPE::C))
-        GET_SINGLE(CardManager)->RequestSpawnCards(3);
-
-    if (GET_SINGLE(CardManager)->HasSpawnRequest())
-    {
-        int count = GET_SINGLE(CardManager)->GetSpawnRequest().count;
-        GET_SINGLE(CardManager)->ClearSpawnRequest();
-        SpawnCards(count); 
-    }
+        SpawnCards(3);
 }
 
 
