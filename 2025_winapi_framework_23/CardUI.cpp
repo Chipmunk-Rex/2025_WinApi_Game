@@ -118,9 +118,9 @@ void CardUI::OnClick()
 	Player* player = GET_SINGLE(PlayerManager)->GetPlayer();
     if (player)
     {
-        LaserProjectile* laser = GET_SINGLE(SceneManager)->GetCurScene()->Spawn<LaserProjectile>(Layer::PROJECTILE, {0,0},{0,50});
-		player->AddProjectile(laser);
-	}
+        if (baseCard)
+            baseCard->Apply(*player);
+    }
 
 }
 
@@ -138,6 +138,7 @@ void CardUI::SetInfo(const CardInfo& info)
     this->name = info.name;
     this->desc = info.desc;
     this->fileName = info.fileName;
+    this->baseCard = info.baseCard;
  
     itemTex = GET_SINGLE(ResourceManager)->GetTexture(info.fileName.c_str());
     backgroundTex = GET_SINGLE(ResourceManager)->GetTexture(L"CardBackground1");

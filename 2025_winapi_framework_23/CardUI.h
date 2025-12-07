@@ -3,6 +3,7 @@
 #include <string>
 #include "Texture.h"
 #include "CardInfo.h"
+#include "BaseCard.h"
 
 class CardUI : public Object
 {
@@ -22,6 +23,7 @@ private:
     std::wstring name;
     std::wstring desc;
     std::wstring fileName;
+    BaseCard* baseCard = nullptr;
 
     bool isHovered;
     bool wasHovered;

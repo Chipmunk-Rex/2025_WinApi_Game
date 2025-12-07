@@ -52,33 +52,18 @@ void CardManager::SpawnCards(int count)
 
     vector<CardInfo> infos = CardDB::GetRandomCard(count);
 
-    auto SpawnOne = [&](Vec2 pos, CardInfo& info)
-    {
-        // Use current scene to spawn UI
-        auto scene = GET_SINGLE(SceneManager)->GetCurScene();
-        if (!scene)
-            return;
-        CardUI* card = scene->Spawn<CardUI>(Layer::UI, pos, size);
-        card->SetInfo(info);
-        AddCard(card);
-    };
+    auto scene = GET_SINGLE(SceneManager)->GetCurScene();
+    if (!scene)
+        return;
 
-    if (count == 1)
+    size_t n = infos.size();
+    float startX = cx - spacing * (static_cast<float>(n - 1) * 0.5f);
+
+    for (size_t i = 0; i < n; ++i)
     {
-        SpawnOne({ cx, cy }, infos[0]);
-        return;
-    }
-    if (count == 2)
-    {
-        SpawnOne({ cx - spacing / 2, cy }, infos[0]);
-        SpawnOne({ cx + spacing / 2, cy }, infos[1]);
-        return;
-    }
-    if (count == 3)
-    {
-        SpawnOne({ cx - spacing, cy }, infos[0]);
-        SpawnOne({ cx, cy }, infos[1]);
-        SpawnOne({ cx + spacing, cy }, infos[2]);
-        return;
+        Vec2 pos = { startX + spacing * static_cast<float>(i), cy };
+        CardUI* card = scene->Spawn<CardUI>(Layer::UI, pos, size);
+        card->SetInfo(infos[i]);
+        AddCard(card);
     }
 }

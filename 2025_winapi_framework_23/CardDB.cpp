@@ -1,14 +1,15 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "CardDB.h"
 
 #include <cstdlib>
+#include "LaserBallCard.h"
 
 const std::vector<CardInfo> CardDB::cards =
 {
-    { L"°ø Áõ°¡", L"¹ß»çµÇ´Â °ø °³¼ö°¡\nÇÏ³ª Áõ°¡ÇÕ´Ï´Ù", L"Plane" },
-    { L"Ã¼·Â Áõ°¡", L"ÃÖ´ë Ã¼·ÂÀÌ 10%¸¸Å­\nÁõ°¡ÇÕ´Ï´Ù", L"Plane" },
-    { L"¼Óµµ Áõ°¡", L"ÀÌµ¿ ¼Óµµ°¡ 20%¸¸Å­\nÁõ°¡ÇÕ´Ï´Ù." , L"Plane"},
-    { L"È¸º¹", L"Ã¼·ÂÀ» ÀüºÎ È¸º¹ÇÕ´Ï´Ù.", L"Plane" },  
+    { L"ê³µ ì¦ê°€", L"ë°œì‚¬ë˜ëŠ” ê³µ ê°œìˆ˜ê°€\ní•˜ë‚˜ ì¦ê°€í•©ë‹ˆë‹¤", L"Plane", new LaserBallCard(), 1 },
+    { L"ì²´ë ¥ ì¦ê°€", L"ìµœëŒ€ ì²´ë ¥ì´ 10%ë§Œí¼\nì¦ê°€í•©ë‹ˆë‹¤", L"Plane", nullptr, 1 },
+    { L"ì†ë„ ì¦ê°€", L"ì´ë™ ì†ë„ê°€ 20%ë§Œí¼\nì¦ê°€í•©ë‹ˆë‹¤." , L"Plane", nullptr, 1},
+    { L"íšŒë³µ", L"ì²´ë ¥ì„ ì „ë¶€ íšŒë³µí•©ë‹ˆë‹¤.", L"Plane", nullptr, 1 },  
    
 };
 

@@ -192,6 +192,7 @@
     <ClInclude Include="GDISelector.h" />
     <ClInclude Include="Health.h" />
     <ClInclude Include="InputManager.h" />
+    <ClInclude Include="LaserBallCard.h" />
     <ClInclude Include="LaserProjectile.h" />
     <ClInclude Include="MouseObject.h" />
     <ClInclude Include="Object.h" />
