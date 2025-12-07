@@ -14,6 +14,7 @@ public:
     void ClearAllCards();
     void Update();
     void SpawnCards(int count);
+    void ShowCard(int count) { SpawnCards(count); }
 
 private:
 private:

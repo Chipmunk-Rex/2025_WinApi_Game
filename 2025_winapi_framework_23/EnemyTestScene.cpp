@@ -15,6 +15,7 @@
 #include "CardUI.h"
 #include "CardDB.h"
 
+
 void EnemyTestScene::Init()
 {
 	_enemySpawnTime = 2.5f;
@@ -75,7 +76,6 @@ void EnemyTestScene::Update()
 
 	if (GET_SINGLE(InputManager)->IsDown(KEY_TYPE::NUM_3))
 		GET_SINGLE(CardManager)->SpawnCards(3);
-
 }
 
 void EnemyTestScene::Render(HDC _hdc)

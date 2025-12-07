@@ -24,6 +24,7 @@ private:
     std::wstring desc;
     std::wstring fileName;
     BaseCard* baseCard = nullptr;
+    int maxCount = 1;
 
     bool isHovered;
     bool wasHovered;
