@@ -8,9 +8,6 @@ LaserProjectile::LaserProjectile() : PlayerProjectile()
 {
 	SetTexture(GET_SINGLE(ResourceManager)->GetTexture(L"Projectile_Saturn"));
 	SetSize({ 80.f, 80.f });
-	cout << "ㅁ" << endl;
-
-	cout << GetSize().x << ' ' << GetSize().y << endl;
 }
 
 LaserProjectile::~LaserProjectile()
