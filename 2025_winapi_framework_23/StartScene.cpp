@@ -7,11 +7,7 @@
 void StartScene::Init()
 {
     Object* btn = Spawn<Object>(Layer::UI, { 640, 360 }, { 200, 80 });
-    Button* b = btn->AddComponent<Button>();
 
-    b->OnClick = [this]() {
-        GET_SINGLE(SceneManager)->LoadScene(L"GameScene");
-        };
 }
 
 void StartScene::Update()
