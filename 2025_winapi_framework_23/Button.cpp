@@ -20,6 +20,7 @@ void Button::Init()
 
 void Button::LateUpdate()
 {
+   
     pos = GetOwner()->GetPos();
     size = GetOwner()->GetSize();
 
@@ -44,9 +45,19 @@ void Button::LateUpdate()
     }
 
     if (inside && GET_SINGLE(InputManager)->IsDown(KEY_TYPE::LBUTTON))
-        OnClick();
+    {
+        OnClick();               
+        GetOwner()->OnClick();   
+    }
+
 
     wasHovered = inside;
+}
+
+void Button::Render(HDC _hdc)
+{
+ 
+
 }
 
 void Button::OnHoverEnter() {}

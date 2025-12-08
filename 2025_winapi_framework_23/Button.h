@@ -7,13 +7,14 @@ class Button : public Component
 public:
     Button();
     virtual ~Button();
-
-    virtual void Init() override;
-    virtual void LateUpdate() override;
-
+    
     virtual void OnHoverEnter();
     virtual void OnHoverExit();
     virtual void OnClick();
+    // Component을(를) 통해 상속됨
+    void Init() override;
+    void LateUpdate() override;
+    void Render(HDC _hdc) override;
 
 private:
     bool isHovered;

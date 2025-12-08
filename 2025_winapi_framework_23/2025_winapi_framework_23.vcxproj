@@ -194,6 +194,7 @@
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="LaserBallCard.h" />
     <ClInclude Include="LaserProjectile.h" />
+    <ClInclude Include="LeaveButton.h" />
     <ClInclude Include="MouseObject.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="pch.h" />
@@ -209,6 +210,7 @@
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="SceneSelectWindow.h" />
+    <ClInclude Include="StartButton.h" />
     <ClInclude Include="StartScene.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="TestScene.h" />
@@ -243,6 +245,7 @@
     <ClCompile Include="Health.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="LaserProjectile.cpp" />
+    <ClCompile Include="LeaveButton.cpp" />
     <ClCompile Include="main.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
@@ -262,6 +265,7 @@
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="SceneSelectWindow.cpp" />
+    <ClCompile Include="StartButton.cpp" />
     <ClCompile Include="StartScene.cpp" />
     <ClCompile Include="TestScene.cpp" />
     <ClCompile Include="Texture.cpp" />
