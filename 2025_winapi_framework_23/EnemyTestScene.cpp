@@ -14,6 +14,7 @@
 #include "CardManager.h"
 #include "CardUI.h"
 #include "CardDB.h"
+#include "PlayerInfoUI.h"
 
 
 void EnemyTestScene::Init()
@@ -29,6 +30,7 @@ void EnemyTestScene::Init()
 	Spawn<Floor>(Layer::DEFAULT, { WINDOW_WIDTH / 2, WINDOW_HEIGHT }, { 1000.f, 50.f });
 	Spawn<Floor>(Layer::DEFAULT, { 0, WINDOW_HEIGHT / 2}, { 50.f, 1000.f })->GetComponent<Collider>()->SetSize({ 50.f, 1000.f });
 	Spawn<Floor>(Layer::DEFAULT, { WINDOW_WIDTH,  WINDOW_HEIGHT / 2 }, { 50.f, 1000.f })->GetComponent<Collider>()->SetSize({ 50.f, 1000.f });
+	Spawn<PlayerInfoUI>(Layer::UI, { WINDOW_WIDTH / 2,  0 }, { 1000.f, 50.f });
 
 	GET_SINGLE(CollisionManager)->CheckLayer(Layer::PROJECTILE, Layer::ENEMY);
 	GET_SINGLE(CollisionManager)->CheckLayer(Layer::PROJECTILE, Layer::ENEMYPROJECTILE);

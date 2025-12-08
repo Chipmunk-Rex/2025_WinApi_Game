@@ -83,10 +83,12 @@ void ResourceManager::RegisterGDI()
 	m_Pens[(UINT)PenType::CARDTEXT] = ::CreatePen(PS_SOLID, 1, RGB(227, 253, 255));
 
 	// ��Ʈ ����
-	RegisterFont(FontType::TITLE, L"�����ձ۾� �Ͻ��׸���", 60);
-	RegisterFont(FontType::UI, L"�����ձ۾� �Ͻ��׸���", 0);
-	RegisterFont(FontType::CARDDESC, L"Galmuri11", 15);
-	RegisterFont(FontType::CARDTITLE, L"Galmuri11", 30);
+	RegisterFont(FontType::TITLE, L"나눔손글씨 암스테르담", 60);
+	RegisterFont(FontType::UI, L"나눔손글씨 암스테르담", 0);
+	RegisterFont(FontType::CARDDESC, L"Galmuri11 Regular", 15);
+	RegisterFont(FontType::CARDTITLE, L"Galmuri11 Regular", 30);
+	RegisterFont(FontType::CARDTITLE, L"Galmuri11 Regular", 40);
+
 }
 void ResourceManager::ReleaseGDI()
 {
