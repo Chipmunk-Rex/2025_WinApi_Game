@@ -68,6 +68,10 @@ void ResourceManager::RegisterTexture()
 	LoadTexture(L"Player_Right", L"Texture\\Player\\Player_Right.bmp");
 	LoadTexture(L"Player_Turret", L"Texture\\Player\\Turret.bmp");
 	LoadTexture(L"Player_Turret_Mask", L"Texture\\Player\\Turret_Mask.bmp");
+	LoadTexture(L"Projectile_Earch", L"Texture\\Planet\\Earth.bmp");
+	LoadTexture(L"Projectile_Moon", L"Texture\\Planet\\Moon.bmp");
+	LoadTexture(L"Projectile_Saturn", L"Texture\\Planet\\Saturn.bmp");
+	LoadTexture(L"Background_Space", L"Texture\\Background\\Space.bmp");
 }
 void ResourceManager::RegisterGDI()
 {

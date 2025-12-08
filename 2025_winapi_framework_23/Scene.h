@@ -56,6 +56,14 @@ public:
 		AddObject(obj, _type);
 		return obj;
 	}
+	template<typename T>
+	T* Spawn(Layer _type)
+	{
+		static_assert(std::is_base_of<Object, T>::value, "Object로부터 상속받아야 함");
+		T* obj = new T;
+		AddObject(obj, _type);
+		return obj;
+	}
 	void RequestDestroy(Object* obj); // 지연삭제
 	void RequestSpawn(Object* obj, Layer _type); // 지연생성
 	void FlushEvent();

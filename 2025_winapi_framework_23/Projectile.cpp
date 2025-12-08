@@ -6,8 +6,8 @@
 #include "Rigidbody.h"
 Projectile::Projectile()
 {
-	m_pTex = GET_SINGLE(ResourceManager)->GetTexture(L"Ball");
-	auto* collider = AddComponent<Collider>();
+	SetTexture(GET_SINGLE(ResourceManager)->GetTexture(L"Projectile_Moon"));
+	collider = AddComponent<Collider>();
 	collider->SetSize({ 20.f,20.f });
 	collider->SetName(L"PlayerBullet");
 	collider->SetTrigger(true);
@@ -41,39 +41,10 @@ void Projectile::Render(HDC _hdc)
 		, 0, 0, width, height, RGB(255, 0, 255));
 
 	ComponentRender(_hdc);
-
 }
 
 void Projectile::EnterCollision(Collider* _other)
 {
-	//if (_other->GetName() == L"EnemyProjectile")
-	//	return;
-
-	//Object* owner = _other->GetOwner();
-	//float distanceX = abs((owner->GetPos().x - GetPos().x));
-	//float distanceY = abs((owner->GetPos().y - GetPos().y));
-
-	//float deltaX = distanceX - (_other->GetSize().x / 2.f);
-	//float deltaY = distanceY - (_other->GetSize().y / 2.f);
-
-	//Vec2 velocity = rigidbody->GetVelocity();
-
-	//cout << velocity.x << ' ' << velocity.y << endl;
-	//cout << deltaX << ' ' << deltaY << endl;
-	//cout << owner->GetSize().x << ' ' << owner->GetSize().y << endl;
-
-	//if (deltaX > deltaY) 
-	//{
-	//	velocity = Vec2(-velocity.x, velocity.y);
-	//}
-	//else
-	//{
-	//	velocity = Vec2(velocity.x, -velocity.y);
-	//}
-	//rigidbody->SetVelocity(velocity);
-
-	//cout << velocity.x << ' ' << velocity.y;
-
 }
 
 void Projectile::StayCollision(Collider* _other)

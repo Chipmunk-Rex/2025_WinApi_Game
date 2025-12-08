@@ -8,5 +8,7 @@ public:
 	~LaserProjectile() override;
 public:
 	void EnterCollision(Collider* _other) override;
+public:
+	void Shoot(Vec2 _dir) override;
 };
 

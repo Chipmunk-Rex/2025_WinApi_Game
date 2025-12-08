@@ -50,11 +50,12 @@ private:
 private:
 	Texture* currentTexture;
     Rigidbody* rb;
+private:
+	std::queue<PlayerProjectile*> projectiles;
 	float fireCooldown;
 	float fireTimer = 0;
-	std::queue<PlayerProjectile*> projectiles;
-
-    // Progression
+    float projectileScale = 1;
+private:
     int level = 1;
     int exp = 0;
     int expToLevel = 100;

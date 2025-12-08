@@ -22,7 +22,7 @@ public:
 		m_pos.x += _delta.x;
 		m_pos.y += _delta.y;
 	}
-	void Scale(Vec2 _s)
+	virtual void Scale(Vec2 _s)
 	{
 		if (_s.x <= 0.f || _s.y <= 0.f)
 			return;
@@ -31,7 +31,7 @@ public:
 	}
 public:
 	void SetPos(Vec2 _pos) { m_pos = _pos; }
-	void SetSize(Vec2 _size) { m_size = _size; }
+	virtual void SetSize(Vec2 _size) { m_size = _size; }
 	const Vec2& GetPos() const { return m_pos; }
 	const Vec2& GetSize()const { return m_size; }
 	bool GetIsDead() const { return m_isDie; }
