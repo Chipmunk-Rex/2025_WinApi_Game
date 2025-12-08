@@ -8,6 +8,7 @@
 #include "Core.h"
 #include "UIScene.h"
 #include "EnemyTestScene.h"
+#include "StartScene.h"
 void SceneManager::Init()
 {
 	m_curScene = nullptr;
@@ -17,6 +18,8 @@ void SceneManager::Init()
 	RegisterScene(L"DevScene", std::make_shared<DevScene>());
 	RegisterScene(L"UIScene", std::make_shared<UIScene>());
 	RegisterScene(L"EnemyTestScene", std::make_shared<EnemyTestScene>());
+	RegisterScene(L"StartScene", std::make_shared<StartScene>());
+
 
 	SceneSelectWindow sceneSelectWindow;
 	sceneSelectWindow.Run(GET_SINGLE(Core)->GetHinstance(), SW_SHOWDEFAULT);

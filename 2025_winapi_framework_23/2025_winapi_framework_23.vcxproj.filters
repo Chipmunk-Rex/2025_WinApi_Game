@@ -208,6 +208,10 @@
       <Filter>Engine\03. Object\Players\Cards</Filter>
     </ClInclude>
     <ClInclude Include="LaserBallCard.h" />
+    <ClInclude Include="StartButton.h" />
+    <ClInclude Include="StartScene.h" />
+    <ClInclude Include="UIManager.h" />
+    <ClInclude Include="LeaveButton.h" />
     <ClInclude Include="Background.h" />
   </ItemGroup>
   <ItemGroup>
@@ -347,5 +351,9 @@
       <Filter>Engine\03. Object\Players\Cards</Filter>
     </ClCompile>
     <ClCompile Include="Background.cpp" />
+    <ClCompile Include="StartButton.cpp" />
+    <ClCompile Include="StartScene.cpp" />
+    <ClCompile Include="UIManager.cpp" />
+    <ClCompile Include="LeaveButton.cpp" />
   </ItemGroup>
 </Project>

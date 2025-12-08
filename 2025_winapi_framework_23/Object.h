@@ -15,6 +15,7 @@ public:
 	virtual void EnterCollision(Collider* _other) {}
 	virtual void StayCollision(Collider* _other) {}
 	virtual void ExitCollision(Collider* _other) {}
+	virtual void OnClick() {}
 public:
 	// public 헬퍼
 	void Translate(Vec2 _delta)
