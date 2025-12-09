@@ -205,7 +205,6 @@
     <ClInclude Include="CardManager.h">
       <Filter>Engine\02. Manager</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerManager.h" />
     <ClInclude Include="BaseCard.h">
       <Filter>Engine\03. Object\Players\Cards</Filter>
     </ClInclude>
@@ -225,7 +224,19 @@
     <ClInclude Include="MoveSpeedCard.h">
       <Filter>Engine\03. Object\Players\Cards</Filter>
     </ClInclude>
-    <ClInclude Include="RingEffect.h" />
+    <ClInclude Include="PlayerInfoUI.h" />
+    <ClInclude Include="SlowProjectile.h">
+      <Filter>Engine\03. Object\Players\Projectiles</Filter>
+    </ClInclude>
+    <ClInclude Include="RingEffect.h">
+      <Filter>Engine\03. Object</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerManager.h">
+      <Filter>Engine\03. Object\Players\Cards</Filter>
+    </ClInclude>
+    <ClInclude Include="SlowBallCard.h">
+      <Filter>Engine\03. Object\Players\Cards</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="2025_winapi_framework_23.rc">
@@ -358,7 +369,6 @@
     <ClCompile Include="CardManager.cpp">
       <Filter>Engine\02. Manager</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerManager.cpp" />
     <ClCompile Include="BaseCard.cpp">
       <Filter>Engine\03. Object\Players\Cards</Filter>
     </ClCompile>
@@ -371,6 +381,13 @@
     </ClCompile>
     <ClCompile Include="Background.cpp">
       <Filter>Engine\03. Object</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerInfoUI.cpp" />
+    <ClCompile Include="SlowProjectile.cpp">
+      <Filter>Engine\03. Object\Players\Projectiles</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerManager.cpp">
+      <Filter>Engine\02. Manager</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
