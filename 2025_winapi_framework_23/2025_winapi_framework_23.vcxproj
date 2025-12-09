@@ -219,6 +219,7 @@
     <ClInclude Include="SlowProjectile.h" />
     <ClInclude Include="StartButton.h" />
     <ClInclude Include="StartScene.h" />
+    <ClInclude Include="TankEnemy.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="TestScene.h" />
     <ClInclude Include="Texture.h" />
@@ -277,6 +278,7 @@
     <ClCompile Include="SlowProjectile.cpp" />
     <ClCompile Include="StartButton.cpp" />
     <ClCompile Include="StartScene.cpp" />
+    <ClCompile Include="TankEnemy.cpp" />
     <ClCompile Include="TestScene.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TimeManager.cpp" />
