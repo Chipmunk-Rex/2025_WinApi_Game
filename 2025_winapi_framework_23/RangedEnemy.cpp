@@ -25,8 +25,8 @@ RangedEnemy::RangedEnemy() :
 
 RangedEnemy::~RangedEnemy()
 {
-	if (_projectile != nullptr)//여기 고쳐야함
-		GET_SINGLE(SceneManager)->GetCurScene()->RequestDestroy(_projectile);
+	//if (_projectile != nullptr)//여기 고쳐야함
+		//GET_SINGLE(SceneManager)->GetCurScene()->RequestDestroy(_projectile);
 }
 
 void RangedEnemy::Update()
