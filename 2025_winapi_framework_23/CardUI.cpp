@@ -115,7 +115,7 @@ void CardUI::Render(HDC _hdc)
     DrawText(_hdc, name.c_str(), -1, &nameRc, DT_CENTER | DT_BOTTOM | DT_SINGLELINE);
 
     RECT descRc = rc;
-    descRc.top += 50;
+    descRc.top += 10;
     GDISelector descfont(_hdc, FontType::CARDDESC);
     DrawText(_hdc, desc.c_str(), -1, &descRc, DT_CENTER | DT_BOTTOM | DT_WORDBREAK);
 }
@@ -159,5 +159,5 @@ void CardUI::SetInfo(const CardInfo& info)
     this->maxCount = info.maxCount;
  
     itemTex = GET_SINGLE(ResourceManager)->GetTexture(info.fileName.c_str());
-    backgroundTex = GET_SINGLE(ResourceManager)->GetTexture(L"CardBackground1");
+    backgroundTex = GET_SINGLE(ResourceManager)->GetTexture(L"PlanetCardBack");
 }
