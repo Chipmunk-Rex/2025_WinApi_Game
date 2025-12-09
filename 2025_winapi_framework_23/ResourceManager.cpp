@@ -78,6 +78,8 @@ void ResourceManager::RegisterTexture()
 	LoadTexture(L"Projectile_Saturn", L"Texture\\Planet\\Saturn.bmp");
 	LoadTexture(L"Background_Space", L"Texture\\Background\\Space.bmp");
 	LoadTexture(L"StartScene_Space", L"Texture\\Background\\StartSceneSpace.bmp");
+	LoadTexture(L"PlanetCardBack", L"Texture\\Background\\PlanetCardBack.bmp");
+
 }
 void ResourceManager::RegisterGDI()
 {
@@ -95,7 +97,7 @@ void ResourceManager::RegisterGDI()
 	// ��Ʈ ����
 	RegisterFont(FontType::TITLE, L"나눔손글씨 암스테르담", 60);
 	RegisterFont(FontType::UI, L"나눔손글씨 암스테르담", 0);
-	RegisterFont(FontType::CARDDESC, L"Galmuri11 Regular", 15);
+	RegisterFont(FontType::CARDDESC, L"Galmuri11 Regular", 20);
 	RegisterFont(FontType::CARDTITLE, L"Galmuri11 Regular", 30);
 	RegisterFont(FontType::CARDTITLE, L"Galmuri11 Regular", 40);
 
