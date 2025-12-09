@@ -14,6 +14,10 @@ public:
 	// Object을(를) 통해 상속됨'
 	void Render(HDC _hdc) override;
 public:
+	void SetHealth(float value)
+	{
+		m_healthCompo->SetHealth(value);
+	}
 	void EnterCollision(Collider* _other) override;
 	void StayCollision(Collider* _other) override;
 	void ExitCollision(Collider* _other) override;

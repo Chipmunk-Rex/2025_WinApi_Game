@@ -4,6 +4,7 @@
 #include "CollisionManager.h"
 #include "Rigidbody.h"
 #include "Object.h"
+#include "Health.h"
 Scene::Scene()
 {
 }
@@ -89,6 +90,9 @@ void Scene::FlushEvent()
 	{
 		if (obj != nullptr)
 		{
+			Health* health = obj->GetComponent<Health>();
+			if (health != nullptr && health->GetIsDead())
+				continue;
 			RemoveObject(obj);
 			SAFE_DELETE(obj);
 		}
@@ -108,13 +112,11 @@ void Scene::FlushEvent()
 
 void Scene::RequestDestroy(Object* obj)
 {
-	if (obj == nullptr)
-		return;
-	if (!obj->GetIsDead())
-	{
-		obj->SetDead();
-		m_killObject.push_back(obj);
-	}
+	if (obj == nullptr) return;
+	if (std::find(m_killObject.begin(), m_killObject.end(), obj) != m_killObject.end())
+		return; // already requested
+	obj->SetDead();
+	m_killObject.push_back(obj);
 }
 
 void Scene::RemoveObject(Object* _obj)

@@ -16,7 +16,7 @@ Background::~Background()
 void Background::Update()
 {
     // advance scroll offset
-    offsetY += scrollSpeed * fDT;
+    offsetY -= scrollSpeed * fDT;
     // wrap to avoid overflow
     LONG height = tex ? tex->GetHeight() : 0;
     if (height > 0)

@@ -73,7 +73,7 @@ void ResourceManager::RegisterTexture()
 	LoadTexture(L"Player_Turret_Mask", L"Texture\\Player\\Turret_Mask.bmp");
 	LoadTexture(L"MainTile", L"Texture\\Enemy\\EnemyTile.bmp");
 	LoadTexture(L"EnemyMask", L"Texture\\Enemy\\turretMask.bmp");
-	LoadTexture(L"Projectile_Earch", L"Texture\\Planet\\Earth.bmp");
+	LoadTexture(L"Projectile_Earth", L"Texture\\Planet\\Earth.bmp");
 	LoadTexture(L"Projectile_Moon", L"Texture\\Planet\\Moon.bmp");
 	LoadTexture(L"Projectile_Saturn", L"Texture\\Planet\\Saturn.bmp");
 	LoadTexture(L"Background_Space", L"Texture\\Background\\Space.bmp");

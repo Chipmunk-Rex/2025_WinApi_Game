@@ -62,7 +62,7 @@ void CardUI::Update()
         if (destroyDelay <= 0.f)
         {
             waitingDestroy = false;
-            GET_SINGLE(SceneManager)->RequestDestroy(this);
+            SetDead();
         }
     }
 }

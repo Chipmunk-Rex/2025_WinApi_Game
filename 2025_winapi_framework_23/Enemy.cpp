@@ -35,6 +35,7 @@ Enemy::Enemy() : m_pTex(nullptr)
 	m_target = dynamic_cast<Player*>(playerObject);
 }
 
+
 Enemy::~Enemy()
 {
 }
