@@ -60,17 +60,19 @@ void ResourceManager::RegisterTexture()
 	LoadTexture(L"Ball", L"Texture\\Ball.bmp");
 	LoadTexture(L"Ball2", L"Texture\\Ball2.bmp");
 	LoadTexture(L"Dotted_line", L"Texture\\dotted_line.bmp");
-	LoadTexture(L"Red_Brick_1", L"Texture\\red_brick_1.bmp");
-	LoadTexture(L"Red_Brick_2", L"Texture\\red_brick_2.bmp");
-	LoadTexture(L"Red_Brick_3", L"Texture\\red_brick_3.bmp");
-	LoadTexture(L"Red_Brick_1_Hit", L"Texture\\red_brick_1_Hit.bmp");
-	LoadTexture(L"Red_Brick_2_Hit", L"Texture\\red_brick_2_Hit.bmp");
-	LoadTexture(L"Red_Brick_3_Hit", L"Texture\\red_brick_3_Hit.bmp");
+	LoadTexture(L"Red_Brick_1", L"Texture\\Enemy\\turret.bmp");
+	LoadTexture(L"Red_Brick_2", L"Texture\\Enemy\\turret_2.bmp");
+	LoadTexture(L"Red_Brick_3", L"Texture\\Enemy\\turret_3.bmp");
+	LoadTexture(L"Red_Brick_1_Hit", L"Texture\\Enemy\\turret_Hit.bmp");
+	LoadTexture(L"Red_Brick_2_Hit", L"Texture\\Enemy\\turret_Hit_2.bmp");
+	LoadTexture(L"Red_Brick_3_Hit", L"Texture\\Enemy\\turret_Hit_3.bmp");
 	LoadTexture(L"Player_Left", L"Texture\\Player\\Player_Left.bmp");
 	LoadTexture(L"Player_Middle", L"Texture\\Player\\Player_Middle.bmp");
 	LoadTexture(L"Player_Right", L"Texture\\Player\\Player_Right.bmp");
 	LoadTexture(L"Player_Turret", L"Texture\\Player\\Turret.bmp");
 	LoadTexture(L"Player_Turret_Mask", L"Texture\\Player\\Turret_Mask.bmp");
+	LoadTexture(L"MainTile", L"Texture\\Enemy\\EnemyTile.bmp");
+	LoadTexture(L"EnemyMask", L"Texture\\Enemy\\turretMask.bmp");
 }
 void ResourceManager::RegisterGDI()
 {

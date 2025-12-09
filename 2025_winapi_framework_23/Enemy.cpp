@@ -10,7 +10,7 @@
 #include "Animator.h"
 Enemy::Enemy() : m_pTex(nullptr)
 {
-	m_pTex = GET_SINGLE(ResourceManager)->GetTexture(L"Red_Brick_1");
+	m_pTex = GET_SINGLE(ResourceManager)->GetTexture(L"MainTile");
 
 	if (m_pTex == nullptr)
 		cout << endl << "ming" << endl;

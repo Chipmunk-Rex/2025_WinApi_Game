@@ -14,7 +14,10 @@ Object::Object()
 Object::~Object()
 {
 	for (Component* com : m_vecComponents)
-		SAFE_DELETE(com);
+	{
+		if (com != nullptr)
+			SAFE_DELETE(com);
+	}
 	m_vecComponents.clear();
 }
 

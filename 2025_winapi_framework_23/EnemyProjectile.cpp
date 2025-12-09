@@ -6,11 +6,14 @@
 #include "Player.h"
 #include "ResourceManager.h"
 
-EnemyProjectile::EnemyProjectile(): _damage(0),_timer(0.f),_lifeTime(5.f)
+EnemyProjectile::EnemyProjectile() : _damage(0), _timer(0.f), _lifeTime(5.f), m_pTex(nullptr)
 {
-	Projectile::Projectile();
+	//Projectile::Projectile();
 
 	auto* col = GetComponent<Collider>();
+	auto* rb = GetComponent<Rigidbody>();
+	rb->SetBounciness(0.f);
+	rb->SetContiniuouse(false);
 	col->SetName(L"EnemyProjectile");
 
 	SetTexture(GET_SINGLE(ResourceManager)->GetTexture(L"Bullet"));
@@ -32,12 +35,12 @@ void EnemyProjectile::Update()
 		Translate({ 0.f, fDT * 20.f, });
 	}
 
-	
+
 }
 
 void EnemyProjectile::LateUpdate()
 {
-	
+
 	if (GetIsDead())return;
 
 	_timer += fDT;
@@ -54,12 +57,14 @@ void EnemyProjectile::LateUpdate()
 void EnemyProjectile::EnterCollision(Collider* _other)
 {
 	if (GetIsDead())return;
+	cout << "EnemyProjectile Collision";
 	if (typeid(_other->GetOwner()) == typeid(Player))
 	{
+		cout << "이거 플레이어임";
 		_other->GetOwner()->GetComponent<Health>()->TakeDamage(5);
 		GET_SINGLE(SceneManager)->RequestDestroy(this);
 	}
-	else if (_other->GetName() == L"PlayerProjectile")
+	else if (_other->GetName() == L"PlayerBullet")
 	{
 
 		GET_SINGLE(SceneManager)->RequestDestroy(this);

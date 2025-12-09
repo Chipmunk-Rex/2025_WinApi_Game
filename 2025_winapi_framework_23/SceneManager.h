@@ -12,6 +12,8 @@ public:
 public:
 	void RequestDestroy(Object* obj)
 	{
+		if (obj == nullptr || obj->GetIsDead())
+			return;
 		if (m_curScene)
 			m_curScene->RequestDestroy(obj);
 	}

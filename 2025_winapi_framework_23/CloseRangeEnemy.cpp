@@ -9,13 +9,15 @@
 #include "TimeManager.h"
 #include "CloseRangeEnemy.h"
 #include "DamageText.h"
+#include "PlayerManager.h"
 #include "Player.h"
 
 CloseRangeEnemy::CloseRangeEnemy() :
 	_isHit(false),
 	_hitDelay(0.1f),
 	_hitTimer(0),
-	_isAttack(false)
+	_isAttack(false),
+	_damage(5)
 {
 }
 
@@ -27,12 +29,9 @@ void CloseRangeEnemy::Update()
 {
 	Vec2 pos = GetPos();
 
-
-
-	if (pos.y >= WINDOW_HEIGHT)
+	if (pos.y >= WINDOW_HEIGHT - 150)
 	{
 		_isAttack = true;
-		
 	}
 
 	if (_isAttack)
@@ -45,7 +44,7 @@ void CloseRangeEnemy::Update()
 		Vec2 dir = playerPos - pos;
 		Vec2 p = playerPos - pos;
 		dir = dir.Normalize();
-		rbCompo->AddForce(dir * 1000.f);
+		rbCompo->SetVelocity(dir * 1000.f);
 
 		Vec2 offset[2] = { {50,50},{-50,-50} };
 
@@ -53,8 +52,11 @@ void CloseRangeEnemy::Update()
 		{
 			Health* playerHealth = player->GetComponent<Health>();
 			if (playerHealth == nullptr) return;
-			playerHealth->TakeDamage(_damage);
-			GET_SINGLE(SceneManager)->GetCurScene()->RequestDestroy(this);
+			if (!GetIsDead())
+			{
+				playerHealth->TakeDamage(_damage);
+				GET_SINGLE(SceneManager)->GetCurScene()->RequestDestroy(this);
+			}
 		}
 	}
 	else
@@ -69,7 +71,7 @@ void CloseRangeEnemy::Update()
 
 				double normal = GetCurHealth() / GetMaxHealth();
 
-				if (normal <= 0.3f)
+				/*if (normal <= 0.3f)
 				{
 					SetTex(GET_SINGLE(ResourceManager)->GetTexture(L"Red_Brick_3"));
 				}
@@ -80,14 +82,14 @@ void CloseRangeEnemy::Update()
 				else
 				{
 					SetTex(GET_SINGLE(ResourceManager)->GetTexture(L"Red_Brick_1"));
-				}
+				}*/
 
 				_hitTimer = 0;
 				_isHit = false;
 			}
 		}
 	}
-	
+
 }
 
 void CloseRangeEnemy::Render(HDC _hdc)
@@ -98,22 +100,27 @@ void CloseRangeEnemy::Render(HDC _hdc)
 
 void CloseRangeEnemy::HandleHitEvent(double _prev, double _health)
 {
+	if (_health <= 0)
+	{
+		GET_SINGLE(PlayerManager)->AddExp(5);
+	}
+
 	double maxHealth = GetMaxHealth();
 
 	double normal = _health / maxHealth;
 
-	if (normal <= 0.3f)
+	/*if (normal <= 0.3f)
 	{
-		SetTex(GET_SINGLE(ResourceManager)->GetTexture(L"Red_Brick_3_Hit"));
+		SetTex(GET_SINGLE(ResourceManager)->GetTexture(L"Red_Brick_3"));
 	}
 	else if (normal <= 0.7f)
 	{
-		SetTex(GET_SINGLE(ResourceManager)->GetTexture(L"Red_Brick_2_Hit"));
+		SetTex(GET_SINGLE(ResourceManager)->GetTexture(L"Red_Brick_2"));
 	}
 	else
 	{
-		SetTex(GET_SINGLE(ResourceManager)->GetTexture(L"Red_Brick_2_Hit"));
-	}
+		SetTex(GET_SINGLE(ResourceManager)->GetTexture(L"Red_Brick_1"));
+	}*/
 
 	std::shared_ptr<Scene> curScene = GET_SINGLE(SceneManager)->GetCurScene();
 

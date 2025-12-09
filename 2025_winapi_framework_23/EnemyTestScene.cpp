@@ -15,7 +15,6 @@
 #include "CardUI.h"
 #include "CardDB.h"
 
-
 void EnemyTestScene::Init()
 {
 	_enemySpawnTime = 2.5f;
