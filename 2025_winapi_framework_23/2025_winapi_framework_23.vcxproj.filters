@@ -222,6 +222,10 @@
     <ClInclude Include="LaserBallCard.h">
       <Filter>Engine\03. Object\Players\Cards</Filter>
     </ClInclude>
+    <ClInclude Include="MoveSpeedCard.h">
+      <Filter>Engine\03. Object\Players\Cards</Filter>
+    </ClInclude>
+    <ClInclude Include="RingEffect.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="2025_winapi_framework_23.rc">

@@ -197,6 +197,7 @@
     <ClInclude Include="LaserProjectile.h" />
     <ClInclude Include="LeaveButton.h" />
     <ClInclude Include="MouseObject.h" />
+    <ClInclude Include="MoveSpeedCard.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Player.h" />
@@ -208,6 +209,7 @@
     <ClInclude Include="ResourceBase.h" />
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="Rigidbody.h" />
+    <ClInclude Include="RingEffect.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="SceneSelectWindow.h" />

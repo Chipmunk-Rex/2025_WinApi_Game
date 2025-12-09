@@ -5,59 +5,64 @@
 class Texture;
 class Rigidbody;
 class Player :
-    public Object
+	public Object
 {
 public:
-    Player();
-    virtual ~Player();
+	Player();
+	virtual ~Player();
 public:
-    void Update() override;
-    void FixedUpdate(float _fixedDT) override;
-    void Render(HDC _hdc) override;
-    void EnterCollision(Collider* _other) override;
-    void StayCollision(Collider* _other) override;
-    void ExitCollision(Collider* _other) override;
+	void Update() override;
+	void FixedUpdate(float _fixedDT) override;
+	void Render(HDC _hdc) override;
+	void EnterCollision(Collider* _other) override;
+	void StayCollision(Collider* _other) override;
+	void ExitCollision(Collider* _other) override;
 private:
-    void ShootProjectile();
-    Vec2 GetShootDir();
+	void ShootProjectile();
+	Vec2 GetShootDir();
 public:
-    bool CanShoot() const { return fireTimer >= fireCooldown && projectiles.size() != 0;}
-    void AddProjectile(PlayerProjectile* _proj) { projectiles.push(_proj); _proj->SetActive(false); }
+	bool CanShoot() const { return fireTimer >= fireCooldown && projectiles.size() != 0; }
+	void AddProjectile(PlayerProjectile* _proj) { projectiles.push(_proj); _proj->SetActive(false); }
 
-    // Level/Exp
-    int GetLevel() const { return level; }
-    int GetExp() const { return exp; }
-    int GetExpToLevel() const { return expToLevel; }
-    void AddExp(int amount)
-    {
-        exp += amount;
-        while (exp >= expToLevel)
-        {
-            exp -= expToLevel;
-            LevelUp();
-        }
-    }
-
-private:
-    void LevelUp();
+	// Level/Exp
+	int GetLevel() const { return level; }
+	int GetExp() const { return exp; }
+	int GetExpToLevel() const { return expToLevel; }
+	void AddExp(int amount)
+	{
+		exp += amount;
+		while (exp >= expToLevel)
+		{
+			exp -= expToLevel;
+			LevelUp();
+		}
+	}
 
 private:
-    Texture* leftTexture;
-    Texture* middleTexture;
-    Texture* rightTexture;
-    Texture* m_turretTex;
-    Texture* m_turretMaskTex;
+	void LevelUp();
+
+private:
+	Texture* leftTexture;
+	Texture* middleTexture;
+	Texture* rightTexture;
+	Texture* m_turretTex;
+	Texture* m_turretMaskTex;
 private:
 	Texture* currentTexture;
-    Rigidbody* rb;
+	Rigidbody* rb;
 private:
 	std::queue<PlayerProjectile*> projectiles;
 	float fireCooldown;
 	float fireTimer = 0;
-    float projectileScale = 1;
+	float projectileScale = 1;
 private:
-    int level = 1;
-    int exp = 0;
-    int expToLevel = 100;
+	int level = 1;
+	int exp = 0;
+	int expToLevel = 100;
+public:
+	float GetMoveSpeed() const { return moveSpeed; }
+	void SetMoveSpeed(float speed) { moveSpeed = speed; }
+private:
+	float moveSpeed = 1;
 };
 

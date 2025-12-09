@@ -77,7 +77,7 @@ void Player::Update()
 	else
 		currentTexture = middleTexture;
 
-	rb->SetVelocity(dir.Normalize() * 300.f);
+	rb->SetVelocity(dir.Normalize() * 200.f * moveSpeed);
 
 	if (CanShoot())
 	{
