@@ -48,16 +48,21 @@ public:
 	void CheckLayer(Layer _left, Layer _right);
 	void CheckReset();
 	bool IsCollisionLayer(Layer _left, Layer _right);
+public:
 	/// <summary>
 	/// 강제로 충돌처리 요청
 	/// </summary>
 	void SetCollisioned(Collider* pLeftCollider, Collider* pRightCollider);
 	void RequestCollisionCheck(Collider* pLeftCollider, Collider* pRightCollider);
+public:
+	bool OverlapBox(const Vec2 origin, const Vec2 size, const LayerMask layer, std::vector<Collider*>& outColliders);
 	bool BoxCast(Collider* collider, const Vec2 direction, const float maxDistance, const LayerMask layer, RaycastHit& outHit);
 	bool BoxCast(const Vec2 origin, const Vec2 size, const Vec2 direction, const float maxDistance, const LayerMask layer, RaycastHit& outHit);
-	bool OverlapBox(const Vec2 origin, const Vec2 size, const LayerMask layer, std::vector<Collider*>& outColliders);
+	bool BoxCast(Collider* collider, const Vec2 direction, const float maxDistance, const LayerMask layer, RaycastHit& outHit, const std::vector<Collider*>* ignoreTargets);
+	bool BoxCast(const Vec2 origin, const Vec2 size, const Vec2 direction, const float maxDistance, const LayerMask layer, RaycastHit& outHit, const std::vector<Collider*>* ignoreTargets);
 private:
 	bool BoxCast(const Vec2 origin, const Vec2 size, const Vec2 direction, const float maxDistance, Collider* collider, RaycastHit& outHit);
+	bool BoxCast(const Vec2 origin, const Vec2 size, const Vec2 direction, const float maxDistance, Collider* collider, RaycastHit& outHit, const std::vector<Collider*>* ignoreTargets);
 	void CollisionLayerUpdate(Layer _left, Layer _right);
 	bool IsCollision(Collider* _left, Collider* _right);
 	ULONGLONG MakePairKey(UINT a, UINT b);
