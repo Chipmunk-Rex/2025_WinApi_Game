@@ -96,6 +96,23 @@ void PlayerInfoUI::Render(HDC hdc)
         GDISelector font(hdc, FontType::CARDTITLE);
         DrawText(hdc, scoreText.c_str(), -1, &rc, DT_RIGHT | DT_TOP | DT_SINGLELINE);
     }
+        int overWidth = barWidth + 10;       
+        int overHeight = barHeight * 3;  
+        int centerX = baseX + (barWidth * 3 + barGap * 2) / 2; 
+        int overX = centerX - (overWidth / 2);
+        int overY = baseY - 50 - overHeight; 
+
+        RECT rc;
+        rc.left = overX;
+        rc.top = overY;
+        rc.right = overX + overWidth;
+        rc.bottom = overY + overHeight;
+
+        GDISelector pen(hdc, PenType::GREEN);
+        GDISelector brush(hdc, BrushType::HOLLOW);
+        Rectangle(hdc, rc.left, rc.top, rc.right, rc.bottom);
+
+ 
 }
 
 void PlayerInfoUI::SetScore(int s)

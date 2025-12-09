@@ -4,6 +4,7 @@
 #include "Scene.h"
 #include "Object.h"
 #include "Collider.h"
+#include "Rigidbody.h"
 CollisionManager::CollisionManager()
 {
     m_CollisionInfo.reserve(10000);
@@ -90,37 +91,54 @@ void CollisionManager::RequestCollisionCheck(Collider* pLeftCollider, Collider* 
 
 bool CollisionManager::BoxCast(Collider* collider, const Vec2 direction, const float maxDistance, const LayerMask layer, RaycastHit& outHit)
 {
+    return BoxCast(collider, direction, maxDistance, layer, outHit, nullptr);
+}
+
+bool CollisionManager::BoxCast(const Vec2 origin, const Vec2 size, const Vec2 direction, const float maxDistance, const LayerMask layermask, RaycastHit& outHit)
+{
+    return BoxCast(origin, size, direction, maxDistance, layermask, outHit, nullptr);
+}
+
+bool CollisionManager::BoxCast(Collider* collider, const Vec2 direction, const float maxDistance, const LayerMask layer, RaycastHit& outHit, const std::vector<Collider*>* ignoreTargets)
+{
     if (nullptr == collider)
         return false;
     Vec2 origin = collider->GetWorldPos();
     Vec2 size = collider->GetSize();
-    return BoxCast(origin, size, direction, maxDistance, layer, outHit);
+    return BoxCast(origin, size, direction, maxDistance, layer, outHit, ignoreTargets);
 }
 
-bool CollisionManager::BoxCast(const Vec2 origin, const Vec2 size, const Vec2 direction, const float maxDistance, const LayerMask layermask, RaycastHit& outHit)
+bool CollisionManager::BoxCast(const Vec2 origin, const Vec2 size, const Vec2 direction, const float maxDistance, const LayerMask layermask, RaycastHit& outHit, const std::vector<Collider*>* ignoreTargets)
 {
 
     std::shared_ptr<Scene> currentScene = GET_SINGLE(SceneManager)->GetCurScene();
     const vector<Object*>& layerObjects = currentScene->GetLayerObjects(layermask);
 
     float closestDistance = maxDistance;
+    bool found = false;
     for (size_t i = 0; i < layerObjects.size(); ++i)
     {
         Collider* pLeftCollider = layerObjects[i]->GetComponent<Collider>();
         if (nullptr == pLeftCollider)
             continue;
+        if (ignoreTargets)
+        {
+            if (std::find(ignoreTargets->begin(), ignoreTargets->end(), pLeftCollider) != ignoreTargets->end())
+                continue;
+        }
         RaycastHit currentHit;
-        if (BoxCast(origin, size, direction, maxDistance, pLeftCollider, currentHit))
+        if (BoxCast(origin, size, direction, maxDistance, pLeftCollider, currentHit, ignoreTargets))
         {
             float hitDistance = (currentHit.point - origin).Length();
             if (hitDistance < closestDistance)
             {
                 closestDistance = hitDistance;
                 outHit = currentHit;
+                found = true;
             }
         }
     }
-    return false;
+    return found;
 }
 
 bool CollisionManager::OverlapBox(const Vec2 origin, const Vec2 size, const LayerMask layer, std::vector<Collider*>& outColliders)
@@ -158,11 +176,20 @@ bool CollisionManager::OverlapBox(const Vec2 origin, const Vec2 size, const Laye
 
 bool CollisionManager::BoxCast(const Vec2 origin, const Vec2 size, const Vec2 direction, const float maxDistance, Collider* collider, RaycastHit& hit)
 {
+    return BoxCast(origin, size, direction, maxDistance, collider, hit, nullptr);
+}
+
+bool CollisionManager::BoxCast(const Vec2 origin, const Vec2 size, const Vec2 direction, const float maxDistance, Collider* collider, RaycastHit& hit, const std::vector<Collider*>* ignoreTargets)
+{
     if (nullptr == collider)
         return false;
-	if (collider->GetOwner()->IsActive() == false)
+    if (collider->GetOwner()->IsActive() == false)
         return false;
-
+    if (ignoreTargets)
+    {
+        if (std::find(ignoreTargets->begin(), ignoreTargets->end(), collider) != ignoreTargets->end())
+            return false;
+    }
     Vec2 targetSize = collider->GetSize();
     Vec2 targetPos = collider->GetWorldPos();
 

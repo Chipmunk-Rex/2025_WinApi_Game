@@ -1,4 +1,4 @@
-﻿#include "pch.h"
+#include "pch.h"
 #include "Rigidbody.h"
 #include "Object.h"
 #include "CollisionManager.h"
@@ -107,15 +107,24 @@ void Rigidbody::ApplyMovement(float _fixedDT)
 				}
 
 				Vec2 normalizedDirection = { m_velocity.x / velLen, m_velocity.y / velLen };
+				std::vector<Collider*> ignoreTargets;
+				const auto& infos = col->GetCollisionInfos();
+				ignoreTargets.reserve(infos.size());
+				for (const auto& info : infos)
+				{
+					Collider* other = (info.left == col) ? info.right : info.left;
+					if (other)
+						ignoreTargets.push_back(other);
+				}
 
 				RaycastHit hit;
-				collisionManager->BoxCast(col, normalizedDirection, velLen * _fixedDT, collisionMask, hit);
+				if (collisionManager->BoxCast(col, normalizedDirection, velLen * _fixedDT, collisionMask, hit, &ignoreTargets))
 				if (hit.collider)
 				{
 					// Collider의 collisionInfo에 해당 충돌이 등록되어있는지 확인
-					const auto& infos = col->GetCollisionInfos();
+					const auto& infos2 = col->GetCollisionInfos();
 					bool registered = false;
-					for (const auto& info : infos)
+					for (const auto& info : infos2)
 					{
 						if ((info.left == col && info.right == hit.collider) || (info.right == col && info.left == hit.collider))
 						{

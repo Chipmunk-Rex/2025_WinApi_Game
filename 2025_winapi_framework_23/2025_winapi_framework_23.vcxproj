@@ -181,6 +181,7 @@
     <ClInclude Include="Component.h" />
     <ClInclude Include="Core.h" />
     <ClInclude Include="DamageText.h" />
+    <ClInclude Include="DefaultBallCard.h" />
     <ClInclude Include="Defines.h" />
     <ClInclude Include="DevScene.h" />
     <ClInclude Include="CardUI.h" />
@@ -214,6 +215,8 @@
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="SceneSelectWindow.h" />
+    <ClInclude Include="SlowBallCard.h" />
+    <ClInclude Include="SlowProjectile.h" />
     <ClInclude Include="StartButton.h" />
     <ClInclude Include="StartScene.h" />
     <ClInclude Include="targetver.h" />
@@ -271,6 +274,7 @@
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="SceneSelectWindow.cpp" />
+    <ClCompile Include="SlowProjectile.cpp" />
     <ClCompile Include="StartButton.cpp" />
     <ClCompile Include="StartScene.cpp" />
     <ClCompile Include="TestScene.cpp" />
