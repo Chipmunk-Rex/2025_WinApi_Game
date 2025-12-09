@@ -40,7 +40,7 @@ void Health::TakeDamage(double damage)
 	if (m_health <= 0)
 	{
 		m_isDead = true;
-			GET_SINGLE(SceneManager)->RequestDestroy(GetOwner());
+		GET_SINGLE(SceneManager)->RequestDestroy(GetOwner());
 	}
 }
 
