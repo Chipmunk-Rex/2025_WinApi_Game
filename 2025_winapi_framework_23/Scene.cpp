@@ -20,7 +20,7 @@ void Scene::Update()
 	{
 		auto& vec = m_vecObj[i];
 		for (auto* obj : vec)
-			if(!obj->GetIsDead())
+			if (!obj->GetIsDead())
 				obj->Update();
 	}
 }
@@ -43,6 +43,9 @@ void Scene::FixedUpdate(float _fixedDT)
 		auto& vec = m_vecObj[i];
 		for (auto* obj : vec)
 		{
+			if (obj == nullptr || obj->GetIsDead())
+				continue;
+
 			obj->FixedUpdate(_fixedDT);
 			if (auto rb = obj->GetComponent<Rigidbody>())
 			{
@@ -93,6 +96,14 @@ void Scene::FlushEvent()
 	m_killObject.clear();
 
 	// 생성
+	for (const auto& s : m_spawnObject)
+	{
+		if (s.obj != nullptr)
+		{
+			AddObject(s.obj, s.type);
+		}
+	}
+	m_spawnObject.clear();
 }
 
 void Scene::RequestDestroy(Object* obj)
@@ -118,7 +129,9 @@ void Scene::RemoveObject(Object* _obj)
 
 void Scene::RequestSpawn(Object* obj, Layer _type)
 {
-
+	if (obj == nullptr)
+		return;
+	m_spawnObject.push_back({ obj, _type });
 }
 
 

@@ -44,10 +44,10 @@ Player::Player()
 	Health* health = AddComponent<Health>();
 	health->SetHealth(100);
 
-	fireCooldown = 0.2f;
+	fireCooldown = 1.0f;
 
 
-	PlayerProjectile* proj = GET_SINGLE(SceneManager)->GetCurScene()->Spawn<PlayerProjectile>(Layer::PROJECTILE, { 0,0 }, { 50,50 });
+	PlayerProjectile* proj = GET_SINGLE(SceneManager)->GetCurScene()->Spawn<PlayerProjectile>(Layer::PROJECTILE);
 	AddProjectile(proj);
 
 	GET_SINGLE(PlayerManager)->SetPlayer(this);
@@ -64,26 +64,27 @@ void Player::Update()
 	Vec2 dir = {};
 	if (GET_KEY(KEY_TYPE::A))
 		dir.x -= 1.f;
-	if (GET_KEY(KEY_TYPE::D)) 
+	if (GET_KEY(KEY_TYPE::D))
 		dir.x += 1.f;
 	if (GET_KEY(KEY_TYPE::W)) dir.y -= 1.f;
 	if (GET_KEY(KEY_TYPE::S)) dir.y += 1.f;
 
 
-	if(dir.x < 0)
+	if (dir.x < 0)
 		currentTexture = leftTexture;
-	else if(0 < dir.x)
+	else if (0 < dir.x)
 		currentTexture = rightTexture;
 	else
 		currentTexture = middleTexture;
 
-	rb->SetVelocity(dir.Normalize() * 300.f);
+	rb->SetVelocity(dir.Normalize() * 200.f * moveSpeed);
+
 	if (CanShoot())
 	{
 		if (GET_KEYDOWN(KEY_TYPE::LBUTTON) || GET_KEY(KEY_TYPE::LBUTTON))
 			ShootProjectile();
 	}
-	else if (fireTimer < fireCooldown)
+	else if (fireTimer < fireCooldown && projectiles.size() != 0)
 	{
 		fireTimer += fDT;
 	}
@@ -107,7 +108,7 @@ void Player::ShootProjectile()
 	projectiles.pop();
 	Vec2 pos = GetPos();
 	proj->SetPos(pos);
-	proj->SetSize({ 20.f,20.f });
+	proj->Scale({ projectileScale , projectileScale });
 	proj->Shoot(GetShootDir() * 500);
 
 	fireTimer -= fireCooldown;
@@ -234,7 +235,7 @@ void Player::ExitCollision(Collider* _other)
 
 void Player::LevelUp()
 {
-    ++level;
-    // Show card choices on level up
-    GET_SINGLE(CardManager)->ShowCard(3);
+	++level;
+	// Show card choices on level up
+	GET_SINGLE(CardManager)->ShowCard(3);
 }

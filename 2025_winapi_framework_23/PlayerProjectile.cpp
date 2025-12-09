@@ -6,6 +6,7 @@
 PlayerProjectile::PlayerProjectile() 
 	: Projectile(), _damage(0)
 {
+	SetSize({ 30.f,30.f });
 }
 
 PlayerProjectile::~PlayerProjectile()
@@ -14,7 +15,6 @@ PlayerProjectile::~PlayerProjectile()
 
 void PlayerProjectile::Update()
 {
-	shootTimer += fDT;
 }
 
 void PlayerProjectile::Render(HDC _hdc)
@@ -25,9 +25,7 @@ void PlayerProjectile::Render(HDC _hdc)
 
 void PlayerProjectile::EnterCollision(Collider* _other)
 {
-	//if (typeid(*_other->GetOwner()) == typeid(Player))
-	//{
-	//}
+	canCollect = true;
 }
 
 void PlayerProjectile::StayCollision(Collider* _other)
@@ -42,7 +40,6 @@ void PlayerProjectile::Shoot(Vec2 _dir)
 {
 	Projectile::Shoot(_dir);
 	SetActive(true);
-	shootTimer = 0;
-	//cout << "PlayerProjectile Shoot!" << endl;
+	this->GetCollider()->SetSize(GetSize());
+	canCollect = false;
 }
-////////////

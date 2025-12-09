@@ -15,6 +15,7 @@
 #include "CardUI.h"
 #include "CardDB.h"
 #include "PlayerInfoUI.h"
+#include "Background.h"
 
 
 void EnemyTestScene::Init()
@@ -24,6 +25,9 @@ void EnemyTestScene::Init()
 	_enemyCount = 10;
 	_spawnPercent = 65;
 	//EnemySpawn();
+
+	// Spawn background first
+	Spawn<Background>(Layer::BACKGROUND, { WINDOW_WIDTH / 2 , WINDOW_HEIGHT / 2 }, { WINDOW_WIDTH, WINDOW_HEIGHT });
 
 	Spawn<Player>(Layer::PLAYER, { WINDOW_WIDTH / 2 , WINDOW_HEIGHT / 4 }, { 100,100 });
 	Spawn<Floor>(Layer::DEFAULT, { WINDOW_WIDTH / 2,  0 }, { 1000.f, 50.f });
