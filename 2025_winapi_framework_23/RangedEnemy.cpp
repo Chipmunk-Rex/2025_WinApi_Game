@@ -11,11 +11,12 @@ RangedEnemy::RangedEnemy() :
 	_timer(0),
 	_attackDelay(10),
 	_attackTime(2),
-	_damage(3),
+	_damage(1),
 	_projectile(nullptr),
 	_isHit(false),
 	_hitDelay(0.1f),
-	_hitTimer(0)
+	_hitTimer(0),
+	_isAttack(false)
 {
 
 	m_turretTex = GET_SINGLE(ResourceManager)->GetTexture(L"Red_Brick_1");
@@ -30,69 +31,104 @@ RangedEnemy::~RangedEnemy()
 
 void RangedEnemy::Update()
 {
-	Enemy::Update();
-	_timer += fDT;
+	Vec2 pos = GetPos();
 
-	if (_isHit)
+	if (pos.y >= WINDOW_HEIGHT - 150)
 	{
-		_hitTimer += fDT;
-		if (_hitDelay <= _hitTimer)
+		_isAttack = true;
+	}
+
+	if (_isAttack)
+	{
+		Player* player = GetTarget();
+		if (player == nullptr) return;
+		Vec2 playerPos = player->GetPos();
+		Rigidbody* rbCompo = GetRbCompo();
+
+		Vec2 dir = playerPos - pos;
+		Vec2 p = playerPos - pos;
+		dir = dir.Normalize();
+		rbCompo->SetVelocity(dir * 1000.f);
+
+		Vec2 offset[2] = { {50,50},{-50,-50} };
+
+		if (p.x <= offset[0].x && p.x >= offset[1].x && p.y <= offset[0].y && p.y >= offset[1].y)
 		{
-
-			double normal = GetCurHealth() / GetMaxHealth();
-
-			if (normal <= 0.3f)
+			Health* playerHealth = player->GetComponent<Health>();
+			if (playerHealth == nullptr) return;
+			if (!GetIsDead())
 			{
-				m_turretTex = (GET_SINGLE(ResourceManager)->GetTexture(L"Red_Brick_3"));
+				playerHealth->TakeDamage(_damage);
+				GET_SINGLE(SceneManager)->GetCurScene()->RequestDestroy(this);
 			}
-			else if (normal <= 0.7f)
-			{
-				m_turretTex = (GET_SINGLE(ResourceManager)->GetTexture(L"Red_Brick_2"));
-			}
-			else
-			{
-				m_turretTex = (GET_SINGLE(ResourceManager)->GetTexture(L"Red_Brick_1"));
-			}
-
-			_hitTimer = 0;
-			_isHit = false;
 		}
 	}
-
-
-	if (_timer >= _attackTime)
-	{
-		_attackTime = (rand() % (int)_attackDelay + 2) + ((rand() % 9) / 10.f);
-		_timer = 0;
-		auto curScene = GET_SINGLE(SceneManager)->GetCurScene();
-
-		auto playerLayerObjects = curScene->GetLayerObjects(Layer::PLAYER);
-		if (playerLayerObjects.empty()) return;
-
-		Object* player = GetTarget();
-		if (player == nullptr) return;
-		EnemyProjectile* proj = new EnemyProjectile;
-		Vec2 pos = GetPos();
-		pos.y += GetSize().y / 3;
-		Vec2 shootDir = this->GetShootDir();
-		float angle = shootDir.GetAngleRad({ 0,1 });
-		Vec2 newPos = pos.Rotate(angle);
-		//pos.y -= GetSize().y / 2.f;
-		Vec2 playerPos = player->GetPos();
-		proj->SetPos(pos);
-		proj->SetSize({ 20.f,20.f });
-		proj->Shoot(shootDir * 350);
-		proj->SetDamage(_damage);
-		curScene->AddObject(proj, Layer::ENEMYPROJECTILE);
-		_projectile = proj;
-		m_offset = Vec2(0, -10);
-	}
-
-	if (m_offset.y < 0)
-		m_offset.y += fDT * 20;
 	else
 	{
-		m_offset.y = 0;
+		Enemy::Update();
+		_timer += fDT;
+
+		if (_isHit)
+		{
+			_hitTimer += fDT;
+			if (_hitDelay <= _hitTimer)
+			{
+
+				double normal = GetCurHealth() / GetMaxHealth();
+
+				if (normal <= 0.3f)
+				{
+					m_turretTex = (GET_SINGLE(ResourceManager)->GetTexture(L"Red_Brick_3"));
+				}
+				else if (normal <= 0.7f)
+				{
+					m_turretTex = (GET_SINGLE(ResourceManager)->GetTexture(L"Red_Brick_2"));
+				}
+				else
+				{
+					m_turretTex = (GET_SINGLE(ResourceManager)->GetTexture(L"Red_Brick_1"));
+				}
+
+				_hitTimer = 0;
+				_isHit = false;
+			}
+		}
+
+
+		if (_timer >= _attackTime)
+		{
+			_attackTime = (rand() % (int)_attackDelay + 2) + ((rand() % 9) / 10.f);
+			_timer = 0;
+			auto curScene = GET_SINGLE(SceneManager)->GetCurScene();
+
+			auto playerLayerObjects = curScene->GetLayerObjects(Layer::PLAYER);
+			if (playerLayerObjects.empty()) return;
+
+			Object* player = GetTarget();
+			if (player == nullptr) return;
+			EnemyProjectile* proj = new EnemyProjectile;
+			Vec2 pos = GetPos();
+			pos.y += GetSize().y / 3;
+			Vec2 shootDir = this->GetShootDir();
+			float angle = shootDir.GetAngleRad({ 0,1 });
+			Vec2 newPos = pos.Rotate(angle);
+			//pos.y -= GetSize().y / 2.f;
+			Vec2 playerPos = player->GetPos();
+			proj->SetPos(pos);
+			proj->SetSize({ 20.f,20.f });
+			proj->Shoot(shootDir * 350);
+			proj->SetDamage(_damage);
+			curScene->AddObject(proj, Layer::ENEMYPROJECTILE);
+			_projectile = proj;
+			m_offset = Vec2(0, -10);
+		}
+
+		if (m_offset.y < 0)
+			m_offset.y += fDT * 20;
+		else
+		{
+			m_offset.y = 0;
+		}
 	}
 }
 

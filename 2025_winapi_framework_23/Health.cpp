@@ -18,8 +18,6 @@ void Health::Init()
 
 void Health::LateUpdate()
 {
-	if (m_isDead)
-		GET_SINGLE(SceneManager)->RequestDestroy(GetOwner());
 }
 
 void Health::Render(HDC _hdc)
@@ -34,13 +32,16 @@ void Health::SetHealth(double value)
 
 void Health::TakeDamage(double damage)
 {
+	if (m_isDead)
+		return;
 	double prev = m_health;
 	m_health -= damage;
+	RaiseEvent(prev);
 	if (m_health <= 0)
 	{
 		m_isDead = true;
+			GET_SINGLE(SceneManager)->RequestDestroy(GetOwner());
 	}
-	RaiseEvent(prev);
 }
 
 void Health::RaiseEvent(double _prevHealth)

@@ -57,10 +57,8 @@ void EnemyProjectile::LateUpdate()
 void EnemyProjectile::EnterCollision(Collider* _other)
 {
 	if (GetIsDead())return;
-	cout << "EnemyProjectile Collision";
-	if (typeid(_other->GetOwner()) == typeid(Player))
+	if (_other->GetName() == L"Player")
 	{
-		cout << "이거 플레이어임";
 		_other->GetOwner()->GetComponent<Health>()->TakeDamage(5);
 		GET_SINGLE(SceneManager)->RequestDestroy(this);
 	}
