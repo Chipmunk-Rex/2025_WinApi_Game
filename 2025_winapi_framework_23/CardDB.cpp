@@ -23,7 +23,7 @@ const std::vector<CardInfo> CardDB::cards =
 
 const std::vector<CardInfo> CardDB::GetRandomCard(int count)
 {
-    // Build eligible list based on maxCount and current appliedCount
+    // Build eligible list based on maxCount and current appliedCount   
     std::vector<CardInfo> eligible;
     eligible.reserve(cards.size());
     for (const auto& info : cards)
