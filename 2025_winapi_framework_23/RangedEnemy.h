@@ -22,6 +22,7 @@ private:
     double _hitDelay;
     int _damage;
     bool _isHit;
+    bool _isAttack;
     Texture* m_turretTex;
     Texture* m_turretMaskTex;
     EnemyProjectile* _projectile;

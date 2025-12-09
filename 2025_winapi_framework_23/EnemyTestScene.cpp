@@ -98,25 +98,23 @@ void EnemyTestScene::EnemySpawn()
 		{
 			if (rand() % 100 <= 50)
 			{
-				Spawn<CloseRangeEnemy>
+				CloseRangeEnemy* enemy = Spawn<CloseRangeEnemy>
 					(
 						Layer::ENEMY
 						, { (WINDOW_WIDTH / 2 - (50 * (_enemyCount / 2))) + (50 * i),  -100 }
 				, { 50,50 });
 				vector<Object*> arr = GetLayerObjects(Layer::ENEMY);
-				Enemy* enemy = dynamic_cast<Enemy*>(arr[arr.size() - 1]);
 				float mulValue = ((_currentSpawnCount / _enemyCount) + 1) * 0.2f;
 				enemy->SetHealth(10 * mulValue);
 			}
 			else
 			{
-				Spawn<RangedEnemy>
+				RangedEnemy* enemy = Spawn<RangedEnemy>
 					(
 						Layer::ENEMY
 						, { (WINDOW_WIDTH / 2 - (50 * (_enemyCount / 2))) + (50 * i), -100 }
 				, { 50,50 });
 				vector<Object*> arr = GetLayerObjects(Layer::ENEMY);
-				Enemy* enemy = dynamic_cast<Enemy*>(arr[arr.size() - 1]);
 				float mulValue = ((_currentSpawnCount / _enemyCount) + 1) * 0.2f;
 				enemy->SetHealth(10 * mulValue);
 			}

@@ -42,7 +42,7 @@ Player::Player()
 
 
 	Health* health = AddComponent<Health>();
-	health->SetHealth(100);
+	health->SetHealth(1000);
 
 	fireCooldown = 1.0f;
 
