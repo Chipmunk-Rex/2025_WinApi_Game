@@ -208,10 +208,7 @@
     <ClInclude Include="BaseCard.h">
       <Filter>Engine\03. Object\Players\Cards</Filter>
     </ClInclude>
-    <ClInclude Include="StartButton.h" />
-    <ClInclude Include="StartScene.h" />
     <ClInclude Include="UIManager.h" />
-    <ClInclude Include="LeaveButton.h" />
     <ClInclude Include="LaserProjectile.h">
       <Filter>Engine\03. Object\Players\Projectiles</Filter>
     </ClInclude>
@@ -224,7 +221,6 @@
     <ClInclude Include="MoveSpeedCard.h">
       <Filter>Engine\03. Object\Players\Cards</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerInfoUI.h" />
     <ClInclude Include="SlowProjectile.h">
       <Filter>Engine\03. Object\Players\Projectiles</Filter>
     </ClInclude>
@@ -236,6 +232,19 @@
     </ClInclude>
     <ClInclude Include="SlowBallCard.h">
       <Filter>Engine\03. Object\Players\Cards</Filter>
+    </ClInclude>
+    <ClInclude Include="DefaultBallCard.h" />
+    <ClInclude Include="StartButton.h">
+      <Filter>Engine\07. UI</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerInfoUI.h">
+      <Filter>Engine\07. UI</Filter>
+    </ClInclude>
+    <ClInclude Include="LeaveButton.h">
+      <Filter>Engine\07. UI</Filter>
+    </ClInclude>
+    <ClInclude Include="StartScene.h">
+      <Filter>Engine\04. Scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -372,22 +381,30 @@
     <ClCompile Include="BaseCard.cpp">
       <Filter>Engine\03. Object\Players\Cards</Filter>
     </ClCompile>
-    <ClCompile Include="StartButton.cpp" />
-    <ClCompile Include="StartScene.cpp" />
     <ClCompile Include="UIManager.cpp" />
-    <ClCompile Include="LeaveButton.cpp" />
     <ClCompile Include="LaserProjectile.cpp">
       <Filter>Engine\03. Object\Players\Projectiles</Filter>
     </ClCompile>
     <ClCompile Include="Background.cpp">
       <Filter>Engine\03. Object</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerInfoUI.cpp" />
     <ClCompile Include="SlowProjectile.cpp">
       <Filter>Engine\03. Object\Players\Projectiles</Filter>
     </ClCompile>
     <ClCompile Include="PlayerManager.cpp">
       <Filter>Engine\02. Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="StartButton.cpp">
+      <Filter>Engine\07. UI</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerInfoUI.cpp">
+      <Filter>Engine\07. UI</Filter>
+    </ClCompile>
+    <ClCompile Include="LeaveButton.cpp">
+      <Filter>Engine\07. UI</Filter>
+    </ClCompile>
+    <ClCompile Include="StartScene.cpp">
+      <Filter>Engine\04. Scene</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
