@@ -99,8 +99,8 @@ void CardUI::Render(HDC _hdc)
 
     TransparentBlt(
         _hdc,
-        rc.left, rc.top + 30,
-        (int)scaled.x, (int)scaled.y * 0.7f,
+        rc.left + 40, rc.top + 80,
+        (int)scaled.x * 0.6f, (int)scaled.y * 0.4f,
         itemTex->GetTextureDC(),
         0, 0,
         itemTex->GetWidth(),
