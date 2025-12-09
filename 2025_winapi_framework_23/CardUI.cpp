@@ -159,5 +159,27 @@ void CardUI::SetInfo(const CardInfo& info)
     this->maxCount = info.maxCount;
  
     itemTex = GET_SINGLE(ResourceManager)->GetTexture(info.fileName.c_str());
-    backgroundTex = GET_SINGLE(ResourceManager)->GetTexture(L"PlanetCardBack");
+    
+    std::wstring cardBackgroundTex;
+
+    switch (info.cardType)
+    {
+    case CardType::Stat:
+            cardBackgroundTex = L"BackCard1";
+            break;
+    case CardType::Skill:
+        cardBackgroundTex = L"BackCard2";
+        break;
+    case CardType::StrongSkill:
+        cardBackgroundTex = L"BackCard3";
+        break;
+
+    default:
+        break;
+    }
+
+    std::cout << info.cardType << endl;
+
+
+    backgroundTex = GET_SINGLE(ResourceManager)->GetTexture(cardBackgroundTex);
 }

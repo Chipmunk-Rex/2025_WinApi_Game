@@ -11,13 +11,13 @@
 
 const std::vector<CardInfo> CardDB::cards =
 {
-    { L"토성 추가", L"고리로 가로 광역 공격을 하는 토성을 추가합니다.", L"Projectile_Saturn", new LaserBallCard(), 3},
-    { L"지구 추가", L"피격 시 적이 느려지는 특징이 있는 지구를 추가합니다.", L"Projectile_Earth", new SlowBallCard(), 3},
-    { L"달 추가", L"아무 능력 없는 달이 추가됩니다.", L"Projectile_Moon", new DefaultBallCard(), 3},
+    { L"토성 추가", L"고리로 가로 광역 공격을 하는 토성을 추가합니다.", L"Projectile_Saturn", new LaserBallCard(), 3, CardType::StrongSkill},
+    { L"지구 추가", L"피격 시 적이 느려지는 특징이 있는 지구를 추가합니다.", L"Projectile_Earth", new SlowBallCard(), 3,  CardType::Skill},
+    { L"달 추가", L"아무 능력 없는 달이 추가됩니다.", L"Projectile_Moon", new DefaultBallCard(), 3,CardType::Skill},
     //{ L"공 증가", L"발사되는 공 개수가\n하나 증가합니다", L"Plane", new LaserBallCard(), 1 },
-    { L"체력 증가", L"최대 체력이 10%만큼\n증가합니다", L"Plane", nullptr, 1},
-    { L"속도 증가", L"이동 속도가 20%만큼\n증가합니다." , L"Plane", new MoveSpeedCard(), 5},
-    { L"회복", L"체력을 전부 회복합니다.", L"Plane", nullptr, 1 },  
+    { L"체력 증가", L"최대 체력이 10%만큼\n증가합니다", L"Plane", nullptr, 1,CardType::Stat},
+    { L"속도 증가", L"이동 속도가 20%만큼\n증가합니다." , L"Plane", new MoveSpeedCard(), 5,CardType::Stat},
+    { L"회복", L"체력을 전부 회복합니다.", L"Plane", nullptr, 1,CardType::Stat },
    
 };
 
