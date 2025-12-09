@@ -10,7 +10,7 @@ class LaserBallCard : public BaseCard
 protected:
     void OnApply(Player& player) override
     {
-        LaserProjectile* laser = GET_SINGLE(SceneManager)->GetCurScene()->Spawn<LaserProjectile>(Layer::PROJECTILE, {0,0},{0,50});
+        LaserProjectile* laser = GET_SINGLE(SceneManager)->GetCurScene()->Spawn<LaserProjectile>(Layer::PROJECTILE);
         player.AddProjectile(laser);
     }
 };

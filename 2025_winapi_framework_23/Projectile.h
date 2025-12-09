@@ -25,8 +25,10 @@ public:
 protected:
 	void SetTexture(Texture* _tex) { m_pTex = _tex; }
 	Rigidbody* GetRigidbody() const { return rigidbody; }
+    Collider* GetCollider() const { return collider; }
 private:
     Texture* m_pTex;
 	Rigidbody* rigidbody;
+    Collider* collider;
 };
 
