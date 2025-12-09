@@ -97,6 +97,25 @@ public:
 		return pt;
 	}
 
+	float GetAngleRad(const Vec2 a) {
+		// 내적
+		float dot = a.x * x + a.y * y;
+
+		// 크기(길이)
+		float magA = std::sqrt(a.x * a.x + a.y * a.y);
+		float magB = std::sqrt(x * x + y * y);
+
+		// 0으로 나누는 것 방지
+		if (magA == 0 || magB == 0) return 0.0f;
+
+		float cosTheta = dot / (magA * magB);
+
+		// acos 입력값 보정 (범위 오류 방지)
+		cosTheta = std::clamp(cosTheta, -1.0f, 1.0f);
+
+		return std::acos(cosTheta);
+	}
+
 public:
 	float x = 0.f;
 	float y = 0.f;

@@ -12,6 +12,7 @@ private:
 	double _enemySpawnTime;
 	double _timer;
 	int _enemyCount;
+	int _currentSpawnCount;
 	double _spawnPercent;
 };
 

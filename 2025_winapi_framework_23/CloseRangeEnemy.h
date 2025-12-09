@@ -10,5 +10,11 @@ public:
     // Object을(를) 통해 상속됨'
     void Render(HDC _hdc) override;
     void HandleHitEvent(double _prev, double _health) override;
+public:
+    double _hitTimer;
+    double _hitDelay;
+    double _damage;
+    bool _isHit;
+    bool _isAttack;
 };
 

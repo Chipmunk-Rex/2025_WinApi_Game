@@ -36,15 +36,16 @@ void Health::TakeDamage(double damage)
 {
 	double prev = m_health;
 	m_health -= damage;
-	RaiseEvent(prev);
 	if (m_health <= 0)
 	{
 		m_isDead = true;
 	}
+	RaiseEvent(prev);
 }
 
 void Health::RaiseEvent(double _prevHealth)
 {
+	if (m_isDead) return;
 	for (auto a : functions)
 	{
 		a(_prevHealth,m_health);
