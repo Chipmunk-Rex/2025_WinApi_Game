@@ -96,6 +96,18 @@ void CardUI::Render(HDC _hdc)
         backgroundTex->GetHeight(),
         RGB(255, 0, 255)
     );
+
+    TransparentBlt(
+        _hdc,
+        rc.left, rc.top + 30,
+        (int)scaled.x, (int)scaled.y * 0.7f,
+        itemTex->GetTextureDC(),
+        0, 0,
+        itemTex->GetWidth(),
+        itemTex->GetHeight(),
+        RGB(255, 0, 255)
+    );
+
     SetTextColor(_hdc, RGB(227, 253, 255));
     RECT nameRc = rc;
     nameRc.bottom -= 50;

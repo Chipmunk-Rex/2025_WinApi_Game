@@ -72,6 +72,7 @@ void ResourceManager::RegisterTexture()
 	LoadTexture(L"Projectile_Moon", L"Texture\\Planet\\Moon.bmp");
 	LoadTexture(L"Projectile_Saturn", L"Texture\\Planet\\Saturn.bmp");
 	LoadTexture(L"Background_Space", L"Texture\\Background\\Space.bmp");
+	LoadTexture(L"StartScene_Space", L"Texture\\Background\\StartSceneSpace.bmp");
 }
 void ResourceManager::RegisterGDI()
 {

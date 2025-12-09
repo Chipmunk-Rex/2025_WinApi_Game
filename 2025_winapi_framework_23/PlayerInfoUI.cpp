@@ -5,7 +5,7 @@
 PlayerInfoUI::PlayerInfoUI()
 {
     score = 0;
-    timeSec = 0.f;
+    timeSec = 60.0f;
     level = 1;
 }
 
@@ -39,7 +39,7 @@ void PlayerInfoUI::Render(HDC hdc)
         rc.right = rc.left + 200;
         rc.bottom = rc.top + 40;
 
-        SetTextColor(hdc, RGB(0, 0, 0));
+        SetTextColor(hdc, RGB(227, 253, 255));
         GDISelector font(hdc, FontType::CARDTITLE);
         DrawText(hdc, buf, -1, &rc, DT_LEFT | DT_TOP | DT_SINGLELINE);
     }
@@ -48,12 +48,12 @@ void PlayerInfoUI::Render(HDC hdc)
         std::wstring txt = L"LVL " + std::to_wstring(level);
 
         RECT rc;
-        rc.left = leftX;
+        rc.left = leftX + 15;
         rc.top = lvlY;
         rc.right = rc.left + 200;
         rc.bottom = rc.top + 40;
 
-        SetTextColor(hdc, RGB(0, 0, 0));
+        SetTextColor(hdc, RGB(227, 253, 255));
         GDISelector font(hdc, FontType::CARDTITLE);
         DrawText(hdc, txt.c_str(), -1, &rc, DT_LEFT | DT_TOP | DT_SINGLELINE);
     }
@@ -84,17 +84,17 @@ void PlayerInfoUI::Render(HDC hdc)
     }
 
     {
-        std::wstring scoreText = L"SCORE " + std::to_wstring(score);
+        std::wstring scoreText = L"SCORE " + std::to_wstring(1000);
 
         RECT rc;
-        rc.left = baseX;
-        rc.top = baseY - 45;
+        rc.left = baseX - 150;
+        rc.top = topY;
         rc.right = rc.left + 300;
         rc.bottom = rc.top + 40;
 
-        SetTextColor(hdc, RGB(0, 0, 0));
+        SetTextColor(hdc, RGB(227, 253, 255));
         GDISelector font(hdc, FontType::CARDTITLE);
-        DrawText(hdc, scoreText.c_str(), -1, &rc, DT_LEFT | DT_TOP | DT_SINGLELINE);
+        DrawText(hdc, scoreText.c_str(), -1, &rc, DT_RIGHT | DT_TOP | DT_SINGLELINE);
     }
 }
 

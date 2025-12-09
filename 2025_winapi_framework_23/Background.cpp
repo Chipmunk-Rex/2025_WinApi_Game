@@ -75,3 +75,8 @@ void Background::Render(HDC _hdc)
         srcH,
         RGB(255, 0, 255));
 }
+
+void Background::SetTexture(std::wstring fileName)
+{
+    tex = GET_SINGLE(ResourceManager)->GetTexture(fileName.c_str());
+}
