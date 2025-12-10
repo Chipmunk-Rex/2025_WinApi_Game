@@ -111,7 +111,7 @@ bool CollisionManager::BoxCast(Collider* collider, const Vec2 direction, const f
 bool CollisionManager::BoxCast(const Vec2 origin, const Vec2 size, const Vec2 direction, const float maxDistance, const LayerMask layermask, RaycastHit& outHit, const std::vector<Collider*>* ignoreTargets)
 {
 
-    std::shared_ptr<Scene> currentScene = GET_SINGLE(SceneManager)->GetCurScene();
+    Scene* currentScene = GET_SINGLE(SceneManager)->GetCurScene();
     const vector<Object*>& layerObjects = currentScene->GetLayerObjects(layermask);
 
     float closestDistance = maxDistance;
@@ -143,7 +143,7 @@ bool CollisionManager::BoxCast(const Vec2 origin, const Vec2 size, const Vec2 di
 
 bool CollisionManager::OverlapBox(const Vec2 origin, const Vec2 size, const LayerMask layer, std::vector<Collider*>& outColliders)
 {
-    std::shared_ptr<Scene> currentScene = GET_SINGLE(SceneManager)->GetCurScene();
+    Scene* currentScene = GET_SINGLE(SceneManager)->GetCurScene();
     const vector<Object*>& layerObjects = currentScene->GetLayerObjects(layer);
     outColliders.clear();
     for (size_t i = 0; i < layerObjects.size(); ++i)
@@ -234,7 +234,7 @@ bool CollisionManager::BoxCast(const Vec2 origin, const Vec2 size, const Vec2 di
         float ty1 = (expandedMin.y - origin.y) / dir.y;
         float ty2 = (expandedMax.y - origin.y) / dir.y;
         float tyMin = min(ty1, ty2);
-        float tyMax = max(ty1, ty2);
+        float tyMax = max(ty2, ty1);
         tMin = max(tMin, tyMin);
         tMax = min(tMax, tyMax);
         if (tMin > tMax)
@@ -253,7 +253,7 @@ bool CollisionManager::BoxCast(const Vec2 origin, const Vec2 size, const Vec2 di
 }
 void CollisionManager::CollisionLayerUpdate(Layer _left, Layer _right)
 {
-    std::shared_ptr<Scene> pCurrentScene = GET_SINGLE(SceneManager)->GetCurScene();
+    Scene* pCurrentScene = GET_SINGLE(SceneManager)->GetCurScene();
     const vector<Object*>& vecLeftLayer = pCurrentScene->GetLayerObjects(_left);
     const vector<Object*>& vecRightLayer = pCurrentScene->GetLayerObjects(_right);
     bool sameLayer = _left == _right;

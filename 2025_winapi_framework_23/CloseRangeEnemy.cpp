@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "Enemy.h"
 #include "Collider.h"
 #include "SceneManager.h"
@@ -135,7 +135,7 @@ void CloseRangeEnemy::HandleHitEvent(double _prev, double _health)
 		SetTex(GET_SINGLE(ResourceManager)->GetTexture(L"MainTile"));
 	}
 
-	std::shared_ptr<Scene> curScene = GET_SINGLE(SceneManager)->GetCurScene();
+	Scene* curScene = GET_SINGLE(SceneManager)->GetCurScene();
 
 	double defaultVal = _prev - _health;
 

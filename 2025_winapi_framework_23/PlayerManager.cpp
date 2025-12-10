@@ -16,3 +16,8 @@ double PlayerManager::GetPlayerMaxHealth() const
 {
 	return _playerHealth->GetMaxHealth();
 }
+
+const std::queue<PlayerProjectile*>& PlayerManager::GetPlayerProjectiles()
+{
+	return _player->GetProjectiles();
+}

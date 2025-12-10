@@ -270,6 +270,8 @@
     <ClInclude Include="DownAttackEnemy.h">
       <Filter>Engine\03. Object</Filter>
     </ClInclude>
+    <ClInclude Include="GameOverScene.h" />
+    <ClInclude Include="EndingScene.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="2025_winapi_framework_23.rc">
@@ -442,5 +444,7 @@
     <ClCompile Include="DownAttackEnemy.cpp">
       <Filter>Engine\03. Object</Filter>
     </ClCompile>
+    <ClCompile Include="GameOverScene.cpp" />
+    <ClCompile Include="EndingScene.cpp" />
   </ItemGroup>
 </Project>

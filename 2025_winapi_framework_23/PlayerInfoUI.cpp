@@ -6,7 +6,7 @@
 PlayerInfoUI::PlayerInfoUI()
 {
 	score = 0;
-	timeSec = 60.0f;
+	timeSec = 0.0f;
 	level = 1;
 }
 
@@ -20,147 +20,152 @@ void PlayerInfoUI::Update()
 
 	SetLevel(player->GetLevel());
 	SetScore(GET_SINGLE(PlayerManager)->GetScore());
-
-	curExp = player->GetExp();
+    float deltaTime = fDT * 20;
+    
+	curExp += (player->GetExp() - curExp) * deltaTime;
 	maxExp = player->GetExpToLevel();
+
+    curHealth += (GET_SINGLE(PlayerManager)->GetPlayerHealth() - curHealth) * deltaTime ;
+	maxHealth = GET_SINGLE(PlayerManager)->GetPlayerMaxHealth();
+
+	timeSec += fDT;
 }
 
 
 void PlayerInfoUI::Render(HDC hdc)
 {
-	int right = WINDOW_WIDTH - 40;
-	int bottom = WINDOW_HEIGHT - 40;
+    int right = WINDOW_WIDTH - 40;
+    int bottom = WINDOW_HEIGHT - 40;
 
-	int leftX = 20;
-	int topY = 20;
-	int lvlY = WINDOW_HEIGHT - 120;
+    int leftX = 5;
+    int topY = 20;
+    int lvlY = WINDOW_HEIGHT - 185;
 
-	{
-		int minutes = (int)(timeSec / 60);
-		int seconds = (int)(timeSec) % 60;
+    int minutes = (int)(timeSec / 60);
+    int seconds = (int)(timeSec) % 60;
+    // 타임텍스트 -----------------------------
+    std::wstring timeText = L"TIME "
+        + std::to_wstring(minutes)
+        + L":"
+        + (seconds < 10 ? L"0" : L"")
+        + std::to_wstring(seconds);
 
-		wchar_t buf[32];
-		swprintf(buf, 32, L"TIME %02d:%02d", minutes, seconds);
+    RECT timeRc;
+    timeRc.left = leftX + 10;
+    timeRc.top = topY;
+    timeRc.right = timeRc.left + 220;
+    timeRc.bottom = timeRc.top + 40;
 
-		RECT rc;
-		rc.left = leftX;
-		rc.top = topY;
-		rc.right = rc.left + 200;
-		rc.bottom = rc.top + 40;
+    SetTextColor(hdc, RGB(227, 253, 255));
+    GDISelector font1(hdc, FontType::CARDTITLE);
+    DrawText(hdc, timeText.c_str(), -1, &timeRc, DT_LEFT | DT_TOP | DT_SINGLELINE);
 
-		SetTextColor(hdc, RGB(227, 253, 255));
-		GDISelector font(hdc, FontType::CARDTITLE);
-		DrawText(hdc, buf, -1, &rc, DT_LEFT | DT_TOP | DT_SINGLELINE);
-	}
+    // 레벨텍스트 -----------------------------
+    std::wstring lvlTxt = L"LVL " + std::to_wstring(level);
 
-	{
-		std::wstring txt = L"LVL " + std::to_wstring(level);
+    RECT lvlRc;
+    lvlRc.left = leftX + 15;
+    lvlRc.top = lvlY - 50;
+    lvlRc.right = lvlRc.left + 200;
+    lvlRc.bottom = lvlRc.top + 40;
 
-		RECT rc;
-		rc.left = leftX + 15;
-		rc.top = lvlY;
-		rc.right = rc.left + 200;
-		rc.bottom = rc.top + 40;
+    DrawText(hdc, lvlTxt.c_str(), -1, &lvlRc, DT_LEFT | DT_TOP | DT_SINGLELINE);
+    // 점수텍스트 -----------------------------
+    std::wstring scoreText = L"SCORE " + std::to_wstring(score);
 
-		SetTextColor(hdc, RGB(227, 253, 255));
-		GDISelector font(hdc, FontType::CARDTITLE);
-		DrawText(hdc, txt.c_str(), -1, &rc, DT_LEFT | DT_TOP | DT_SINGLELINE);
-	}
+    RECT scoreRc;
+    scoreRc.left = right - 400;
+    scoreRc.top = topY;
+    scoreRc.right = scoreRc.left + 300;
+    scoreRc.bottom = scoreRc.top + 40;
 
-	int barWidth = 40;
-	int barHeight = 100;
-	int barGap = 15;
+    RECT skillOutline;
+    skillOutline.left = right - 150;
+    skillOutline.top = topY + 100;
+    skillOutline.right = skillOutline.left + 100;
+    skillOutline.bottom = skillOutline.top + 350;
 
-	int baseX = right - (barWidth * 3 + barGap * 2);
-	int baseY = bottom - barHeight;
+    Rectangle(hdc, skillOutline.left, skillOutline.top, skillOutline.right, skillOutline.bottom);
 
-	{
-		GDISelector pen(hdc, PenType::GREEN);
-		GDISelector brush(hdc, BrushType::HOLLOW);
-
-		for (int i = 0; i < 3; i++)
-		{
-			int x = baseX + i * (barWidth + barGap);
-
-			RECT rc;
-			rc.left = x;
-			rc.top = baseY;
-			rc.right = x + barWidth;
-			rc.bottom = baseY + barHeight;
-
-			Rectangle(hdc, rc.left, rc.top, rc.right, rc.bottom);
-		}
-	}
-
-	{
-		std::wstring scoreText = L"SCORE " + std::to_wstring(score);
-
-		RECT rc;
-		rc.left = baseX - 150;
-		rc.top = topY;
-		rc.right = rc.left + 300;
-		rc.bottom = rc.top + 40;
-
-		SetTextColor(hdc, RGB(227, 253, 255));
-		GDISelector font(hdc, FontType::CARDTITLE);
-		DrawText(hdc, scoreText.c_str(), -1, &rc, DT_RIGHT | DT_TOP | DT_SINGLELINE);
-	}
-	int overWidth = barWidth + 10;
-	int overHeight = barHeight * 3;
-	int centerX = baseX + (barWidth * 3 + barGap * 2) / 2;
-	int overX = centerX - (overWidth / 2);
-	int overY = baseY - 50 - overHeight;
-
-	RECT rc;
-	rc.left = overX;
-	rc.top = overY;
-	rc.right = overX + overWidth;
-	rc.bottom = overY + overHeight;
-
-	GDISelector pen(hdc, PenType::GREEN);
-	GDISelector brush(hdc, BrushType::HOLLOW);
-	Rectangle(hdc, rc.left, rc.top, rc.right, rc.bottom);
-	{
-		float ratio = 0.f;
-		if (maxExp > 0.f)
-			ratio = curExp / maxExp;
-		if (ratio > 1.f)
-			ratio = 1.f;
-
-		int expBarWidth = 600;
-		int expBarHeight = 20;
-		int expBarX = (WINDOW_WIDTH / 2) - (expBarWidth / 2);
-		int expBarY = WINDOW_HEIGHT - 35;
-
-		RECT outline;
-		outline.left = expBarX;
-		outline.top = expBarY;
-		outline.right = expBarX + expBarWidth;
-		outline.bottom = expBarY + expBarHeight;
+    DrawText(hdc, scoreText.c_str(), -1, &scoreRc, DT_RIGHT | DT_TOP | DT_SINGLELINE);
 
 
-		{
-			GDISelector pen(hdc, PenType::GREEN);
-			GDISelector brush(hdc, BrushType::HOLLOW);
-			Rectangle(hdc, outline.left, outline.top, outline.right, outline.bottom);
-		}
+    int barWidth = 250;
+    int barHeight = 24;
 
-		int fillWidth = (int)(expBarWidth * ratio);
+    int barX = leftX + 15;
 
-		RECT fill;
-		fill.left = expBarX + 1;
-		fill.top = expBarY + 1;
-		fill.right = expBarX + fillWidth - 1;
-		fill.bottom = expBarY + expBarHeight - 1;
+    // 여기부터 경험치임 -----------------------------
+    int expBarY = lvlY + 40;
+    float expRatio = maxExp > 0 ? curExp / maxExp : 0.f;
+    if (expRatio > 1.f) expRatio = 1.f;
 
-		{
-			HBRUSH whiteBrush = CreateSolidBrush(RGB(255, 255, 255));
-			FillRect(hdc, &fill, whiteBrush);
-			DeleteObject(whiteBrush);
+    RECT expTextRc;
+    expTextRc.left = barX;
+    expTextRc.top = expBarY - 40;
+    expTextRc.right = expTextRc.left + 200;
+    expTextRc.bottom = expTextRc.top + 40;
 
-		}
-	}
+    SetTextColor(hdc, RGB(255, 255, 255));
+    GDISelector font2(hdc, FontType::CARDTITLE);
+
+    std::wstring expText = std::to_wstring((int)curExp) + L" / " + std::to_wstring((int)maxExp);
+    DrawText(hdc, expText.c_str(), -1, &expTextRc, DT_LEFT | DT_TOP | DT_SINGLELINE);
+
+    RECT expOutline;
+    expOutline.left = barX;
+    expOutline.top = expBarY;
+    expOutline.right = barX + barWidth;
+    expOutline.bottom = expBarY + barHeight;
+
+    GDISelector pen2(hdc, PenType::CARDTEXT);
+    Rectangle(hdc, expOutline.left, expOutline.top, expOutline.right, expOutline.bottom);
+
+    RECT expFill;
+    expFill.left = barX + 1;
+    expFill.top = expBarY + 1;
+    expFill.right = barX + (int)(expRatio * barWidth) - 1;
+    expFill.bottom = expBarY + barHeight - 1;
+
+    HBRUSH whiteBrush = CreateSolidBrush(RGB(255, 255, 255));
+    FillRect(hdc, &expFill, whiteBrush);
+    DeleteObject(whiteBrush);
+    // 여기부터 체력임 -----------------------------
+    int hpBarY = expBarY + barHeight + 40;
+    float hpRatio = maxHealth > 0 ? curHealth / maxHealth : 0.f;
+    if (hpRatio > 1.f) hpRatio = 1.f;
+
+    RECT hpTextRc;
+    hpTextRc.left = barX;
+    hpTextRc.top = hpBarY - 40;
+    hpTextRc.right = hpTextRc.left + 200;
+    hpTextRc.bottom = hpTextRc.top + 40;
+
+    int realHp = GET_SINGLE(PlayerManager)->GetPlayerHealth();
+    std::wstring hpText = std::to_wstring(realHp) + L" / " + std::to_wstring((int)maxHealth);
+
+    SetTextColor(hdc, RGB(255, 60, 60));
+    DrawText(hdc, hpText.c_str(), -1, &hpTextRc, DT_LEFT | DT_TOP | DT_SINGLELINE);
+
+    RECT hpOutline;
+    hpOutline.left = barX;
+    hpOutline.top = hpBarY;
+    hpOutline.right = barX + barWidth;
+    hpOutline.bottom = hpBarY + barHeight;
+
+    Rectangle(hdc, hpOutline.left, hpOutline.top, hpOutline.right, hpOutline.bottom);
+
+    RECT hpFill;
+    hpFill.left = barX + 1;
+    hpFill.top = hpBarY + 1;
+    hpFill.right = barX + (int)(hpRatio * barWidth) - 1;
+    hpFill.bottom = hpBarY + barHeight - 1;
+
+    HBRUSH redBrush = CreateSolidBrush(RGB(255, 60, 60));
+    FillRect(hdc, &hpFill, redBrush);
+    DeleteObject(redBrush);
 }
+
 
 void PlayerInfoUI::SetScore(int s)
 {

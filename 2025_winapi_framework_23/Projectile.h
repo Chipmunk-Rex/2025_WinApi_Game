@@ -22,6 +22,8 @@ public:
     {
         GetRigidbody()->SetVelocity(_dir);
     }
+public:
+    const Texture* GetTexture() { return m_pTex; }
 protected:
 	void SetTexture(Texture* _tex) { m_pTex = _tex; }
 	Rigidbody* GetRigidbody() const { return rigidbody; }

@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 //class Scene;
 #include "Scene.h"
 class SceneManager
@@ -8,7 +8,7 @@ public:
 	void Init();
 	void Update(); // LateUpdate;
 	void FixedUpdate(float _fixedDT);
-	void Render(HDC _hdc);	
+	void Render(HDC _hdc);
 public:
 	void RequestDestroy(Object* obj)
 	{
@@ -19,19 +19,19 @@ public:
 			m_curScene->RequestDestroy(obj);
 	}
 public:
-	void RegisterScene(const wstring& _name, std::shared_ptr<Scene> _scene);
+	void RegisterScene(const wstring& _name, Scene* _scene);
 	void LoadScene(const wstring& _name);
+	void ReleaseScenes();
 public:
-	const std::shared_ptr<Scene>& GetCurScene() const
+	Scene* GetCurScene() const
 	{
 		return m_curScene;
 	}
-	const std::unordered_map<wstring, std::shared_ptr<Scene>>& GetAllScenes() const
+	const std::unordered_map<wstring, Scene*>& GetAllScenes() const
 	{
 		return m_mapScenes;
 	}
 private:
-	// Scene* m_scene;
-	std::shared_ptr<Scene> m_curScene;
-	std::unordered_map<wstring, std::shared_ptr<Scene>> m_mapScenes;
+	Scene* m_curScene;
+	std::unordered_map<wstring, Scene*> m_mapScenes;
 };

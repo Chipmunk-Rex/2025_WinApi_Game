@@ -1,7 +1,6 @@
 ﻿#pragma once
 #include "Object.h"
 #include <string>
-#include <memory>
 #include "Texture.h"
 #include "CardInfo.h"
 #include "BaseCard.h"
@@ -24,7 +23,7 @@ private:
     std::wstring name;
     std::wstring desc;
     std::wstring fileName;
-    std::shared_ptr<BaseCard> baseCard = nullptr;
+    BaseCard* baseCard = nullptr;
     int maxCount = 1;
 
     bool isHovered;

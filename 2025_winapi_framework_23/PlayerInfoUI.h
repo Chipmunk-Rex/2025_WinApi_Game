@@ -21,5 +21,6 @@ private:
     int level;
     float curExp = 0.f;
     float maxExp = 1.f;
-
+    float curHealth = 0.f;
+    float maxHealth = 1.f;
 };

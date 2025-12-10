@@ -99,7 +99,7 @@ void CardUI::Render(HDC _hdc)
 
     TransparentBlt(
         _hdc,
-        rc.left + 40, rc.top + 80,
+        ((rc.left - 60) + (rc.right - 60)) / 2 , rc.top + 80,
         (int)scaled.x * 0.6f, (int)scaled.y * 0.4f,
         itemTex->GetTextureDC(),
         0, 0,
@@ -110,12 +110,16 @@ void CardUI::Render(HDC _hdc)
 
     SetTextColor(_hdc, RGB(227, 253, 255));
     RECT nameRc = rc;
+    nameRc.left += 10;
+    nameRc.right -= 10;
     nameRc.bottom -= 50;
     GDISelector namefont(_hdc, FontType::CARDTITLE);
     DrawText(_hdc, name.c_str(), -1, &nameRc, DT_CENTER | DT_BOTTOM | DT_SINGLELINE);
 
     RECT descRc = rc;
     descRc.top += 10;
+    descRc.left += 10;
+    descRc.right -= 10;
     GDISelector descfont(_hdc, FontType::CARDDESC);
     DrawText(_hdc, desc.c_str(), -1, &descRc, DT_CENTER | DT_BOTTOM | DT_WORDBREAK);
 }
