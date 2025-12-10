@@ -18,6 +18,7 @@
 #include "Background.h"
 #include "TankEnemy.h"
 #include "BounceBallEnemy.h"
+#include "DownAttackEnemy.h"
 
 void EnemyTestScene::Init()
 {
@@ -27,6 +28,8 @@ void EnemyTestScene::Init()
 	_currentSpawnCount = 0;
 	_spawnPercent = 65;
 	//EnemySpawn();
+
+	//SET_TIME_SCALE(5);
 
 	// Spawn background first
 	Spawn<Background>(Layer::BACKGROUND, { WINDOW_WIDTH / 2 , WINDOW_HEIGHT / 2 }, { WINDOW_WIDTH, WINDOW_HEIGHT });
@@ -103,7 +106,7 @@ void EnemyTestScene::EnemySpawn()
 		if (rand() % 100 <= _spawnPercent)
 		{
 			float randValue = rand() % 100;
-			if (randValue < 25)
+			if (randValue < 20)//
 			{
 				CloseRangeEnemy* enemy = Spawn<CloseRangeEnemy>
 					(
@@ -113,7 +116,7 @@ void EnemyTestScene::EnemySpawn()
 				float mulValue = ((_currentSpawnCount / _enemyCount) + 1) * 0.2f;
 				enemy->SetHealth(10 * mulValue);
 			}
-			else if(randValue < 50)
+			else if(randValue < 40)
 			{
 				RangedEnemy* enemy = Spawn<RangedEnemy>
 					(
@@ -123,9 +126,20 @@ void EnemyTestScene::EnemySpawn()
 				float mulValue = ((_currentSpawnCount / _enemyCount) + 1) * 0.2f;
 				enemy->SetHealth(10 * mulValue);
 			}
-			else if (randValue < 75)
+			else if (randValue < 60)
 			{
 				BounceBallEnemy* enemy = Spawn<BounceBallEnemy>
+					(
+						Layer::ENEMY
+						, { (WINDOW_WIDTH / 2 - (50 * (_enemyCount / 2))) + (50 * i), -100 }
+				, { 50,50 });
+				float mulValue = ((_currentSpawnCount / _enemyCount) + 1) * 0.2f;
+				enemy->SetHealth(10 * mulValue);
+
+			}
+			else if (randValue < 80)
+			{
+				DownAttackEnemy* enemy = Spawn<DownAttackEnemy>
 					(
 						Layer::ENEMY
 						, { (WINDOW_WIDTH / 2 - (50 * (_enemyCount / 2))) + (50 * i), -100 }

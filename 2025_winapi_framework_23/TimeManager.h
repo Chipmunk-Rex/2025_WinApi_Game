@@ -7,7 +7,8 @@ public:
 	void Init();
 	void Update();
 public:
-	float GetDT() const { return m_dT; }
+	float GetDT() const { return m_dT * m_multiplier; }
+	void SetMultiplier(float value) { m_multiplier = value; }
 private:
 	LARGE_INTEGER m_llPrevCnt = {};
 	LARGE_INTEGER m_llCurCnt = {};
@@ -21,6 +22,6 @@ private:
 
 	UINT m_frameCnt = 0;
 	float m_frameTime = 0.f;
-
+	float m_multiplier = 0.f;
 };
 

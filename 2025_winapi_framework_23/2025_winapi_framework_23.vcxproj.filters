@@ -267,6 +267,9 @@
     <ClInclude Include="ProjectileSizeCard.h">
       <Filter>Engine\03. Object\Players\Cards</Filter>
     </ClInclude>
+    <ClInclude Include="DownAttackEnemy.h">
+      <Filter>Engine\03. Object</Filter>
+    </ClInclude>
     <ClInclude Include="GameOverScene.h" />
     <ClInclude Include="EndingScene.h" />
     <ClInclude Include="BlackholeCard.h">
@@ -446,6 +449,9 @@
     </ClCompile>
     <ClCompile Include="StartScene.cpp">
       <Filter>Engine\04. Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="DownAttackEnemy.cpp">
+      <Filter>Engine\03. Object</Filter>
     </ClCompile>
     <ClCompile Include="GameOverScene.cpp" />
     <ClCompile Include="EndingScene.cpp" />

@@ -17,7 +17,9 @@ RangedEnemy::RangedEnemy() :
 	_isHit(false),
 	_hitDelay(0.1f),
 	_hitTimer(0),
-	_isAttack(false)
+	_isAttack(false),
+	_moveDelayTimer(0),
+	_attackMoveStartPos({0,0})
 {
 
 	m_turretTex = GET_SINGLE(ResourceManager)->GetTexture(L"Red_Brick_1");
@@ -34,39 +36,50 @@ void RangedEnemy::Update()
 {
 	Vec2 pos = GetPos();
 
-	if (pos.y >= WINDOW_HEIGHT - 150)
+	if (!_isAttack && pos.y >= WINDOW_HEIGHT - 150)
 	{
+		_attackMoveStartPos = GetPos();
 		_isAttack = true;
+		GetRbCompo()->SetVelocity({0,0});
 	}
 
 	if (_isAttack)
 	{
-		Player* player = GetTarget();
-		if (player == nullptr) return;
-		Vec2 playerPos = player->GetPos();
-		Rigidbody* rbCompo = GetRbCompo();
+		_moveDelayTimer += fDT;
 
-		Vec2 dir = playerPos - pos;
-		Vec2 p = playerPos - pos;
-		dir = dir.Normalize();
-		rbCompo->SetVelocity(dir * 1000.f);
-
-		Vec2 offset[2] = { {50,50},{-50,-50} };
-
-		if (p.x <= offset[0].x && p.x >= offset[1].x && p.y <= offset[0].y && p.y >= offset[1].y)
+		if (_moveDelayTimer >= 1.25f)
 		{
-			Health* playerHealth = player->GetComponent<Health>();
-			if (playerHealth == nullptr) return;
-			if (!GetIsDead())
+			Player* player = GetTarget();
+			if (player == nullptr) return;
+			Vec2 playerPos = player->GetPos();
+			Rigidbody* rbCompo = GetRbCompo();
+
+			Vec2 dir = playerPos - pos;
+			Vec2 p = playerPos - pos;
+			dir = dir.Normalize();
+			rbCompo->SetVelocity(dir * 1000.f);
+
+			Vec2 offset[2] = { {50,50},{-50,-50} };
+
+			if (p.x <= offset[0].x && p.x >= offset[1].x && p.y <= offset[0].y && p.y >= offset[1].y)
 			{
-				playerHealth->TakeDamage(_damage);
-				GET_SINGLE(SceneManager)->GetCurScene()->RequestDestroy(this);
+				Health* playerHealth = player->GetComponent<Health>();
+				if (playerHealth == nullptr) return;
+				if (!GetIsDead())
+				{
+					playerHealth->TakeDamage(_damage);
+					GET_SINGLE(SceneManager)->GetCurScene()->RequestDestroy(this);
+				}
 			}
+		}
+		else
+		{
+			Vec2 newPos = _attackMoveStartPos + Vec2{ rand() % 10 - 5 ,  rand() % 10 - 5 };
+			SetPos(newPos);
 		}
 	}
 	else
 	{
-		Enemy::Update();
 		_timer += fDT;
 
 		if (_isHit)
@@ -150,6 +163,7 @@ Vec2 RangedEnemy::GetShootDir()
 void RangedEnemy::Render(HDC _hdc)
 {
 	Enemy::Render(_hdc);
+
 	const float lineDistance = 25;
 	const float lineWidth = 25;
 	Vec2 shootDir = this->GetShootDir();
@@ -194,7 +208,7 @@ void RangedEnemy::HandleHitEvent(double _prev, double _health)
 {
 	if (_health <= 0)
 	{
-		GET_SINGLE(PlayerManager)->AddExp(5);
+		GET_SINGLE(PlayerManager)->AddExp(10);
 	}
 
 

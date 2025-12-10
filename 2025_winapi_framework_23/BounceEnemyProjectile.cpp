@@ -10,7 +10,7 @@ BounceEnemyProjectile::BounceEnemyProjectile()
 	SetTexture(GET_SINGLE(ResourceManager)->GetTexture(L"enemyBall"));
 	auto* col = GetComponent<Collider>();
 	col->SetName(L"EnemyBounceBall");
-	col->SetSize({50.f,50.f });
+	col->SetSize({25.f,25.f });
 	m_count = 0;
 	_damage = 0;
 }
