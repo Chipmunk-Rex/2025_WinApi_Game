@@ -12,7 +12,7 @@ struct CardInfo
     wstring name;
     wstring desc;
     wstring fileName;
-    std::shared_ptr<BaseCard> baseCard = nullptr;
+    BaseCard* baseCard = nullptr;
     int maxCount = 1;
     CardType cardType;
 };
