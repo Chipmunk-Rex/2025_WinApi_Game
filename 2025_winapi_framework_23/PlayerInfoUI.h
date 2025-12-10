@@ -19,4 +19,7 @@ private:
     int score;
     float timeSec;
     int level;
+    float curExp = 0.f;
+    float maxExp = 1.f;
+
 };
