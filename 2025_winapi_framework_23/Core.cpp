@@ -41,6 +41,7 @@ void Core::CleanUp()
     ::DeleteDC(m_hBackDC);
     ::DeleteObject(m_hBackBit);
     ::ReleaseDC(m_hWnd, m_hDC);
+    GET_SINGLE(SceneManager)->ReleaseScenes();
     GET_SINGLE(ResourceManager)->Release();
 }
 
