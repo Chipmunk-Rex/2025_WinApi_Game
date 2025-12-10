@@ -8,6 +8,8 @@
 #include "SlowBallCard.h"
 #include "DefaultBallCard.h"
 #include "BaseCard.h"
+#include "FireRateCard.h"
+#include "ProjectileSizeCard.h"
 
 const std::vector<CardInfo> CardDB::cards =
 {
@@ -17,6 +19,8 @@ const std::vector<CardInfo> CardDB::cards =
     //{ L"공 증가", L"발사되는 공 개수가\n하나 증가합니다", L"Plane", new LaserBallCard(), 1 },
     { L"체력 증가", L"최대 체력이 10%만큼\n증가합니다", L"Plane", nullptr, 1,CardType::Stat},
     { L"속도 증가", L"이동 속도가 20%만큼\n증가합니다." , L"Plane", new MoveSpeedCard(), 5,CardType::Stat},
+    { L"공속 증가", L"발사 쿨타임이 10% 감소합니다." , L"Plane", new FireRateCard(), 5,CardType::Stat},
+    { L"탄 크기 증가", L"발사체 크기가 20% 증가합니다." , L"Plane", new ProjectileSizeCard(), 5,CardType::Stat},
     { L"회복", L"체력을 전부 회복합니다.", L"Plane", nullptr, 1,CardType::Stat },
    
 };
