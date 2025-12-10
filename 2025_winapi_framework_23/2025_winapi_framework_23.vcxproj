@@ -170,6 +170,9 @@
     <ClInclude Include="Background.h" />
     <ClInclude Include="BaseCard.h" />
     <ClInclude Include="BaseWindow.h" />
+    <ClInclude Include="BlackHole.h" />
+    <ClInclude Include="BlackholeCard.h" />
+    <ClInclude Include="BlockholeProjectile.h" />
     <ClInclude Include="BounceBallEnemy.h" />
     <ClInclude Include="BounceEnemyProjectile.h" />
     <ClInclude Include="Button.h" />
@@ -242,6 +245,8 @@
     <ClCompile Include="Background.cpp" />
     <ClCompile Include="BaseCard.cpp" />
     <ClCompile Include="BaseWindow.cpp" />
+    <ClCompile Include="BlackHole.cpp" />
+    <ClCompile Include="BlockholeProjectile.cpp" />
     <ClCompile Include="BounceBallEnemy.cpp" />
     <ClCompile Include="BounceEnemyProjectile.cpp" />
     <ClCompile Include="Button.cpp" />

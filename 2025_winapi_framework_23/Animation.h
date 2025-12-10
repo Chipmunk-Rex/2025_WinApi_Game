@@ -1,12 +1,12 @@
-#pragma once
+ï»¿#pragma once
 class Animator;
 class Texture;
 struct tAnimFrame
 {
-    Vec2  vLT;        // ½ÃÆ® »ó ÁÂ»ó´Ü
-    Vec2  vSlice;     // Àß¶ó³¾ Å©±â(Æø, ³ôÀÌ)
-    float fDuration;  // ÇØ´ç ÇÁ·¹ÀÓ À¯Áö½Ã°£(ÃÊ)
-    Vec2  vOffset;    // ¿øÁ¡ º¸Á¤(¼±ÅÃ)
+    Vec2  vLT;        // ì‹œíŠ¸ ìƒ ì¢Œìƒë‹¨
+    Vec2  vSlice;     // ì˜ë¼ë‚¼ í¬ê¸°(í­, ë†’ì´)
+    float fDuration;  // í•´ë‹¹ í”„ë ˆì„ ìœ ì§€ì‹œê°„(ì´ˆ)
+    Vec2  vOffset;    // ì›ì  ë³´ì •(ì„ íƒ)
 };
 
 class Animation
@@ -18,15 +18,15 @@ public:
     void Update();
     void Render(HDC _hdc);
 
-    // ½ÃÆ® °£°İÀ¸·Î ÇÁ·¹ÀÓ »ı¼º
+    // ì‹œíŠ¸ ê°„ê²©ìœ¼ë¡œ í”„ë ˆì„ ìƒì„±
     void Create(Texture* _tex, Vec2 _lt, Vec2 _sliceSize,
         Vec2 _step, UINT _frameCount, float _durationPerFrame);
 
-    // Àç»ı ÆÄ¶ó¹ÌÅÍ ¼³Á¤(Animator::Play¿¡¼­ È£Ãâ)
+    // ì¬ìƒ íŒŒë¼ë¯¸í„° ì„¤ì •(Animator::Playì—ì„œ í˜¸ì¶œ)
     void ConfigurePlayback(PlayMode _mode, int _loopCount, float _speed);
-    // flip ÇÊ¿ä½Ã ÃßÈÄ Ãß°¡
+    // flip í•„ìš”ì‹œ ì¶”í›„ ì¶”ê°€
 
-    // Ã¹ ÇÁ·¹ÀÓ/´©Àû½Ã°£ ÃÊ±âÈ­
+    // ì²« í”„ë ˆì„/ëˆ„ì ì‹œê°„ ì´ˆê¸°í™”
     void ResetToFirstFrame();
 
 public:
@@ -34,11 +34,13 @@ public:
     void SetName(const wstring& _name) { m_name = _name; }
     const wstring& GetName() const { return m_name; }
 
-    // ÇÊ¿ä½Ã »ç¿ë
+    // í•„ìš”ì‹œ ì‚¬ìš©
     void SetFrameOffset(int _index, Vec2 _offset);
     int  GetCurFrame() const { return m_curFrame; }
     int  GetMaxFrame() const { return (int)m_frames.size(); }
     bool IsFinished()  const { return m_finished; }
+
+    void SetRenderSize(Vec2 size) { m_renderSize = size; }
 
 private:
     void AdvanceFrame();
@@ -49,11 +51,13 @@ private:
     std::wstring            m_name;
     std::vector<tAnimFrame> m_frames;
 
-    // Àç»ı »óÅÂ
+    // ì¬ìƒ ìƒíƒœ
     int      m_curFrame;
     float    m_accTime;
     PlayMode m_mode;
     int      m_loopCount;
     float    m_speed;
     bool     m_finished;
+
+    Vec2 m_renderSize = {0.f, 0.f};
 };
