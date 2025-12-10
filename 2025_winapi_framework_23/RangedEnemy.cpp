@@ -5,6 +5,7 @@
 #include "ResourceManager.h"
 #include "DamageText.h"
 #include "PlayerManager.h"
+#include "TankEnemy.h"
 
 
 RangedEnemy::RangedEnemy() :
@@ -78,14 +79,17 @@ void RangedEnemy::Update()
 
 				if (normal <= 0.3f)
 				{
+					SetTex(GET_SINGLE(ResourceManager)->GetTexture(L"MainTile_3"));
 					m_turretTex = (GET_SINGLE(ResourceManager)->GetTexture(L"Red_Brick_3"));
 				}
 				else if (normal <= 0.7f)
 				{
+					SetTex(GET_SINGLE(ResourceManager)->GetTexture(L"MainTile_2"));
 					m_turretTex = (GET_SINGLE(ResourceManager)->GetTexture(L"Red_Brick_2"));
 				}
 				else
 				{
+					SetTex(GET_SINGLE(ResourceManager)->GetTexture(L"MainTile"));
 					m_turretTex = (GET_SINGLE(ResourceManager)->GetTexture(L"Red_Brick_1"));
 				}
 
@@ -106,6 +110,8 @@ void RangedEnemy::Update()
 
 			Object* player = GetTarget();
 			if (player == nullptr) return;
+
+
 			EnemyProjectile* proj = new EnemyProjectile;
 			Vec2 pos = GetPos();
 			pos.y += GetSize().y / 3;
@@ -120,6 +126,7 @@ void RangedEnemy::Update()
 			proj->SetDamage(_damage);
 			curScene->AddObject(proj, Layer::ENEMYPROJECTILE);
 			_projectile = proj;
+
 			m_offset = Vec2(0, -10);
 		}
 
@@ -173,11 +180,15 @@ void RangedEnemy::Render(HDC _hdc)
 		0, 0);
 }
 
+
+
 void RangedEnemy::SetAttack(double delay, int damage)
 {
 	_attackDelay = delay;
 	_damage = damage;
 }
+
+
 
 void RangedEnemy::HandleHitEvent(double _prev, double _health)
 {
@@ -193,14 +204,17 @@ void RangedEnemy::HandleHitEvent(double _prev, double _health)
 
 	if (normal <= 0.3f)
 	{
+		SetTex(GET_SINGLE(ResourceManager)->GetTexture(L"MainTile_3"));
 		m_turretTex = (GET_SINGLE(ResourceManager)->GetTexture(L"Red_Brick_3_Hit"));
 	}
 	else if (normal <= 0.7f)
 	{
+		SetTex(GET_SINGLE(ResourceManager)->GetTexture(L"MainTile_2"));
 		m_turretTex = (GET_SINGLE(ResourceManager)->GetTexture(L"Red_Brick_2_Hit"));
 	}
 	else
 	{
+		SetTex(GET_SINGLE(ResourceManager)->GetTexture(L"MainTile"));
 		m_turretTex = (GET_SINGLE(ResourceManager)->GetTexture(L"Red_Brick_1_Hit"));
 	}
 

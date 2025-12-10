@@ -34,9 +34,6 @@ Player::Player()
 	Collider* collider = AddComponent<Collider>();
 	collider->SetName(L"Player");
 	collider->SetSize({ 50.f,50.f });
-	//auto* anim = AddComponent<Animator>();
-	//anim->CreateAnimation(L"JiwooFront", m_pTex, { 0.f, 150.f }, { 50.f,50.f }, { 50.f,0.f }, 5, 0.1f);
-	//anim->Play(L"JiwooFront");
 	rb = AddComponent<Rigidbody>();
 	rb->SetUseGravity(false);
 	rb->SetBounciness(0.f);
@@ -44,7 +41,7 @@ Player::Player()
 
 
 	Health* health = AddComponent<Health>();
-	health->SetHealth(1000);
+	health->SetHealth(200);
 
 
 	PlayerProjectile* proj = GET_SINGLE(SceneManager)->GetCurScene()->Spawn<PlayerProjectile>(Layer::PROJECTILE);
@@ -54,13 +51,10 @@ Player::Player()
 }
 Player::~Player()
 {
-	//SAFE_DELETE(m_pTex);
 	GET_SINGLE(PlayerManager)->SetPlayer(nullptr);
 }
 void Player::Update()
 {
-
-	//cout << CanShoot() << "\n";
 	Vec2 dir = {};
 	if (GET_KEY(KEY_TYPE::A))
 		dir.x -= 1.f;
@@ -88,6 +82,13 @@ void Player::Update()
 	{
 		fireTimer += fDT;
 	}
+
+	if (m_offset.y < 0)
+		m_offset.y += fDT * 20;
+	else
+	{
+		m_offset.y = 0;
+	}
 }
 
 void Player::FixedUpdate(float _fixedDT)
@@ -110,7 +111,10 @@ void Player::ShootProjectile()
 	proj->SetPos(pos);
 	float projectileScale = this->projectileScaleStat.GetValue();
 	proj->Scale({ projectileScale, projectileScale});
-	proj->Shoot(GetShootDir() * 500);
+	Vec2 shootDir = GetShootDir();
+	proj->Shoot(shootDir * 500);
+
+	m_offset = Vec2(0, -10);
 
 	fireTimer -= fireCooldownStat.GetValue();
 }
@@ -128,26 +132,10 @@ void Player::Render(HDC _hdc)
 {
 	Vec2 pos = GetPos();
 	Vec2 size = GetSize();
-	//RECT_RENDER(_hdc, pos.x, pos.y
-	 //                , size.x, size.y);
-	///m_pTex->getwidth();
 
 	LONG width = currentTexture->GetWidth();
 	LONG height = currentTexture->GetHeight();
 
-	//// blt 종류
-	// bitblt >>>>>> stretch >>> transparenblt
-	// 
-	//// 1. bitblt - 1:1 매칭, 고속 복사
-	//::BitBlt(_hdc
-	//	,(int)(pos.x - size.x / 2)
-	//	, (int)(pos.y - size.y / 2)
-	//	, width
-	//	, height
-	//	,m_pTex->GetTextureDC()
-	//	,0,0, SRCCOPY);
-
-	//// 2. transparentblt - 색깔 뺄때
 	::TransparentBlt(_hdc
 		, (int)(pos.x - size.x / 2)
 		, (int)(pos.y - size.y / 2)
@@ -158,28 +146,17 @@ void Player::Render(HDC _hdc)
 
 	ComponentRender(_hdc);
 
-	//// 3. Stretcthblt - 확대, 축소
-	//::StretchBlt(_hdc
-	//	, (int)(pos.x - size.x / 2)
-	//	, (int)(pos.y - size.y / 2)
-	//	, size.x
-	//	, size.y
-	//	, m_pTex->GetTextureDC()
-	//	, 0, 0, width, height,SRCCOPY);
-
-	// 4. - 알파값 조절
-	//::AlphaBlend()
-
-	// 5.  - 회전
-	//::PlgBlt();
-
 	const float lineDistance = 30;
 	const float lineWidth = 30;
 	Vec2 shootDir = this->GetShootDir();
-	Vec2 leftBottom = GetPos() + shootDir.Rotate(-90) * lineWidth;
-	//Vec2 rightBottom = GetPos() + shootDir.Rotate(90) * lineWidth;
-	Vec2 leftTop = GetPos() + shootDir * lineDistance + shootDir.Rotate(-90) * lineWidth;
-	Vec2 rightTop = GetPos() + shootDir * lineDistance + shootDir.Rotate(90) * lineWidth;
+	float angle = shootDir.GetAngleRad({ 0,1 });
+	Vec2 offset = m_offset.Rotate(angle);
+	if (shootDir.x > 0)
+		offset.x *= -1;
+	Vec2 turretPos = GetPos() + offset;
+	Vec2 leftBottom = turretPos + shootDir.Rotate(-90) * lineWidth;
+	Vec2 leftTop = turretPos + shootDir * lineDistance + shootDir.Rotate(-90) * lineWidth;
+	Vec2 rightTop = turretPos + shootDir * lineDistance + shootDir.Rotate(90) * lineWidth;
 
 	POINT plg[3] =
 	{
@@ -197,30 +174,12 @@ void Player::Render(HDC _hdc)
 		lineTexW, lineTexH,
 		m_turretMaskTex->GetHBitmap(),
 		0, 0);
-	//else
-	//{
-	//	POINT arr[4] =
-	//	{
-	//		(POINT)leftBottom,
-	//		(POINT)rightBottom,
-	//		(POINT)rightTop,
-	//		(POINT)leftTop
-	//	};
-	//	Polygon(_hdc, arr, 4);
-	//}
-
-	//LaycastHit hit;
-	//GET_SINGLE(CollisionManager)->BoxCast(GetPos(), GetSize(), GetShootDir(), 10000, Layer::DEFAULT | Layer::PROJECTILE, hit);
-
-	//RECT_RENDER(_hdc, hit.point.x, hit.point.y, GetSize().x, GetSize().y);
 }
 
 void Player::EnterCollision(Collider* _other)
 {
-
 	if (PlayerProjectile* myProjectile = dynamic_cast<PlayerProjectile*>(_other->GetOwner()))
 	{
-		//myProjectile->SetActive(false);
 	}
 }
 
@@ -233,11 +192,8 @@ void Player::ExitCollision(Collider* _other)
 }
 
 
-////////////////////////////////////////////////////////////////////////////////////
-
 void Player::LevelUp()
 {
 	++level;
-	// Show card choices on level up
 	GET_SINGLE(CardManager)->ShowCard(3);
 }

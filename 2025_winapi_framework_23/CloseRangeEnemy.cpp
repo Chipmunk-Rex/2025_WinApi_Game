@@ -71,18 +71,18 @@ void CloseRangeEnemy::Update()
 
 				double normal = GetCurHealth() / GetMaxHealth();
 
-				/*if (normal <= 0.3f)
+				if (normal <= 0.3f)
 				{
-					SetTex(GET_SINGLE(ResourceManager)->GetTexture(L"Red_Brick_3"));
+					SetTex(GET_SINGLE(ResourceManager)->GetTexture(L"MainTile_3"));
 				}
 				else if (normal <= 0.7f)
 				{
-					SetTex(GET_SINGLE(ResourceManager)->GetTexture(L"Red_Brick_2"));
+					SetTex(GET_SINGLE(ResourceManager)->GetTexture(L"MainTile_2"));
 				}
 				else
 				{
-					SetTex(GET_SINGLE(ResourceManager)->GetTexture(L"Red_Brick_1"));
-				}*/
+					SetTex(GET_SINGLE(ResourceManager)->GetTexture(L"MainTile"));
+				}
 
 				_hitTimer = 0;
 				_isHit = false;
@@ -109,18 +109,18 @@ void CloseRangeEnemy::HandleHitEvent(double _prev, double _health)
 
 	double normal = _health / maxHealth;
 
-	/*if (normal <= 0.3f)
+	if (normal <= 0.3f)
 	{
-		SetTex(GET_SINGLE(ResourceManager)->GetTexture(L"Red_Brick_3"));
+		SetTex(GET_SINGLE(ResourceManager)->GetTexture(L"MainTile_3"));
 	}
 	else if (normal <= 0.7f)
 	{
-		SetTex(GET_SINGLE(ResourceManager)->GetTexture(L"Red_Brick_2"));
+		SetTex(GET_SINGLE(ResourceManager)->GetTexture(L"MainTile_2"));
 	}
 	else
 	{
-		SetTex(GET_SINGLE(ResourceManager)->GetTexture(L"Red_Brick_1"));
-	}*/
+		SetTex(GET_SINGLE(ResourceManager)->GetTexture(L"MainTile"));
+	}
 
 	Scene* curScene = GET_SINGLE(SceneManager)->GetCurScene();
 

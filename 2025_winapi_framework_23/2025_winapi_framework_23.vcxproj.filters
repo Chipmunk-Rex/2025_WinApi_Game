@@ -233,6 +233,16 @@
     <ClInclude Include="SlowBallCard.h">
       <Filter>Engine\03. Object\Players\Cards</Filter>
     </ClInclude>
+    <ClInclude Include="DefaultBallCard.h" />
+    <ClInclude Include="TankEnemy.h">
+      <Filter>Engine\03. Object</Filter>
+    </ClInclude>
+    <ClInclude Include="BounceBallEnemy.h">
+      <Filter>Engine\03. Object</Filter>
+    </ClInclude>
+    <ClInclude Include="BounceEnemyProjectile.h">
+      <Filter>Engine\03. Object</Filter>
+    </ClInclude>
     <ClInclude Include="StartButton.h">
       <Filter>Engine\07. UI</Filter>
     </ClInclude>
@@ -257,6 +267,8 @@
     <ClInclude Include="ProjectileSizeCard.h">
       <Filter>Engine\03. Object\Players\Cards</Filter>
     </ClInclude>
+    <ClInclude Include="GameOverScene.h" />
+    <ClInclude Include="EndingScene.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="2025_winapi_framework_23.rc">
@@ -405,6 +417,15 @@
     <ClCompile Include="PlayerManager.cpp">
       <Filter>Engine\02. Manager</Filter>
     </ClCompile>
+    <ClCompile Include="TankEnemy.cpp">
+      <Filter>Engine\03. Object</Filter>
+    </ClCompile>
+    <ClCompile Include="BounceBallEnemy.cpp">
+      <Filter>Engine\03. Object</Filter>
+    </ClCompile>
+    <ClCompile Include="BounceEnemyProjectile.cpp">
+      <Filter>Engine\03. Object</Filter>
+    </ClCompile>
     <ClCompile Include="StartButton.cpp">
       <Filter>Engine\07. UI</Filter>
     </ClCompile>
@@ -417,5 +438,7 @@
     <ClCompile Include="StartScene.cpp">
       <Filter>Engine\04. Scene</Filter>
     </ClCompile>
+    <ClCompile Include="GameOverScene.cpp" />
+    <ClCompile Include="EndingScene.cpp" />
   </ItemGroup>
 </Project>
