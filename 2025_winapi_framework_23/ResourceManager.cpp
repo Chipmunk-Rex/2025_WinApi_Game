@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "ResourceManager.h"
 #include "Texture.h"
 bool ResourceManager::Init()
@@ -13,7 +13,7 @@ bool ResourceManager::Init()
 
 	if (!RegisterFontFile(L"Font\\나눔손글씨 암스테르담.ttf"))
 		return false;
-	if (!RegisterFontFile(L"Font\\Galmuri11.ttf") )
+	if (!RegisterFontFile(L"Font\\Galmuri11.ttf"))
 		return false;
 	RegisterTexture();
 	RegisterGDI();
@@ -109,7 +109,6 @@ void ResourceManager::RegisterGDI()
 	m_Pens[(UINT)PenType::RED] = ::CreatePen(PS_SOLID, 1, RGB(255, 0, 0));
 	m_Pens[(UINT)PenType::GREEN] = ::CreatePen(PS_SOLID, 1, RGB(0, 255, 0));
 	m_Pens[(UINT)PenType::CARDTEXT] = ::CreatePen(PS_SOLID, 1, RGB(227, 253, 255));
-
 	// ��Ʈ ����
 	RegisterFont(FontType::TITLE, L"나눔손글씨 암스테르담", 60);
 	RegisterFont(FontType::UI, L"나눔손글씨 암스테르담", 0);
@@ -254,6 +253,6 @@ Texture* ResourceManager::GetTexture(const wstring& _key)
 
 void ResourceManager::RegisterSound()
 {
-	LoadSound(L"BGM",L"Sound\\Retro_bgm.wav",true);
-	LoadSound(L"Shoot",L"Sound\\laserShoot.wav",false);
+	LoadSound(L"BGM", L"Sound\\Retro_bgm.wav", true);
+	LoadSound(L"Shoot", L"Sound\\laserShoot.wav", false);
 }
