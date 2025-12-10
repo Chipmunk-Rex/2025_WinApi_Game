@@ -7,10 +7,10 @@ class PlayerManager
 public:
 	void SetPlayer(Player* _player) { 
 		this->_player = _player;
-		if(_player != nullptr)
-		this->_playerHealth = _player->GetComponent<Health>();
+		if (_player != nullptr)
+			this->_playerHealth = _player->GetComponent<Health>();
 		else
-			this->_playerHealth = nullptr
+			this->_playerHealth = nullptr;
 	}
 	Player* GetPlayer() const { return _player; }
 
