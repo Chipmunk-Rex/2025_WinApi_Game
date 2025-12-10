@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "BounceBallEnemy.h"
 #include "ResourceManager.h"
 #include "Texture.h"
@@ -183,7 +183,7 @@ void BounceBallEnemy::HandleHitEvent(double _prev, double _health)
 
 	double normal = _health / maxHealth;
 
-	std::shared_ptr<Scene> curScene = GET_SINGLE(SceneManager)->GetCurScene();
+	Scene* curScene = GET_SINGLE(SceneManager)->GetCurScene();
 
 	double defaultVal = _prev - _health;
 

@@ -1,4 +1,4 @@
-﻿#include "pch.h"
+#include "pch.h"
 #include "SceneManager.h"
 #include "DevScene.h"
 #include "TestScene.h"
@@ -9,6 +9,8 @@
 #include "UIScene.h"
 #include "EnemyTestScene.h"
 #include "StartScene.h"
+#include "GameOverScene.h"
+#include "EndingScene.h"
 void SceneManager::Init()
 {
 	m_curScene = nullptr;
@@ -19,6 +21,8 @@ void SceneManager::Init()
 	RegisterScene(L"UIScene", new UIScene());
 	RegisterScene(L"EnemyTestScene", new EnemyTestScene());
 	RegisterScene(L"StartScene", new StartScene());
+	RegisterScene(L"GameOverScene", new GameOverScene());
+	RegisterScene(L"EndingScene", new EndingScene());
 
 
 	SceneSelectWindow sceneSelectWindow;
