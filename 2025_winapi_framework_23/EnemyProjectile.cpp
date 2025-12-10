@@ -6,7 +6,7 @@
 #include "Player.h"
 #include "ResourceManager.h"
 
-EnemyProjectile::EnemyProjectile() : _damage(0), _timer(0.f), _lifeTime(5.f), m_pTex(nullptr)
+EnemyProjectile::EnemyProjectile() : _damage(1), _timer(0.f), _lifeTime(5.f), m_pTex(nullptr)
 {
 	//Projectile::Projectile();
 
@@ -50,7 +50,7 @@ void EnemyProjectile::EnterCollision(Collider* _other)
 	if (GetIsDead())return;
 	if (_other->GetName() == L"Player")
 	{
-		_other->GetOwner()->GetComponent<Health>()->TakeDamage(5);
+		_other->GetOwner()->GetComponent<Health>()->TakeDamage(_damage);
 		GET_SINGLE(SceneManager)->RequestDestroy(this);
 	}
 	else if (_other->GetName() == L"PlayerBullet")
