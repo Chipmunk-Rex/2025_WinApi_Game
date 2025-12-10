@@ -170,6 +170,8 @@
     <ClInclude Include="Background.h" />
     <ClInclude Include="BaseCard.h" />
     <ClInclude Include="BaseWindow.h" />
+    <ClInclude Include="BounceBallEnemy.h" />
+    <ClInclude Include="BounceEnemyProjectile.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="CardDB.h" />
     <ClInclude Include="CardInfo.h" />
@@ -234,6 +236,8 @@
     <ClCompile Include="Background.cpp" />
     <ClCompile Include="BaseCard.cpp" />
     <ClCompile Include="BaseWindow.cpp" />
+    <ClCompile Include="BounceBallEnemy.cpp" />
+    <ClCompile Include="BounceEnemyProjectile.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="CardDB.cpp" />
     <ClCompile Include="CardManager.cpp" />

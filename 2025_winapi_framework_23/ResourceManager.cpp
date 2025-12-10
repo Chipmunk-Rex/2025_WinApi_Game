@@ -80,6 +80,10 @@ void ResourceManager::RegisterTexture()
 	LoadTexture(L"Projectile_Saturn", L"Texture\\Planet\\Saturn.bmp");
 	LoadTexture(L"Background_Space", L"Texture\\Background\\Space.bmp");
 	LoadTexture(L"StartScene_Space", L"Texture\\Background\\StartSceneSpace.bmp");
+	LoadTexture(L"BounceBallEnemy", L"Texture\\Enemy\\BounceBallEnemyTile.bmp");
+	LoadTexture(L"BounceBallEnemy_2", L"Texture\\Enemy\\BounceBallEnemyTile_2.bmp");
+	LoadTexture(L"BounceBallEnemy_3", L"Texture\\Enemy\\BounceBallEnemyTile_3.bmp");
+	LoadTexture(L"enemyBall", L"Texture\\Enemy\\Ball1.bmp");
 }
 void ResourceManager::RegisterGDI()
 {

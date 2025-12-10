@@ -110,6 +110,8 @@ void RangedEnemy::Update()
 
 			Object* player = GetTarget();
 			if (player == nullptr) return;
+
+
 			EnemyProjectile* proj = new EnemyProjectile;
 			Vec2 pos = GetPos();
 			pos.y += GetSize().y / 3;
@@ -124,6 +126,7 @@ void RangedEnemy::Update()
 			proj->SetDamage(_damage);
 			curScene->AddObject(proj, Layer::ENEMYPROJECTILE);
 			_projectile = proj;
+
 			m_offset = Vec2(0, -10);
 		}
 

@@ -17,6 +17,7 @@
 #include "PlayerInfoUI.h"
 #include "Background.h"
 #include "TankEnemy.h"
+#include "BounceBallEnemy.h"
 
 void EnemyTestScene::Init()
 {
@@ -39,6 +40,8 @@ void EnemyTestScene::Init()
 	Spawn<PlayerInfoUI>(Layer::UI, { WINDOW_WIDTH / 2,  0 }, { 1000.f, 50.f });
 
 	GET_SINGLE(CollisionManager)->CheckLayer(Layer::PROJECTILE, Layer::ENEMY);
+	GET_SINGLE(CollisionManager)->CheckLayer(Layer::BOUNCEPROJECTILE, Layer::DEFAULT);
+	GET_SINGLE(CollisionManager)->CheckLayer(Layer::BOUNCEPROJECTILE, Layer::PLAYER);
 	//GET_SINGLE(CollisionManager)->CheckLayer(Layer::PROJECTILE, Layer::ENEMYPROJECTILE);
 	GET_SINGLE(CollisionManager)->CheckLayer(Layer::PROJECTILE, Layer::DEFAULT);
 	GET_SINGLE(CollisionManager)->CheckLayer(Layer::PLAYER, Layer::ENEMYPROJECTILE);
@@ -93,30 +96,40 @@ void EnemyTestScene::Render(HDC _hdc)
 
 void EnemyTestScene::EnemySpawn()
 {
+	srand(time(0));
+
 	for (int i = 0; i < _enemyCount; i++)
 	{
 		if (rand() % 100 <= _spawnPercent)
 		{
 			float randValue = rand() % 100;
-			if (randValue < 30)
+			if (randValue < 25)
 			{
 				CloseRangeEnemy* enemy = Spawn<CloseRangeEnemy>
 					(
 						Layer::ENEMY
 						, { (WINDOW_WIDTH / 2 - (50 * (_enemyCount / 2))) + (50 * i),  -100 }
 				, { 50,50 });
-				vector<Object*> arr = GetLayerObjects(Layer::ENEMY);
 				float mulValue = ((_currentSpawnCount / _enemyCount) + 1) * 0.2f;
 				enemy->SetHealth(10 * mulValue);
 			}
-			else if(randValue < 60)
+			else if(randValue < 50)
 			{
 				RangedEnemy* enemy = Spawn<RangedEnemy>
 					(
 						Layer::ENEMY
 						, { (WINDOW_WIDTH / 2 - (50 * (_enemyCount / 2))) + (50 * i), -100 }
 				, { 50,50 });
-				vector<Object*> arr = GetLayerObjects(Layer::ENEMY);
+				float mulValue = ((_currentSpawnCount / _enemyCount) + 1) * 0.2f;
+				enemy->SetHealth(10 * mulValue);
+			}
+			else if (randValue < 75)
+			{
+				BounceBallEnemy* enemy = Spawn<BounceBallEnemy>
+					(
+						Layer::ENEMY
+						, { (WINDOW_WIDTH / 2 - (50 * (_enemyCount / 2))) + (50 * i), -100 }
+				, { 50,50 });
 				float mulValue = ((_currentSpawnCount / _enemyCount) + 1) * 0.2f;
 				enemy->SetHealth(10 * mulValue);
 			}
@@ -127,7 +140,6 @@ void EnemyTestScene::EnemySpawn()
 						Layer::ENEMY
 						, { ((WINDOW_WIDTH / 2 - (50 * (_enemyCount / 2))) + (50 * i)) + 25, -100 }
 				, { 100,50 });
-				vector<Object*> arr = GetLayerObjects(Layer::ENEMY);
 				float mulValue = ((_currentSpawnCount / _enemyCount) + 1) * 0.2f;
 				enemy->SetHealth((10 * mulValue) * 3);
 				++i;

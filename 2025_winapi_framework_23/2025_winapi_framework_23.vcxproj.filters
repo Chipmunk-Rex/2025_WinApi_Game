@@ -241,6 +241,12 @@
     <ClInclude Include="TankEnemy.h">
       <Filter>Engine\03. Object</Filter>
     </ClInclude>
+    <ClInclude Include="BounceBallEnemy.h">
+      <Filter>Engine\03. Object</Filter>
+    </ClInclude>
+    <ClInclude Include="BounceEnemyProjectile.h">
+      <Filter>Engine\03. Object</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="2025_winapi_framework_23.rc">
@@ -394,6 +400,12 @@
       <Filter>Engine\02. Manager</Filter>
     </ClCompile>
     <ClCompile Include="TankEnemy.cpp">
+      <Filter>Engine\03. Object</Filter>
+    </ClCompile>
+    <ClCompile Include="BounceBallEnemy.cpp">
+      <Filter>Engine\03. Object</Filter>
+    </ClCompile>
+    <ClCompile Include="BounceEnemyProjectile.cpp">
       <Filter>Engine\03. Object</Filter>
     </ClCompile>
   </ItemGroup>

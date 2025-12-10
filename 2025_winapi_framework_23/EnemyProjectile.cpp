@@ -26,16 +26,7 @@ EnemyProjectile::~EnemyProjectile()
 
 void EnemyProjectile::Update()
 {
-	if (_timer >= 1)
-	{
-		Projectile::Update();
-	}
-	else
-	{
-		Translate({ 0.f, fDT * 20.f, });
-	}
-
-
+	Projectile::Update();
 }
 
 void EnemyProjectile::LateUpdate()
