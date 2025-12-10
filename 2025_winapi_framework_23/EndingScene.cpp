@@ -31,9 +31,8 @@ void EndingScene::Init()
       L"이 우주는 지켜졌다.",
       L"그것도 당신의 손으로, 확실하게.",
 
-      L"기억하라.",
       L"오늘, 우주의 주인은 당신이었다",
-       L"축하합니다! 게임 클리어"
+       L"축하합니다! -신희섭, 고민수, 윤완희-"
     };
 
 }
@@ -52,7 +51,7 @@ void EndingScene::Render(HDC _hdc)
     Scene::Render(_hdc);
 
     float startY = WINDOW_HEIGHT + 700;    
-    float endY = -3400.f;                 
+    float endY = -3950.f;                 
     float t = min(1.0f, creditTime / 15.f);  
 
     float curY = startY + (endY - startY) * t; 

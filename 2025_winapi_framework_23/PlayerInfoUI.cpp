@@ -2,13 +2,22 @@
 #include "PlayerInfoUI.h"
 #include "ResourceManager.h"
 #include "PlayerManager.h"
+#include "Texture.h"
+#include "PlayerProjectile.h"
+
 
 PlayerInfoUI::PlayerInfoUI()
 {
-	score = 0;
-	timeSec = 0.0f;
-	level = 1;
+    score = 0;
+    timeSec = 0.0f;
+    level = 1;
+
+    curExp = 0.f;
+    maxExp = 0.f;
+    curHealth = 0.f;
+    maxHealth = 0.f;
 }
+
 
 PlayerInfoUI::~PlayerInfoUI()
 {
@@ -86,6 +95,47 @@ void PlayerInfoUI::Render(HDC hdc)
     skillOutline.bottom = skillOutline.top + 350;
 
     Rectangle(hdc, skillOutline.left, skillOutline.top, skillOutline.right, skillOutline.bottom);
+    // -------------------------
+// Projectile Icon Rendering
+// -------------------------
+    const auto& projQueue = GET_SINGLE(PlayerManager)->GetPlayerProjectiles();
+
+    int maxShow = 6;
+    int index = 0;
+
+    int iconW = 60;
+    int iconH = 60;
+    int startX = skillOutline.left + 20;
+    int startY = skillOutline.top + 20;
+    int margin = 65;
+
+    // queue는 pop을 못하니까 복사본을 사용해서 순서대로 접근
+    std::queue<PlayerProjectile*> temp = projQueue;
+
+    while (!temp.empty() && index < maxShow)
+    {
+        PlayerProjectile* proj = temp.front();
+        temp.pop();
+
+        const Texture* tex = proj->GetIconTexture();
+        if (tex != nullptr)
+        {
+            TransparentBlt(
+                hdc,
+                startX + 5,
+                startY + index * margin,
+                (int)(tex->GetWidth() * 1.5 ),
+                (int)(tex->GetHeight() * 1.5 ),
+                tex->GetTextureDC(),
+                0, 0,
+                tex->GetWidth(),
+                tex->GetHeight(),
+                RGB(255, 0, 255)
+            );
+        }
+
+        index++;
+    }
 
     DrawText(hdc, scoreText.c_str(), -1, &scoreRc, DT_RIGHT | DT_TOP | DT_SINGLELINE);
 
@@ -174,7 +224,7 @@ void PlayerInfoUI::SetScore(int s)
 
 void PlayerInfoUI::SetTime(float sec)
 {
-	timeSec = sec;
+	timeSec = sec;  
 }
 
 void PlayerInfoUI::SetLevel(int lvl)
