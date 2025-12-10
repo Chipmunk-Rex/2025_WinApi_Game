@@ -178,8 +178,6 @@ void CardUI::SetInfo(const CardInfo& info)
         break;
     }
 
-    std::cout << info.cardType << endl;
-
 
     backgroundTex = GET_SINGLE(ResourceManager)->GetTexture(cardBackgroundTex);
 }
