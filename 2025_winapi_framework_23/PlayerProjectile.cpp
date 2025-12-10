@@ -6,7 +6,7 @@
 PlayerProjectile::PlayerProjectile() 
 	: Projectile(), _damage(0)
 {
-	SetSize({ 30.f,30.f });
+	SetDefaultSize({ 30.f, 30.f });
 }
 
 PlayerProjectile::~PlayerProjectile()

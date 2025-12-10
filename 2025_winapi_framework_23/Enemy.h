@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "Object.h"
 #include "Texture.h"
 #include "Health.h"
@@ -8,10 +8,10 @@ class Enemy : public Object
 {
 public:
 	Enemy();
-	~Enemy();
+	virtual ~Enemy();
 public:
 	void Update() override;
-	// ObjectÀ»(¸¦) ÅëÇØ »ó¼ÓµÊ'
+	// Objectì„(ë¥¼) í†µí•´ ìƒì†ë¨'
 	void Render(HDC _hdc) override;
 public:
 	void SetHealth(float value)

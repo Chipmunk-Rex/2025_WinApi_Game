@@ -1,7 +1,7 @@
 ﻿#include "pch.h"
 #include "Player.h"
 #include "InputManager.h"
-#include "Projectile.h"	
+#include "Projectile.h"
 #include "SceneManager.h"
 #include "Scene.h"
 #include "Texture.h"
@@ -20,6 +20,8 @@
 Player::Player()
 	: middleTexture(nullptr)
 	, m_turretTex(nullptr)
+	, fireCooldownStat(1.f)
+	, projectileScaleStat(1.f)
 {
 	leftTexture = GET_SINGLE(ResourceManager)->GetTexture(L"Player_Left");
 	middleTexture = GET_SINGLE(ResourceManager)->GetTexture(L"Player_Middle");
@@ -43,8 +45,6 @@ Player::Player()
 
 	Health* health = AddComponent<Health>();
 	health->SetHealth(1000);
-
-	fireCooldown = 1.0f;
 
 
 	PlayerProjectile* proj = GET_SINGLE(SceneManager)->GetCurScene()->Spawn<PlayerProjectile>(Layer::PROJECTILE);
@@ -84,7 +84,7 @@ void Player::Update()
 		if (GET_KEYDOWN(KEY_TYPE::LBUTTON) || GET_KEY(KEY_TYPE::LBUTTON))
 			ShootProjectile();
 	}
-	else if (fireTimer < fireCooldown && projectiles.size() != 0)
+	else if (fireTimer < fireCooldownStat.GetValue() && projectiles.size() != 0)
 	{
 		fireTimer += fDT;
 	}
@@ -108,10 +108,11 @@ void Player::ShootProjectile()
 	projectiles.pop();
 	Vec2 pos = GetPos();
 	proj->SetPos(pos);
-	proj->Scale({ projectileScale , projectileScale });
+	float projectileScale = this->projectileScaleStat.GetValue();
+	proj->Scale({ projectileScale, projectileScale});
 	proj->Shoot(GetShootDir() * 500);
 
-	fireTimer -= fireCooldown;
+	fireTimer -= fireCooldownStat.GetValue();
 }
 
 Vec2 Player::GetShootDir()
@@ -121,6 +122,7 @@ Vec2 Player::GetShootDir()
 	Vec2 dir = { mousePos.x - playerPos.x, mousePos.y - playerPos.y };
 	return dir.Normalize();
 }
+
 
 void Player::Render(HDC _hdc)
 {

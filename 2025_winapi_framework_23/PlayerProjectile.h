@@ -12,11 +12,10 @@ public:
     void StayCollision(Collider* _other) override;
     void ExitCollision(Collider* _other) override;
 public:
-    void SetSize(Vec2 _size) override
-    {
-        Projectile::SetSize(_size);
-		defaultSize = _size;
-    }
+    //void SetSize(Vec2 _size) override
+    //{
+    //    Projectile::SetSize(_size);
+    //}
     void Scale(Vec2 _s) override
     {
         this->SetSize(defaultSize * _s);
@@ -25,6 +24,8 @@ public:
     void Shoot(Vec2 _dir) override;
     void SetDamage(int damage) { _damage = damage; }
     bool CanCollect() const { return canCollect; }
+protected:
+	void SetDefaultSize(Vec2 _size) { defaultSize = _size; }
 private:
     int _damage;
 	bool canCollect = false;

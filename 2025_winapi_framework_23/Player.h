@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include "Object.h"
 #include "PlayerProjectile.h"
+#include "Stat.h"
 //class PlayerProjectile;
 class Texture;
 class Rigidbody;
@@ -21,7 +22,7 @@ private:
 	void ShootProjectile();
 	Vec2 GetShootDir();
 public:
-	bool CanShoot() const { return fireTimer >= fireCooldown && projectiles.size() != 0; }
+	bool CanShoot() const { return fireTimer >= fireCooldownStat.GetValue() && projectiles.size() != 0; }
 	void AddProjectile(PlayerProjectile* _proj) { projectiles.push(_proj); _proj->SetActive(false); }
 
 	// Level/Exp
@@ -38,6 +39,10 @@ public:
 		}
 	}
 
+	// Stat modifiers
+	void AddFireCooldownMultiplier(float delta) { fireCooldownStat.AddMultiplier(delta); }
+	void AddProjectileScaleMultiplier(float delta) { projectileScaleStat.AddMultiplier(delta); }
+
 private:
 	void LevelUp();
 
@@ -52,9 +57,9 @@ private:
 	Rigidbody* rb;
 private:
 	std::queue<PlayerProjectile*> projectiles;
-	float fireCooldown;
 	float fireTimer = 0;
-	float projectileScale = 1;
+	StatValue fireCooldownStat;
+	StatValue projectileScaleStat;
 private:
 	int level = 1;
 	int exp = 0;

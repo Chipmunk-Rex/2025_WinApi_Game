@@ -233,7 +233,6 @@
     <ClInclude Include="SlowBallCard.h">
       <Filter>Engine\03. Object\Players\Cards</Filter>
     </ClInclude>
-    <ClInclude Include="DefaultBallCard.h" />
     <ClInclude Include="StartButton.h">
       <Filter>Engine\07. UI</Filter>
     </ClInclude>
@@ -245,6 +244,18 @@
     </ClInclude>
     <ClInclude Include="StartScene.h">
       <Filter>Engine\04. Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Stat.h">
+      <Filter>Engine\99. Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="DefaultBallCard.h">
+      <Filter>Engine\03. Object\Players\Cards</Filter>
+    </ClInclude>
+    <ClInclude Include="FireRateCard.h">
+      <Filter>Engine\03. Object\Players\Cards</Filter>
+    </ClInclude>
+    <ClInclude Include="ProjectileSizeCard.h">
+      <Filter>Engine\03. Object\Players\Cards</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
