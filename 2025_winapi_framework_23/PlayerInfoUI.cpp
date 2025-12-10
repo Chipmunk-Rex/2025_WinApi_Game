@@ -154,8 +154,10 @@ void PlayerInfoUI::Render(HDC hdc)
 		fill.bottom = expBarY + expBarHeight - 1;
 
 		{
-			GDISelector brush(hdc, BrushType::GREEN);
-			FillRect(hdc, &fill, CreateSolidBrush(RGB(255, 255, 255)));
+			HBRUSH whiteBrush = CreateSolidBrush(RGB(255, 255, 255));
+			FillRect(hdc, &fill, whiteBrush);
+			DeleteObject(whiteBrush);
+
 		}
 	}
 }
