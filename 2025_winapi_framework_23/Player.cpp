@@ -41,7 +41,7 @@ Player::Player()
 
 
 	Health* health = AddComponent<Health>();
-	health->SetHealth(1000);
+	health->SetHealth(200);
 
 
 	PlayerProjectile* proj = GET_SINGLE(SceneManager)->GetCurScene()->Spawn<PlayerProjectile>(Layer::PROJECTILE);
