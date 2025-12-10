@@ -8,7 +8,12 @@ public:
 	Player* GetPlayer() const { return _player; }
 
 	void AddExp(int amount);
+	int GetScore() const 
+	{
+		return score;
+	}
 private:
 	Player* _player;
+	int score = 0;
 };
 
