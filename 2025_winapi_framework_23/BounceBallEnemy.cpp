@@ -17,7 +17,9 @@ BounceBallEnemy::BounceBallEnemy() :
 	_hitDelay(0.1f),
 	_hitTimer(0),
 	_isAttack(false),
-	_isAttacking(false)
+	_isAttacking(false),
+	_moveDelayTimer(0),
+	_attackMoveStartPos({0,0})
 {
 
 	SetTex(GET_SINGLE(ResourceManager)->GetTexture(L"BounceBallEnemy"));
@@ -53,7 +55,7 @@ void BounceBallEnemy::Aattack()
 	Vec2 newPos = pos.Rotate(angle);
 	Vec2 playerPos = player->GetPos();
 	proj->SetPos(pos);
-	proj->SetSize({ 50.f,50.f });
+	proj->SetSize({ 25.f,25.f });
 	proj->Shoot(shootDir * 350);
 	proj->SetDamage(_damage);
 	curScene->AddObject(proj, Layer::BOUNCEPROJECTILE);
@@ -68,39 +70,50 @@ void BounceBallEnemy::Update()
 {
 	Vec2 pos = GetPos();
 
-	if (pos.y >= WINDOW_HEIGHT - 150)
+	if (!_isAttack && pos.y >= WINDOW_HEIGHT - 150)
 	{
+		_attackMoveStartPos = GetPos();
 		_isAttack = true;
+		GetRbCompo()->SetVelocity({0,0});
 	}
 
 	if (_isAttack)
 	{
-		Player* player = GetTarget();
-		if (player == nullptr) return;
-		Vec2 playerPos = player->GetPos();
-		Rigidbody* rbCompo = GetRbCompo();
+		_moveDelayTimer += fDT;
 
-		Vec2 dir = playerPos - pos;
-		Vec2 p = playerPos - pos;
-		dir = dir.Normalize();
-		rbCompo->SetVelocity(dir * 1000.f);
-
-		Vec2 offset[2] = { {50,50},{-50,-50} };
-
-		if (p.x <= offset[0].x && p.x >= offset[1].x && p.y <= offset[0].y && p.y >= offset[1].y)
+		if (_moveDelayTimer >= 1.25f)
 		{
-			Health* playerHealth = player->GetComponent<Health>();
-			if (playerHealth == nullptr) return;
-			if (!GetIsDead())
+			Player* player = GetTarget();
+			if (player == nullptr) return;
+			Vec2 playerPos = player->GetPos();
+			Rigidbody* rbCompo = GetRbCompo();
+
+			Vec2 dir = playerPos - pos;
+			Vec2 p = playerPos - pos;
+			dir = dir.Normalize();
+			rbCompo->SetVelocity(dir * 1000.f);
+
+			Vec2 offset[2] = { {50,50},{-50,-50} };
+
+			if (p.x <= offset[0].x && p.x >= offset[1].x && p.y <= offset[0].y && p.y >= offset[1].y)
 			{
-				playerHealth->TakeDamage(_damage);
-				GET_SINGLE(SceneManager)->GetCurScene()->RequestDestroy(this);
+				Health* playerHealth = player->GetComponent<Health>();
+				if (playerHealth == nullptr) return;
+				if (!GetIsDead())
+				{
+					playerHealth->TakeDamage(_damage);
+					GET_SINGLE(SceneManager)->GetCurScene()->RequestDestroy(this);
+				}
 			}
+		}
+		else
+		{
+			Vec2 newPos = _attackMoveStartPos + Vec2{ rand() % 10 - 5 ,  rand() % 10 - 5 };
+			SetPos(newPos);
 		}
 	}
 	else
 	{
-		Enemy::Update();
 		_timer += fDT;
 
 		if (_isHit)

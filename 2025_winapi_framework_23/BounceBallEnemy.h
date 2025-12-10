@@ -25,6 +25,8 @@ private:
     bool _isAttack;
     bool _isAttacking;
     BounceEnemyProjectile* _projectile;
+    double _moveDelayTimer;
+    Vec2 _attackMoveStartPos;
 
 };
 

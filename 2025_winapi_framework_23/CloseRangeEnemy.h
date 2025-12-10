@@ -14,7 +14,9 @@ public:
     double _hitTimer;
     double _hitDelay;
     double _damage;
+    double _moveDelayTimer;
     bool _isHit;
     bool _isAttack;
+    Vec2 _attackMoveStartPos;
 };
 
