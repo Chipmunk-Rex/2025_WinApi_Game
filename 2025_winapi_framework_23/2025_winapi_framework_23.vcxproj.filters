@@ -269,6 +269,15 @@
     </ClInclude>
     <ClInclude Include="GameOverScene.h" />
     <ClInclude Include="EndingScene.h" />
+    <ClInclude Include="BlackholeCard.h">
+      <Filter>Engine\03. Object\Players\Cards</Filter>
+    </ClInclude>
+    <ClInclude Include="BlackHole.h">
+      <Filter>Engine\03. Object\Players\Cards</Filter>
+    </ClInclude>
+    <ClInclude Include="BlockholeProjectile.h">
+      <Filter>Engine\03. Object\Players\Projectiles</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="2025_winapi_framework_23.rc">
@@ -440,5 +449,11 @@
     </ClCompile>
     <ClCompile Include="GameOverScene.cpp" />
     <ClCompile Include="EndingScene.cpp" />
+    <ClCompile Include="BlackHole.cpp">
+      <Filter>Engine\03. Object\Players\Cards</Filter>
+    </ClCompile>
+    <ClCompile Include="BlockholeProjectile.cpp">
+      <Filter>Engine\03. Object\Players\Projectiles</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

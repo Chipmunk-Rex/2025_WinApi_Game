@@ -1,4 +1,4 @@
-#include "pch.h"
+癤�#include "pch.h"
 #include "Animator.h"
 #include "Animation.h"
 #include "Texture.h"
@@ -64,7 +64,6 @@ void Animator::Play(const std::wstring& _name, PlayMode _mode, int _loopCount,
     m_curAnimation = FindAnimation(_name);
     m_paused = false;
 
-    // Animation이 재생 상태를 모두 관리
     m_curAnimation->ConfigurePlayback(_mode, _loopCount, _speed);
     m_curAnimation->ResetToFirstFrame();
 }
@@ -82,5 +81,11 @@ void Animator::Pause()
 void Animator::Resume()
 {
     m_paused = false;
+}
+
+void Animator::SetCurrentRenderSize(Vec2 size)
+{
+    if (!m_curAnimation) return;
+    m_curAnimation->SetRenderSize(size);
 }
 

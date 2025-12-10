@@ -79,6 +79,10 @@ void ResourceManager::RegisterTexture()
 	LoadTexture(L"Projectile_Earth", L"Texture\\Planet\\Earth.bmp");
 	LoadTexture(L"Projectile_Moon", L"Texture\\Planet\\Moon.bmp");
 	LoadTexture(L"Projectile_Saturn", L"Texture\\Planet\\Saturn.bmp");
+	LoadTexture(L"Projectile_Blackhole", L"Texture\\Planet\\Blackhole.bmp");
+	LoadTexture(L"Projectile_Blackhole_Ashed", L"Texture\\Planet\\AshedPlanet.bmp");
+	LoadTexture(L"Projectile_Blackhole_Sheet", L"Texture\\Planet\\Blackhole_Sheet.bmp");
+	LoadTexture(L"Projectile_RedGiant_Sheet", L"Texture\\Planet\\RedGiant_Sheet.bmp");
 	LoadTexture(L"Background_Space", L"Texture\\Background\\Space.bmp");
 	LoadTexture(L"StartScene_Space", L"Texture\\Background\\StartSceneSpace.bmp");
 	LoadTexture(L"BounceBallEnemy", L"Texture\\Enemy\\BounceBallEnemyTile.bmp");
@@ -88,6 +92,7 @@ void ResourceManager::RegisterTexture()
 	LoadTexture(L"BackCard1", L"Texture\\Background\\BackCard1.bmp");
 	LoadTexture(L"BackCard2", L"Texture\\Background\\BackCard2.bmp");
 	LoadTexture(L"BackCard3", L"Texture\\Background\\BackCard3.bmp");
+	
 
 }
 void ResourceManager::RegisterGDI()

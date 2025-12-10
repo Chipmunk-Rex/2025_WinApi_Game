@@ -2,7 +2,7 @@
 #include "BaseCard.h"
 #include "Player.h"
 #include "LaserProjectile.h"
-#include "SceneManager.h"
+#include "SceneManager.h"   
 #include "Scene.h"
 
 class LaserBallCard : public BaseCard

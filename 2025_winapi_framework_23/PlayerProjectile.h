@@ -25,6 +25,7 @@ public:
     virtual const Texture* GetIconTexture() { return this->GetTexture(); }
 protected:
 	void SetDefaultSize(Vec2 _size) { defaultSize = _size; }
+	Vec2 GetDefaultSize() const { return defaultSize; }
 private:
     int _damage;
 	bool canCollect = false;
