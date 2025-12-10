@@ -16,11 +16,13 @@
 #include "CardDB.h"
 #include "PlayerInfoUI.h"
 #include "Background.h"
+#include "TankEnemy.h"
+#include "BounceBallEnemy.h"
 
 void EnemyTestScene::Init()
 {
-	_enemySpawnTime = 2.5f;
-	_timer = 2.5f;
+	_enemySpawnTime = 5.f;
+	_timer = 5.f;
 	_enemyCount = 10;
 	_currentSpawnCount = 0;
 	_spawnPercent = 65;
@@ -38,6 +40,8 @@ void EnemyTestScene::Init()
 	Spawn<PlayerInfoUI>(Layer::UI, { WINDOW_WIDTH / 2,  0 }, { 1000.f, 50.f });
 
 	GET_SINGLE(CollisionManager)->CheckLayer(Layer::PROJECTILE, Layer::ENEMY);
+	GET_SINGLE(CollisionManager)->CheckLayer(Layer::BOUNCEPROJECTILE, Layer::DEFAULT);
+	GET_SINGLE(CollisionManager)->CheckLayer(Layer::BOUNCEPROJECTILE, Layer::PLAYER);
 	//GET_SINGLE(CollisionManager)->CheckLayer(Layer::PROJECTILE, Layer::ENEMYPROJECTILE);
 	GET_SINGLE(CollisionManager)->CheckLayer(Layer::PROJECTILE, Layer::DEFAULT);
 	GET_SINGLE(CollisionManager)->CheckLayer(Layer::PLAYER, Layer::ENEMYPROJECTILE);
@@ -55,7 +59,7 @@ void EnemyTestScene::Update()
 	Scene::Update();
 
 	GET_SINGLE(CardManager)->Update();
-	
+
 	_timer += fDT;
 	if (_timer >= _enemySpawnTime)
 	{
@@ -92,31 +96,53 @@ void EnemyTestScene::Render(HDC _hdc)
 
 void EnemyTestScene::EnemySpawn()
 {
+	srand(time(0));
+
 	for (int i = 0; i < _enemyCount; i++)
 	{
 		if (rand() % 100 <= _spawnPercent)
 		{
-			if (rand() % 100 <= 50)
+			float randValue = rand() % 100;
+			if (randValue < 25)
 			{
 				CloseRangeEnemy* enemy = Spawn<CloseRangeEnemy>
 					(
 						Layer::ENEMY
 						, { (WINDOW_WIDTH / 2 - (50 * (_enemyCount / 2))) + (50 * i),  -100 }
 				, { 50,50 });
-				vector<Object*> arr = GetLayerObjects(Layer::ENEMY);
 				float mulValue = ((_currentSpawnCount / _enemyCount) + 1) * 0.2f;
 				enemy->SetHealth(10 * mulValue);
 			}
-			else
+			else if(randValue < 50)
 			{
 				RangedEnemy* enemy = Spawn<RangedEnemy>
 					(
 						Layer::ENEMY
 						, { (WINDOW_WIDTH / 2 - (50 * (_enemyCount / 2))) + (50 * i), -100 }
 				, { 50,50 });
-				vector<Object*> arr = GetLayerObjects(Layer::ENEMY);
 				float mulValue = ((_currentSpawnCount / _enemyCount) + 1) * 0.2f;
 				enemy->SetHealth(10 * mulValue);
+			}
+			else if (randValue < 75)
+			{
+				BounceBallEnemy* enemy = Spawn<BounceBallEnemy>
+					(
+						Layer::ENEMY
+						, { (WINDOW_WIDTH / 2 - (50 * (_enemyCount / 2))) + (50 * i), -100 }
+				, { 50,50 });
+				float mulValue = ((_currentSpawnCount / _enemyCount) + 1) * 0.2f;
+				enemy->SetHealth(10 * mulValue);
+			}
+			else if (!(i + 1 == _enemyCount))
+			{
+				TankEnemy* enemy = Spawn<TankEnemy>
+					(
+						Layer::ENEMY
+						, { ((WINDOW_WIDTH / 2 - (50 * (_enemyCount / 2))) + (50 * i)) + 25, -100 }
+				, { 100,50 });
+				float mulValue = ((_currentSpawnCount / _enemyCount) + 1) * 0.2f;
+				enemy->SetHealth((10 * mulValue) * 3);
+				++i;
 			}
 
 			_currentSpawnCount++;
