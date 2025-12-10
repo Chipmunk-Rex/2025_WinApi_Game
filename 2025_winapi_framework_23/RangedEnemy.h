@@ -27,5 +27,8 @@ private:
     Texture* m_turretMaskTex;
     EnemyProjectile* _projectile;
     Vec2 m_offset;
+    double _moveDelayTimer;
+    Vec2 _attackMoveStartPos;
+
 };
 

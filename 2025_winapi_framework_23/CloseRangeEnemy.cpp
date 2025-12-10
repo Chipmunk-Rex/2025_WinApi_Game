@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "Enemy.h"
 #include "Collider.h"
 #include "SceneManager.h"
@@ -17,7 +17,9 @@ CloseRangeEnemy::CloseRangeEnemy() :
 	_hitDelay(0.1f),
 	_hitTimer(0),
 	_isAttack(false),
-	_damage(1)
+	_damage(1),
+	_moveDelayTimer(0),
+	_attackMoveStartPos({0,0})
 {
 }
 
@@ -29,39 +31,50 @@ void CloseRangeEnemy::Update()
 {
 	Vec2 pos = GetPos();
 
-	if (pos.y >= WINDOW_HEIGHT - 150)
+	if (!_isAttack && pos.y >= WINDOW_HEIGHT - 150)
 	{
+		_attackMoveStartPos = GetPos();
 		_isAttack = true;
+		GetRbCompo()->SetVelocity({ 0,0 });
 	}
 
 	if (_isAttack)
 	{
-		Player* player = GetTarget();
-		if (player == nullptr) return;
-		Vec2 playerPos = player->GetPos();
-		Rigidbody* rbCompo = GetRbCompo();
+		_moveDelayTimer += fDT;
 
-		Vec2 dir = playerPos - pos;
-		Vec2 p = playerPos - pos;
-		dir = dir.Normalize();
-		rbCompo->SetVelocity(dir * 1000.f);
-
-		Vec2 offset[2] = { {50,50},{-50,-50} };
-
-		if (p.x <= offset[0].x && p.x >= offset[1].x && p.y <= offset[0].y && p.y >= offset[1].y)
+		if (_moveDelayTimer >= 1.25f)
 		{
-			Health* playerHealth = player->GetComponent<Health>();
-			if (playerHealth == nullptr) return;
-			if (!GetIsDead())
+			Player* player = GetTarget();
+			if (player == nullptr) return;
+			Vec2 playerPos = player->GetPos();
+			Rigidbody* rbCompo = GetRbCompo();
+
+			Vec2 dir = playerPos - pos;
+			Vec2 p = playerPos - pos;
+			dir = dir.Normalize();
+			rbCompo->SetVelocity(dir * 1000.f);
+
+			Vec2 offset[2] = { {50,50},{-50,-50} };
+
+			if (p.x <= offset[0].x && p.x >= offset[1].x && p.y <= offset[0].y && p.y >= offset[1].y)
 			{
-				playerHealth->TakeDamage(_damage);
-				GET_SINGLE(SceneManager)->GetCurScene()->RequestDestroy(this);
+				Health* playerHealth = player->GetComponent<Health>();
+				if (playerHealth == nullptr) return;
+				if (!GetIsDead())
+				{
+					playerHealth->TakeDamage(_damage);
+					GET_SINGLE(SceneManager)->GetCurScene()->RequestDestroy(this);
+				}
 			}
+		}
+		else
+		{
+			Vec2 newPos = _attackMoveStartPos + Vec2{ rand() % 10 - 5 ,  rand() % 10 - 5 };
+			SetPos(newPos);
 		}
 	}
 	else
 	{
-		Enemy::Update();
 
 		if (_isHit)
 		{
@@ -94,7 +107,7 @@ void CloseRangeEnemy::Update()
 
 void CloseRangeEnemy::Render(HDC _hdc)
 {
-	GDISelector pen(_hdc, PenType::GREEN);
+	//GDISelector pen(_hdc, PenType::GREEN);
 	Enemy::Render(_hdc);
 }
 
@@ -122,7 +135,7 @@ void CloseRangeEnemy::HandleHitEvent(double _prev, double _health)
 		SetTex(GET_SINGLE(ResourceManager)->GetTexture(L"MainTile"));
 	}
 
-	std::shared_ptr<Scene> curScene = GET_SINGLE(SceneManager)->GetCurScene();
+	Scene* curScene = GET_SINGLE(SceneManager)->GetCurScene();
 
 	double defaultVal = _prev - _health;
 
