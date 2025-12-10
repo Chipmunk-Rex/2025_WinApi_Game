@@ -41,7 +41,7 @@ void StartButton::Render(HDC hdc)
     rc.bottom = (LONG)(pos.y + scaled.y * 0.5f);
    
     GDISelector namefont(hdc, FontType::CARDTITLE);
-    DrawText(hdc,L"시작", -1, &rc, DT_CENTER | DT_CENTER | DT_SINGLELINE);
+    DrawText(hdc, L"게임 시작", -1, &rc, DT_CENTER | DT_CENTER | DT_SINGLELINE);
 
     GDISelector pen(hdc, PenType::RED);
     GDISelector brush(hdc, BrushType::HOLLOW);
@@ -56,3 +56,4 @@ void StartButton::OnClick()
 {
     GET_SINGLE(SceneManager)->LoadScene(L"EnemyTestScene");
 }
+
