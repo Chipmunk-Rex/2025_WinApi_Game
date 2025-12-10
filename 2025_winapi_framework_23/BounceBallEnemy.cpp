@@ -21,12 +21,27 @@ BounceBallEnemy::BounceBallEnemy() :
 {
 
 	SetTex(GET_SINGLE(ResourceManager)->GetTexture(L"BounceBallEnemy"));
-	_attackDelay = rand() % 8 + 17;
-	
+	_attackDelay = rand() % 20 + 17;
+
 }
 
 void BounceBallEnemy::Aattack()
 {
+	double normal = GetCurHealth() / GetMaxHealth();
+
+	if (normal <= 0.3f)
+	{
+		SetTex(GET_SINGLE(ResourceManager)->GetTexture(L"MainTile_3"));
+	}
+	else if (normal <= 0.7f)
+	{
+		SetTex(GET_SINGLE(ResourceManager)->GetTexture(L"MainTile_2"));
+	}
+	else
+	{
+		SetTex(GET_SINGLE(ResourceManager)->GetTexture(L"MainTile"));
+	}
+
 	Object* player = GetTarget();
 	if (player == nullptr) return;
 
@@ -96,18 +111,38 @@ void BounceBallEnemy::Update()
 
 				double normal = GetCurHealth() / GetMaxHealth();
 
-				if (normal <= 0.3f)
+				if (_isAttacking)
 				{
-					SetTex(GET_SINGLE(ResourceManager)->GetTexture(L"BounceBallEnemy_3"));
-				}
-				else if (normal <= 0.7f)
-				{
-					SetTex(GET_SINGLE(ResourceManager)->GetTexture(L"BounceBallEnemy_2"));
+					if (normal <= 0.3f)
+					{
+						SetTex(GET_SINGLE(ResourceManager)->GetTexture(L"MainTile_3"));
+					}
+					else if (normal <= 0.7f)
+					{
+						SetTex(GET_SINGLE(ResourceManager)->GetTexture(L"MainTile_2"));
+					}
+					else
+					{
+						SetTex(GET_SINGLE(ResourceManager)->GetTexture(L"MainTile"));
+					}
 				}
 				else
 				{
-					SetTex(GET_SINGLE(ResourceManager)->GetTexture(L"BounceBallEnemy"));
+					if (normal <= 0.3f)
+					{
+						SetTex(GET_SINGLE(ResourceManager)->GetTexture(L"BounceBallEnemy_3"));
+					}
+					else if (normal <= 0.7f)
+					{
+						SetTex(GET_SINGLE(ResourceManager)->GetTexture(L"BounceBallEnemy_2"));
+					}
+					else
+					{
+						SetTex(GET_SINGLE(ResourceManager)->GetTexture(L"BounceBallEnemy"));
+					}
 				}
+
+
 
 				_hitTimer = 0;
 				_isHit = false;
@@ -147,19 +182,6 @@ void BounceBallEnemy::HandleHitEvent(double _prev, double _health)
 	double maxHealth = GetMaxHealth();
 
 	double normal = _health / maxHealth;
-
-	if (normal <= 0.3f)
-	{
-		SetTex(GET_SINGLE(ResourceManager)->GetTexture(L"BounceBallEnemy_3"));
-	}
-	else if (normal <= 0.7f)
-	{
-		SetTex(GET_SINGLE(ResourceManager)->GetTexture(L"BounceBallEnemy_2"));
-	}
-	else
-	{
-		SetTex(GET_SINGLE(ResourceManager)->GetTexture(L"BounceBallEnemy"));
-	}
 
 	std::shared_ptr<Scene> curScene = GET_SINGLE(SceneManager)->GetCurScene();
 
