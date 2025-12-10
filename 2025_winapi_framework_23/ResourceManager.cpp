@@ -71,6 +71,7 @@ void ResourceManager::RegisterTexture()
 	LoadTexture(L"Player_Right", L"Texture\\Player\\Player_Right.bmp");
 	LoadTexture(L"Player_Turret", L"Texture\\Player\\Turret.bmp");
 	LoadTexture(L"Player_Turret_Mask", L"Texture\\Player\\Turret_Mask.bmp");
+	LoadTexture(L"Player_Turret_Outlined", L"Texture\\Player\\Turret_Outlined.bmp");
 	LoadTexture(L"MainTile", L"Texture\\Enemy\\EnemyTile.bmp");
 	LoadTexture(L"MainTile_2", L"Texture\\Enemy\\EnemyTile_2.bmp");
 	LoadTexture(L"MainTile_3", L"Texture\\Enemy\\EnemyTile_3.bmp");

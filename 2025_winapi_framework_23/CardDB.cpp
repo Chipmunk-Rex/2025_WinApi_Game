@@ -21,13 +21,13 @@ static std::shared_ptr<ProjectileSizeCard> s_projectileSizeCard = std::make_shar
 
 const std::vector<CardInfo> CardDB::cards =
 {
-    { L"토성 추가", L"고리로 가로 광역 공격을 하는 토성을 추가합니다.", L"Projectile_Saturn", s_laserBallCard, 3, CardType::StrongSkill},
+    { L"토성 추가", L"고리로 광역 공격을 하는 토성을 추가합니다.", L"Projectile_Saturn", s_laserBallCard, 3, CardType::StrongSkill},
     { L"지구 추가", L"피격 시 적이 느려지는 특징이 있는 지구를 추가합니다.", L"Projectile_Earth", s_slowBallCard, 3,  CardType::Skill},
     { L"달 추가", L"아무 능력 없는 달이 추가됩니다.", L"Projectile_Moon", s_defaultBallCard, 3,CardType::Skill},
     //{ L"공 증가", L"발사되는 공 개수가\n하나 증가합니다", L"Plane", new LaserBallCard(), 1 },
     { L"체력 증가", L"최대 체력이 10%만큼\n증가합니다", L"Plane", nullptr, 1,CardType::Stat},
     { L"속도 증가", L"이동 속도가 20%만큼\n증가합니다." , L"Plane", s_moveSpeedCard, 5,CardType::Stat},
-    { L"공속 증가", L"발사 쿨타임이 10% 감소합니다." , L"Plane", s_fireRateCard, 5,CardType::Stat},
+    { L"공속 증가", L"발사 쿨타임이 10% 감소합니다." , L"Player_Turret_Outlined", s_fireRateCard, 5,CardType::Stat},
     { L"탄 크기 증가", L"발사체 크기가 20% 증가합니다." , L"Plane", s_projectileSizeCard, 5,CardType::Stat},
     { L"회복", L"체력을 전부 회복합니다.", L"Plane", nullptr, 1,CardType::Stat },
    

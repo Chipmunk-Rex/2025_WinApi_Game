@@ -55,6 +55,7 @@ private:
 private:
 	Texture* currentTexture;
 	Rigidbody* rb;
+	Vec2 m_offset;
 private:
 	std::queue<PlayerProjectile*> projectiles;
 	float fireTimer = 0;
