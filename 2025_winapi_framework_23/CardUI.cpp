@@ -110,12 +110,16 @@ void CardUI::Render(HDC _hdc)
 
     SetTextColor(_hdc, RGB(227, 253, 255));
     RECT nameRc = rc;
+    nameRc.left += 10;
+    nameRc.right -= 10;
     nameRc.bottom -= 50;
     GDISelector namefont(_hdc, FontType::CARDTITLE);
     DrawText(_hdc, name.c_str(), -1, &nameRc, DT_CENTER | DT_BOTTOM | DT_SINGLELINE);
 
     RECT descRc = rc;
     descRc.top += 10;
+    descRc.left += 10;
+    descRc.right -= 10;
     GDISelector descfont(_hdc, FontType::CARDDESC);
     DrawText(_hdc, desc.c_str(), -1, &descRc, DT_CENTER | DT_BOTTOM | DT_WORDBREAK);
 }
