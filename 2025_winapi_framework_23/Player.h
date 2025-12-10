@@ -61,6 +61,9 @@ private:
 	float fireTimer = 0;
 	StatValue fireCooldownStat;
 	StatValue projectileScaleStat;
+public:
+	float GetCurrentCooldown() const { return fireTimer / fireCooldownStat.GetValue(); }
+	const std::queue<PlayerProjectile*>& GetProjectiles() const { return projectiles; }
 private:
 	int level = 1;
 	int exp = 0;

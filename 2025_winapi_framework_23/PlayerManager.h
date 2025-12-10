@@ -27,6 +27,8 @@ public:
 
 	double GetPlayerHealth() const;
 	double GetPlayerMaxHealth() const;
+
+	const std::queue<PlayerProjectile*>& GetPlayerProjectiles();
 private:
 	Player* _player;
 	Health* _playerHealth;
