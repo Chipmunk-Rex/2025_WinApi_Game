@@ -1,4 +1,4 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "RangedEnemy.h"
 #include "EnemyProjectile.h"
 #include "SceneManager.h"
@@ -26,7 +26,7 @@ RangedEnemy::RangedEnemy() :
 
 RangedEnemy::~RangedEnemy()
 {
-	//if (_projectile != nullptr)//¿©±â °íÃÄ¾ßÇÔ
+	//if (_projectile != nullptr)//ì—¬ê¸° ê³ ì³ì•¼í•¨
 		//GET_SINGLE(SceneManager)->GetCurScene()->RequestDestroy(_projectile);
 }
 
@@ -218,7 +218,7 @@ void RangedEnemy::HandleHitEvent(double _prev, double _health)
 		m_turretTex = (GET_SINGLE(ResourceManager)->GetTexture(L"Red_Brick_1_Hit"));
 	}
 
-	std::shared_ptr<Scene> curScene = GET_SINGLE(SceneManager)->GetCurScene();
+	Scene* curScene = GET_SINGLE(SceneManager)->GetCurScene();
 
 	double defaultVal = _prev - _health;
 
