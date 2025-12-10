@@ -11,25 +11,16 @@
 Enemy::Enemy() : m_pTex(nullptr)
 {
 	m_pTex = GET_SINGLE(ResourceManager)->GetTexture(L"MainTile");
-
-	if (m_pTex == nullptr)
-		cout << endl << "ming" << endl;
-	/*auto* anim = AddComponent<Animator>();
-	anim->CreateAnimation(L"JiwooFront", m_pTex, { 0.f, 150.f }, { 50.f,50.f }, { 50.f,0.f }, 5, 0.1f);
-	anim->Play(L"JiwooFront");*/
-
 	auto* col = AddComponent<Collider>();
 	m_rbCompo = AddComponent<Rigidbody>();
 	m_healthCompo = AddComponent<Health>();
 
 	std::function<void(double, double)> delegate =
 		[this](double x, double y) { HandleHitEvent(x,y); };
-
-	m_healthCompo->SetHealth(100);
 	m_healthCompo->AddListener(delegate);
 	m_rbCompo->SetMass(1.f);
 	m_rbCompo->SetUseGravity(false);
-	m_rbCompo->SetVelocity({0,-20});
+	m_rbCompo->SetVelocity({0,10});
 	col->SetSize({ 50,50 });
 	Object* playerObject = GET_SINGLE(SceneManager)->GetCurScene()->GetLayerObjects(Layer::PLAYER)[0];
 	m_target = dynamic_cast<Player*>(playerObject);
@@ -42,7 +33,6 @@ Enemy::~Enemy()
 
 void Enemy::Update()
 {
-	m_rbCompo->SetVelocity({ 0,20 });
 }
 
 void Enemy::Render(HDC _hdc)
