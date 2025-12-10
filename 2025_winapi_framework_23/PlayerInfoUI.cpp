@@ -1,12 +1,13 @@
 #include "pch.h"
 #include "PlayerInfoUI.h"
 #include "ResourceManager.h"
+#include "PlayerManager.h"
 
 PlayerInfoUI::PlayerInfoUI()
 {
-    score = 0;
-    timeSec = 60.0f;
-    level = 1;
+	score = 0;
+	timeSec = 60.0f;
+	level = 1;
 }
 
 PlayerInfoUI::~PlayerInfoUI()
@@ -15,117 +16,163 @@ PlayerInfoUI::~PlayerInfoUI()
 
 void PlayerInfoUI::Update()
 {
+	auto player = GET_SINGLE(PlayerManager)->GetPlayer();
+
+	SetLevel(player->GetLevel());
+	SetScore(GET_SINGLE(PlayerManager)->GetScore());
+
+	curExp = player->GetExp();
+	maxExp = player->GetExpToLevel();
 }
+
 
 void PlayerInfoUI::Render(HDC hdc)
 {
-    int right = WINDOW_WIDTH - 40;
-    int bottom = WINDOW_HEIGHT - 40;
+	int right = WINDOW_WIDTH - 40;
+	int bottom = WINDOW_HEIGHT - 40;
 
-    int leftX = 20;
-    int topY = 20;
-    int lvlY = WINDOW_HEIGHT - 120;
+	int leftX = 20;
+	int topY = 20;
+	int lvlY = WINDOW_HEIGHT - 120;
 
-    {
-        int minutes = (int)(timeSec / 60);
-        int seconds = (int)(timeSec) % 60;
+	{
+		int minutes = (int)(timeSec / 60);
+		int seconds = (int)(timeSec) % 60;
 
-        wchar_t buf[32];
-        swprintf(buf, 32, L"TIME %02d:%02d", minutes, seconds);
+		wchar_t buf[32];
+		swprintf(buf, 32, L"TIME %02d:%02d", minutes, seconds);
 
-        RECT rc;
-        rc.left = leftX;
-        rc.top = topY;
-        rc.right = rc.left + 200;
-        rc.bottom = rc.top + 40;
+		RECT rc;
+		rc.left = leftX;
+		rc.top = topY;
+		rc.right = rc.left + 200;
+		rc.bottom = rc.top + 40;
 
-        SetTextColor(hdc, RGB(227, 253, 255));
-        GDISelector font(hdc, FontType::CARDTITLE);
-        DrawText(hdc, buf, -1, &rc, DT_LEFT | DT_TOP | DT_SINGLELINE);
-    }
+		SetTextColor(hdc, RGB(227, 253, 255));
+		GDISelector font(hdc, FontType::CARDTITLE);
+		DrawText(hdc, buf, -1, &rc, DT_LEFT | DT_TOP | DT_SINGLELINE);
+	}
 
-    {
-        std::wstring txt = L"LVL " + std::to_wstring(level);
+	{
+		std::wstring txt = L"LVL " + std::to_wstring(level);
 
-        RECT rc;
-        rc.left = leftX + 15;
-        rc.top = lvlY;
-        rc.right = rc.left + 200;
-        rc.bottom = rc.top + 40;
+		RECT rc;
+		rc.left = leftX + 15;
+		rc.top = lvlY;
+		rc.right = rc.left + 200;
+		rc.bottom = rc.top + 40;
 
-        SetTextColor(hdc, RGB(227, 253, 255));
-        GDISelector font(hdc, FontType::CARDTITLE);
-        DrawText(hdc, txt.c_str(), -1, &rc, DT_LEFT | DT_TOP | DT_SINGLELINE);
-    }
+		SetTextColor(hdc, RGB(227, 253, 255));
+		GDISelector font(hdc, FontType::CARDTITLE);
+		DrawText(hdc, txt.c_str(), -1, &rc, DT_LEFT | DT_TOP | DT_SINGLELINE);
+	}
 
-    int barWidth = 40;
-    int barHeight = 100;
-    int barGap = 15;
+	int barWidth = 40;
+	int barHeight = 100;
+	int barGap = 15;
 
-    int baseX = right - (barWidth * 3 + barGap * 2);
-    int baseY = bottom - barHeight;
+	int baseX = right - (barWidth * 3 + barGap * 2);
+	int baseY = bottom - barHeight;
 
-    {
-        GDISelector pen(hdc, PenType::GREEN);
-        GDISelector brush(hdc, BrushType::HOLLOW);
+	{
+		GDISelector pen(hdc, PenType::GREEN);
+		GDISelector brush(hdc, BrushType::HOLLOW);
 
-        for (int i = 0; i < 3; i++)
-        {
-            int x = baseX + i * (barWidth + barGap);
+		for (int i = 0; i < 3; i++)
+		{
+			int x = baseX + i * (barWidth + barGap);
 
-            RECT rc;
-            rc.left = x;
-            rc.top = baseY;
-            rc.right = x + barWidth;
-            rc.bottom = baseY + barHeight;
+			RECT rc;
+			rc.left = x;
+			rc.top = baseY;
+			rc.right = x + barWidth;
+			rc.bottom = baseY + barHeight;
 
-            Rectangle(hdc, rc.left, rc.top, rc.right, rc.bottom);
-        }
-    }
+			Rectangle(hdc, rc.left, rc.top, rc.right, rc.bottom);
+		}
+	}
 
-    {
-        std::wstring scoreText = L"SCORE " + std::to_wstring(1000);
+	{
+		std::wstring scoreText = L"SCORE " + std::to_wstring(score);
 
-        RECT rc;
-        rc.left = baseX - 150;
-        rc.top = topY;
-        rc.right = rc.left + 300;
-        rc.bottom = rc.top + 40;
+		RECT rc;
+		rc.left = baseX - 150;
+		rc.top = topY;
+		rc.right = rc.left + 300;
+		rc.bottom = rc.top + 40;
 
-        SetTextColor(hdc, RGB(227, 253, 255));
-        GDISelector font(hdc, FontType::CARDTITLE);
-        DrawText(hdc, scoreText.c_str(), -1, &rc, DT_RIGHT | DT_TOP | DT_SINGLELINE);
-    }
-        int overWidth = barWidth + 10;       
-        int overHeight = barHeight * 3;  
-        int centerX = baseX + (barWidth * 3 + barGap * 2) / 2; 
-        int overX = centerX - (overWidth / 2);
-        int overY = baseY - 50 - overHeight; 
+		SetTextColor(hdc, RGB(227, 253, 255));
+		GDISelector font(hdc, FontType::CARDTITLE);
+		DrawText(hdc, scoreText.c_str(), -1, &rc, DT_RIGHT | DT_TOP | DT_SINGLELINE);
+	}
+	int overWidth = barWidth + 10;
+	int overHeight = barHeight * 3;
+	int centerX = baseX + (barWidth * 3 + barGap * 2) / 2;
+	int overX = centerX - (overWidth / 2);
+	int overY = baseY - 50 - overHeight;
 
-        RECT rc;
-        rc.left = overX;
-        rc.top = overY;
-        rc.right = overX + overWidth;
-        rc.bottom = overY + overHeight;
+	RECT rc;
+	rc.left = overX;
+	rc.top = overY;
+	rc.right = overX + overWidth;
+	rc.bottom = overY + overHeight;
 
-        GDISelector pen(hdc, PenType::GREEN);
-        GDISelector brush(hdc, BrushType::HOLLOW);
-        Rectangle(hdc, rc.left, rc.top, rc.right, rc.bottom);
+	GDISelector pen(hdc, PenType::GREEN);
+	GDISelector brush(hdc, BrushType::HOLLOW);
+	Rectangle(hdc, rc.left, rc.top, rc.right, rc.bottom);
+	{
+		float ratio = 0.f;
+		if (maxExp > 0.f)
+			ratio = curExp / maxExp;
+		if (ratio > 1.f)
+			ratio = 1.f;
 
- 
+		int expBarWidth = 600;
+		int expBarHeight = 20;
+		int expBarX = (WINDOW_WIDTH / 2) - (expBarWidth / 2);
+		int expBarY = WINDOW_HEIGHT - 35;
+
+		RECT outline;
+		outline.left = expBarX;
+		outline.top = expBarY;
+		outline.right = expBarX + expBarWidth;
+		outline.bottom = expBarY + expBarHeight;
+
+
+		{
+			GDISelector pen(hdc, PenType::GREEN);
+			GDISelector brush(hdc, BrushType::HOLLOW);
+			Rectangle(hdc, outline.left, outline.top, outline.right, outline.bottom);
+		}
+
+		int fillWidth = (int)(expBarWidth * ratio);
+
+		RECT fill;
+		fill.left = expBarX + 1;
+		fill.top = expBarY + 1;
+		fill.right = expBarX + fillWidth - 1;
+		fill.bottom = expBarY + expBarHeight - 1;
+
+		{
+			HBRUSH whiteBrush = CreateSolidBrush(RGB(255, 255, 255));
+			FillRect(hdc, &fill, whiteBrush);
+			DeleteObject(whiteBrush);
+
+		}
+	}
 }
 
 void PlayerInfoUI::SetScore(int s)
 {
-    score = s;
+	score = s;
 }
 
 void PlayerInfoUI::SetTime(float sec)
 {
-    timeSec = sec;
+	timeSec = sec;
 }
 
 void PlayerInfoUI::SetLevel(int lvl)
 {
-    level = lvl;
+	level = lvl;
 }

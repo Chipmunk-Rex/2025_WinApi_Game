@@ -84,6 +84,10 @@ void ResourceManager::RegisterTexture()
 	LoadTexture(L"BounceBallEnemy_2", L"Texture\\Enemy\\BounceBallEnemyTile_2.bmp");
 	LoadTexture(L"BounceBallEnemy_3", L"Texture\\Enemy\\BounceBallEnemyTile_3.bmp");
 	LoadTexture(L"enemyBall", L"Texture\\Enemy\\Ball1.bmp");
+	LoadTexture(L"BackCard1", L"Texture\\Background\\BackCard1.bmp");
+	LoadTexture(L"BackCard2", L"Texture\\Background\\BackCard2.bmp");
+	LoadTexture(L"BackCard3", L"Texture\\Background\\BackCard3.bmp");
+
 }
 void ResourceManager::RegisterGDI()
 {
@@ -101,7 +105,7 @@ void ResourceManager::RegisterGDI()
 	// ��Ʈ ����
 	RegisterFont(FontType::TITLE, L"나눔손글씨 암스테르담", 60);
 	RegisterFont(FontType::UI, L"나눔손글씨 암스테르담", 0);
-	RegisterFont(FontType::CARDDESC, L"Galmuri11 Regular", 15);
+	RegisterFont(FontType::CARDDESC, L"Galmuri11 Regular", 20);
 	RegisterFont(FontType::CARDTITLE, L"Galmuri11 Regular", 30);
 	RegisterFont(FontType::CARDTITLE, L"Galmuri11 Regular", 40);
 

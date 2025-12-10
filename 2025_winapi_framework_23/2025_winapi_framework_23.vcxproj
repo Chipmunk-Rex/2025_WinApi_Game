@@ -191,6 +191,7 @@
     <ClInclude Include="EnemyProjectile.h" />
     <ClInclude Include="EnemyTestScene.h" />
     <ClInclude Include="Enums.h" />
+    <ClInclude Include="FireRateCard.h" />
     <ClInclude Include="Floor.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="GDISelector.h" />
@@ -208,6 +209,7 @@
     <ClInclude Include="PlayerManager.h" />
     <ClInclude Include="PlayerProjectile.h" />
     <ClInclude Include="Projectile.h" />
+    <ClInclude Include="ProjectileSizeCard.h" />
     <ClInclude Include="RangedEnemy.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="ResourceBase.h" />
@@ -222,6 +224,7 @@
     <ClInclude Include="StartButton.h" />
     <ClInclude Include="StartScene.h" />
     <ClInclude Include="TankEnemy.h" />
+    <ClInclude Include="Stat.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="TestScene.h" />
     <ClInclude Include="Texture.h" />
