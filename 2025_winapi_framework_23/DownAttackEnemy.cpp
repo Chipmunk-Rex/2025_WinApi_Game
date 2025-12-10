@@ -66,7 +66,7 @@ void DownAttackEnemy::HandleHitEvent(double _prev, double _health)
 	m_isAttacking = true;
 	if (_health <= 0)
 	{
-		GET_SINGLE(PlayerManager)->AddExp(5);
+		GET_SINGLE(PlayerManager)->AddExp(10);
 	}
 
 	double maxHealth = GetMaxHealth();
@@ -86,7 +86,7 @@ void DownAttackEnemy::HandleHitEvent(double _prev, double _health)
 		SetTex(GET_SINGLE(ResourceManager)->GetTexture(L"DownAttackEnemy_1"));
 	}
 
-	std::shared_ptr<Scene> curScene = GET_SINGLE(SceneManager)->GetCurScene();
+	Scene* curScene = GET_SINGLE(SceneManager)->GetCurScene();
 
 	double defaultVal = _prev - _health;
 

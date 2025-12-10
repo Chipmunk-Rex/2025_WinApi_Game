@@ -188,7 +188,7 @@ void BounceBallEnemy::HandleHitEvent(double _prev, double _health)
 {
 	if (_health <= 0)
 	{
-		GET_SINGLE(PlayerManager)->AddExp(5);
+		GET_SINGLE(PlayerManager)->AddExp(7);
 	}
 
 
