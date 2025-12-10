@@ -90,9 +90,9 @@ void Scene::FlushEvent()
 	{
 		if (obj != nullptr)
 		{
-			Health* health = obj->GetComponent<Health>();
-			if (health != nullptr && health->GetIsDead())
-				continue;
+			//Health* health = obj->GetComponent<Health>();
+			//if (health != nullptr && health->GetIsDead())
+			//	continue;
 			RemoveObject(obj);
 			SAFE_DELETE(obj);
 		}
@@ -117,6 +117,7 @@ void Scene::RequestDestroy(Object* obj)
 		return; // already requested
 	obj->SetDead();
 	m_killObject.push_back(obj);
+
 }
 
 void Scene::RemoveObject(Object* _obj)

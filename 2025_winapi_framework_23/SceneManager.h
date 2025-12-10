@@ -14,6 +14,7 @@ public:
 	{
 		if (obj == nullptr || obj->GetIsDead())
 			return;
+
 		if (m_curScene)
 			m_curScene->RequestDestroy(obj);
 	}
