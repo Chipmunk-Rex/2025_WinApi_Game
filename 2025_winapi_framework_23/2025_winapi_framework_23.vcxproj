@@ -187,6 +187,7 @@
     <ClInclude Include="Defines.h" />
     <ClInclude Include="DevScene.h" />
     <ClInclude Include="CardUI.h" />
+    <ClInclude Include="EndingScene.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyProjectile.h" />
     <ClInclude Include="EnemyTestScene.h" />
@@ -194,6 +195,7 @@
     <ClInclude Include="FireRateCard.h" />
     <ClInclude Include="Floor.h" />
     <ClInclude Include="framework.h" />
+    <ClInclude Include="GameOverScene.h" />
     <ClInclude Include="GDISelector.h" />
     <ClInclude Include="Health.h" />
     <ClInclude Include="InputManager.h" />
@@ -253,10 +255,12 @@
     <ClCompile Include="DamageText.cpp" />
     <ClCompile Include="DevScene.cpp" />
     <ClCompile Include="CardUI.cpp" />
+    <ClCompile Include="EndingScene.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EnemyProjectile.cpp" />
     <ClCompile Include="EnemyTestScene.cpp" />
     <ClCompile Include="Floor.cpp" />
+    <ClCompile Include="GameOverScene.cpp" />
     <ClCompile Include="GDISelector.cpp" />
     <ClCompile Include="Health.cpp" />
     <ClCompile Include="InputManager.cpp" />

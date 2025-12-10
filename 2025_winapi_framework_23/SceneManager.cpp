@@ -9,6 +9,8 @@
 #include "UIScene.h"
 #include "EnemyTestScene.h"
 #include "StartScene.h"
+#include "GameOverScene.h"
+#include "EndingScene.h"
 void SceneManager::Init()
 {
 	m_curScene = nullptr;
@@ -19,6 +21,8 @@ void SceneManager::Init()
 	RegisterScene(L"UIScene", std::make_shared<UIScene>());
 	RegisterScene(L"EnemyTestScene", std::make_shared<EnemyTestScene>());
 	RegisterScene(L"StartScene", std::make_shared<StartScene>());
+	RegisterScene(L"GameOverScene", std::make_shared<GameOverScene>());
+	RegisterScene(L"EndingScene", std::make_shared<EndingScene>());
 
 
 	SceneSelectWindow sceneSelectWindow;

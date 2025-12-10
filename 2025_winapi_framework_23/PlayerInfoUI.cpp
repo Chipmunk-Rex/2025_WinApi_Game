@@ -74,10 +74,18 @@ void PlayerInfoUI::Render(HDC hdc)
     std::wstring scoreText = L"SCORE " + std::to_wstring(score);
 
     RECT scoreRc;
-    scoreRc.left = right - 150;
+    scoreRc.left = right - 400;
     scoreRc.top = topY;
     scoreRc.right = scoreRc.left + 300;
     scoreRc.bottom = scoreRc.top + 40;
+
+    RECT skillOutline;
+    skillOutline.left = right - 150;
+    skillOutline.top = topY + 100;
+    skillOutline.right = skillOutline.left + 100;
+    skillOutline.bottom = skillOutline.top + 350;
+
+    Rectangle(hdc, skillOutline.left, skillOutline.top, skillOutline.right, skillOutline.bottom);
 
     DrawText(hdc, scoreText.c_str(), -1, &scoreRc, DT_RIGHT | DT_TOP | DT_SINGLELINE);
 
@@ -110,8 +118,7 @@ void PlayerInfoUI::Render(HDC hdc)
     expOutline.right = barX + barWidth;
     expOutline.bottom = expBarY + barHeight;
 
-    GDISelector pen2(hdc, PenType::GREEN);
-    GDISelector brush2(hdc, BrushType::HOLLOW);
+    GDISelector pen2(hdc, PenType::CARDTEXT);
     Rectangle(hdc, expOutline.left, expOutline.top, expOutline.right, expOutline.bottom);
 
     RECT expFill;
