@@ -20,10 +20,7 @@ public:
 	void RaiseEvent(double _prevHealth);
 	double GetMaxHealth() { return m_maxHealth; }
 	double GetCurrentHealth() { return m_health; }
-	void SetDead(bool _destroyOnDead) {
-		m_destroyOnDead = _destroyOnDead
-			;
-	}
+	void SetDestroyOnDead(bool _destroyOnDead) {m_destroyOnDead = _destroyOnDead;}
 private:
 	double m_health;
 	double m_maxHealth;

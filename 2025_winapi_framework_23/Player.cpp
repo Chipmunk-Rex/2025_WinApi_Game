@@ -16,6 +16,7 @@
 #include "LaserProjectile.h"
 #include "PlayerManager.h"
 #include "CardManager.h"
+#include "ExplosionEffect.h"
 
 Player::Player()
 	: middleTexture(nullptr)
@@ -42,6 +43,8 @@ Player::Player()
 
 	Health* health = AddComponent<Health>();
 	health->SetHealth(200);
+	health->AddListener([this](double x, double y) { HandleHitEvent(x, y); });
+	health->SetDestroyOnDead(false);
 
 
 	PlayerProjectile* proj = GET_SINGLE(SceneManager)->GetCurScene()->Spawn<PlayerProjectile>(Layer::PROJECTILE);
@@ -58,6 +61,8 @@ Player::~Player()
 }
 void Player::Update()
 {
+	if (isDead)
+		return;
 	Vec2 dir = {};
 	if (GET_KEY(KEY_TYPE::A))
 		dir.x -= 1.f;
@@ -130,9 +135,19 @@ Vec2 Player::GetShootDir()
 	return dir.Normalize();
 }
 
+void Player::HandleHitEvent(double _prev, double _health)
+{
+	if (_health <= 0.0f)
+	{
+		isDead = true;
+		ExplosionEffect* explosion = GET_SINGLE(SceneManager)->GetCurScene()->RequestSpawn<ExplosionEffect>(Layer::EFFECT);
+		explosion->SetPos(this->GetPos());
+	}
+}
+
 void Player::AddProjectile(PlayerProjectile* _proj)
 {
-	projectiles.push(_proj); 
+	projectiles.push(_proj);
 	_proj->SetActive(false);
 	_proj->OnPlayerCollect(this);
 }

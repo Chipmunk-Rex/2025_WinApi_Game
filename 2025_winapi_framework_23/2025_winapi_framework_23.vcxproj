@@ -196,6 +196,7 @@
     <ClInclude Include="EnemyProjectile.h" />
     <ClInclude Include="EnemyTestScene.h" />
     <ClInclude Include="Enums.h" />
+    <ClInclude Include="ExplosionEffect.h" />
     <ClInclude Include="FireRateCard.h" />
     <ClInclude Include="Floor.h" />
     <ClInclude Include="framework.h" />
@@ -269,6 +270,7 @@
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EnemyProjectile.cpp" />
     <ClCompile Include="EnemyTestScene.cpp" />
+    <ClCompile Include="ExplosionEffect.cpp" />
     <ClCompile Include="Floor.cpp" />
     <ClCompile Include="GameFasterButton.cpp" />
     <ClCompile Include="GameOverScene.cpp" />
