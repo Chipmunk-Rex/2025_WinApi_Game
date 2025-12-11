@@ -23,11 +23,11 @@ public:
     void EnterCollision(Collider* _other) override;
     void StayCollision(Collider* _other) override {}
     void ExitCollision(Collider* _other) override {}
+
+public:
     void Shoot(Vec2 _dir) override;
-
-
-    void OnBlackholeFinished();
-
+    void OnBlackholeFinished(); 
+    const Texture* GetIconTexture() { return _blackholeTex; };
 private:
     void ActivateBlackhole();
     void ApplyAoEDamage();
