@@ -41,7 +41,7 @@ void EnemyManager::SpawnEnemy()
 				float mulValue = ((_currentSpawnCount / _enemyCount) + 1) * 0.2f;
 				enemy->SetHealth(10 * mulValue);
 			}
-			else if (randValue < 60)
+			else if (randValue < 70)
 			{
 				RangedEnemy* enemy = curScene->Spawn<RangedEnemy>
 					(
@@ -51,7 +51,7 @@ void EnemyManager::SpawnEnemy()
 				float mulValue = ((_currentSpawnCount / _enemyCount) + 1) * 0.2f;
 				enemy->SetHealth(10 * mulValue);
 			}
-			else if (randValue < 65)
+			else if (randValue < 75)
 			{
 				BounceBallEnemy* enemy = curScene->Spawn<BounceBallEnemy>
 					(
