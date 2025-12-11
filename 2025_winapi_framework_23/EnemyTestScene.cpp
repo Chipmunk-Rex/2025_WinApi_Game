@@ -28,8 +28,7 @@ void EnemyTestScene::Init()
 	_currentSpawnCount = 0;
 	_spawnPercent = 65;
 	//EnemySpawn();
-
-	SET_TIME_SCALE(3);
+	SET_TIME_SCALE(1);
 
 	// Spawn background first
 	Spawn<Background>(Layer::BACKGROUND, { WINDOW_WIDTH / 2 , WINDOW_HEIGHT / 2 }, { WINDOW_WIDTH, WINDOW_HEIGHT });
