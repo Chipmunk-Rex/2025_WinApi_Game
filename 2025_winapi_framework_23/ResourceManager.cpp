@@ -101,6 +101,9 @@ void ResourceManager::RegisterTexture()
 	LoadTexture(L"Effect_Explosion", L"Texture\\Effect\\Explosion.bmp");
 	LoadTexture(L"BarrierL", L"Texture\\Background\\BarrierLeft.bmp");
 	LoadTexture(L"BarrierR", L"Texture\\Background\\BarrierRight.bmp");
+	LoadTexture(L"Card_BigSize", L"Texture\\Icon\\UpArrowIcon.bmp");
+	LoadTexture(L"Card_Heal", L"Texture\\Icon\\HealIcon.bmp");
+	LoadTexture(L"Card_Health", L"Texture\\Icon\\HeartIcon.bmp");
 
 }
 void ResourceManager::RegisterGDI()
