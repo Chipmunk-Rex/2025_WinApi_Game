@@ -163,7 +163,7 @@ void EnemyTestScene::EnemySpawn()
 				DownAttackEnemy* enemy = Spawn<DownAttackEnemy>
 					(
 						Layer::ENEMY
-						, { (WINDOW_WIDTH / 2 - (50 * (_enemyCount / 2))) + (50 * i), -100 }
+						, { (WINDOW_WIDTH / 2 - (50 * (_enemyCount / 2))) + (50 * i) + 25, -100 }
 				, { 50,50 });
 				float mulValue = ((_currentSpawnCount / _enemyCount) + 1) * 0.2f;
 				enemy->SetHealth(10 * mulValue);
