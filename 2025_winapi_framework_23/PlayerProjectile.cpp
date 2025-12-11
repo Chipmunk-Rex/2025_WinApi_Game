@@ -3,6 +3,7 @@
 #include "Player.h"
 #include "Collider.h"
 #include "ResourceManager.h"
+#include "Player.h"
 
 PlayerProjectile::PlayerProjectile() 
 	: Projectile(), _damage(0)
@@ -45,4 +46,9 @@ void PlayerProjectile::Shoot(Vec2 _dir)
 	SetActive(true);
 	this->GetCollider()->SetSize(GetSize());
 	canCollect = false;
+}
+
+void PlayerProjectile::OnPlayerCollect(Player* player)
+{
+
 }
