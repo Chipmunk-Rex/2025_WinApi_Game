@@ -5,6 +5,7 @@
 #include "Button.h";
 #include "StartButton.h"
 #include "LeaveButton.h"
+#include "ResourceManager.h"
 #include "Background.h"
 
 
@@ -14,6 +15,8 @@ void GameOverScene::Init()
     Spawn<LeaveButton>(Layer::UI, { 640, 440 }, { 200, 45 });
     Spawn<StartButton>(Layer::UI, { 640, 490 }, { 200, 45 })->SetText(L"다시하기");
     cout << "버튼 생성됨" << endl;
+
+    GET_SINGLE(ResourceManager)->Play(L"BGM_Defeat");
 }
 
 
