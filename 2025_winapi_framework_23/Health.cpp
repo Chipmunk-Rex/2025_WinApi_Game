@@ -1,9 +1,9 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "Health.h"
 #include "Enemy.h"
 #include "SceneManager.h"
 
-Health::Health() : m_health(0) , m_maxHealth(0), m_isDead(false)
+Health::Health() : m_health(0), m_maxHealth(0), m_isDead(false), m_destroyOnDead(true)
 {
 }
 
@@ -22,7 +22,7 @@ void Health::LateUpdate()
 
 void Health::Render(HDC _hdc)
 {
-	
+
 }
 
 void Health::SetHealth(double value)
@@ -40,7 +40,8 @@ void Health::TakeDamage(double damage)
 	if (m_health <= 0)
 	{
 		m_isDead = true;
-		GET_SINGLE(SceneManager)->RequestDestroy(GetOwner());
+		if (m_destroyOnDead)
+			GET_SINGLE(SceneManager)->RequestDestroy(GetOwner());
 	}
 }
 
@@ -49,7 +50,7 @@ void Health::RaiseEvent(double _prevHealth)
 	if (m_isDead) return;
 	for (auto a : functions)
 	{
-		a(_prevHealth,m_health);
+		a(_prevHealth, m_health);
 	}
 }
 

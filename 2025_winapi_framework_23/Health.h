@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include <functional>
 #include "Component.h"
 class Health : public Component
@@ -18,10 +18,15 @@ public:
 	void RaiseEvent(double _prevHealth);
 	double GetMaxHealth() { return m_maxHealth; }
 	double GetCurrentHealth() { return m_health; }
+	void SetDead(bool _destroyOnDead) {
+		m_destroyOnDead = _destroyOnDead
+			;
+	}
 private:
 	double m_health;
 	double m_maxHealth;
 	bool m_isDead;
+	bool m_destroyOnDead;
 	std::vector<std::function<void(double, double)>> functions;
 };
 

@@ -32,7 +32,7 @@ void DownAttackEnemy::Update()
 				GET_SINGLE(SceneManager)->RequestDestroy(this);
 			}
 
-			rbCompo->SetVelocity({ 0,500 });
+			rbCompo->SetVelocity({ 0,1000 });
 
 			Player* player = GetTarget();
 			if (player == nullptr) return;
@@ -56,7 +56,7 @@ void DownAttackEnemy::Update()
 		}
 		else
 		{
-			Vec2 newPos = _attackMoveStartPos + Vec2{ rand() % 10 - 5 ,  rand() % 10 - 5 };
+			Vec2 newPos = _attackMoveStartPos + Vec2{ rand() % 6 - 3 ,  rand() % 6 - 3 };
 			SetPos(newPos);
 		}
 
