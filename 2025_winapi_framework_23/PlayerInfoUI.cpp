@@ -83,11 +83,12 @@ void PlayerInfoUI::Render(HDC hdc)
     std::wstring scoreText = L"SCORE " + std::to_wstring(score);
 
     RECT scoreRc;
-    scoreRc.left = right - 400;
+    scoreRc.left = right - 330;
     scoreRc.top = topY;
     scoreRc.right = scoreRc.left + 300;
     scoreRc.bottom = scoreRc.top + 40;
 
+    DrawText(hdc, scoreText.c_str(), -1, &scoreRc, DT_RIGHT | DT_TOP | DT_SINGLELINE);
     RECT skillOutline;
     skillOutline.left = right - 150;
     skillOutline.top = topY + 100;
@@ -95,9 +96,8 @@ void PlayerInfoUI::Render(HDC hdc)
     skillOutline.bottom = skillOutline.top + 350;
 
     Rectangle(hdc, skillOutline.left, skillOutline.top, skillOutline.right, skillOutline.bottom);
-    // -------------------------
-// Projectile Icon Rendering
-// -------------------------
+
+    // projectial 큐 (탄창) ----------
     const auto& projQueue = GET_SINGLE(PlayerManager)->GetPlayerProjectiles();
 
     int maxShow = 6;
@@ -109,7 +109,6 @@ void PlayerInfoUI::Render(HDC hdc)
     int startY = skillOutline.top + 20;
     int margin = 65;
 
-    // queue는 pop을 못하니까 복사본을 사용해서 순서대로 접근
     std::queue<PlayerProjectile*> temp = projQueue;
 
     while (!temp.empty() && index < maxShow)
@@ -137,7 +136,6 @@ void PlayerInfoUI::Render(HDC hdc)
         index++;
     }
 
-    DrawText(hdc, scoreText.c_str(), -1, &scoreRc, DT_RIGHT | DT_TOP | DT_SINGLELINE);
 
 
     int barWidth = 250;

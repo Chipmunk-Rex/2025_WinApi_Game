@@ -196,6 +196,7 @@
     <ClInclude Include="FireRateCard.h" />
     <ClInclude Include="Floor.h" />
     <ClInclude Include="framework.h" />
+    <ClInclude Include="GameFasterButton.h" />
     <ClInclude Include="GameOverScene.h" />
     <ClInclude Include="GDISelector.h" />
     <ClInclude Include="Health.h" />
@@ -262,6 +263,7 @@
     <ClCompile Include="EnemyProjectile.cpp" />
     <ClCompile Include="EnemyTestScene.cpp" />
     <ClCompile Include="Floor.cpp" />
+    <ClCompile Include="GameFasterButton.cpp" />
     <ClCompile Include="GameOverScene.cpp" />
     <ClCompile Include="GDISelector.cpp" />
     <ClCompile Include="Health.cpp" />
