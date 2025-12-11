@@ -12,5 +12,9 @@ public:
     virtual void Render(HDC _hdc) override;
     virtual void OnClick() override;
 
+    void SetText(std::wstring getText);
+
+private:
+    std::wstring text;
     
 };
