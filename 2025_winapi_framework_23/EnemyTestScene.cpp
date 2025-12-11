@@ -11,6 +11,7 @@
 #include "Health.h"
 #include "Collider.h"
 #include "InputManager.h"
+#include "PlayerManager.h"
 #include "CardManager.h"
 #include "CardUI.h"
 #include "CardDB.h"
@@ -94,6 +95,9 @@ void EnemyTestScene::Update()
 
 	if (GET_SINGLE(InputManager)->IsDown(KEY_TYPE::NUM_3))
 		GET_SINGLE(CardManager)->SpawnCards(3);
+
+	if (GET_SINGLE(InputManager)->IsDown(KEY_TYPE::E))
+		GET_SINGLE(PlayerManager)->AddExp(100);
 }
 
 void EnemyTestScene::Render(HDC _hdc)

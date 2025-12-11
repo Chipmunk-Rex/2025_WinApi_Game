@@ -26,6 +26,7 @@ BlockholeProjectile::BlockholeProjectile() : PlayerProjectile()
 
 	{
 		_ballTex = GET_SINGLE(ResourceManager)->GetTexture(L"Projectile_RedGiant_Sheet");
+		_blackholeIconTex = GET_SINGLE(ResourceManager)->GetTexture(L"Projectile_Blackhole");
 		_blackholeTex = GET_SINGLE(ResourceManager)->GetTexture(L"Projectile_Blackhole_Sheet");
 		_ashedTex = GET_SINGLE(ResourceManager)->GetTexture(L"Projectile_Blackhole_Ashed");
 		SetTexture(_ashedTex);
