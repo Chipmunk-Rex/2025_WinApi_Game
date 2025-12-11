@@ -10,6 +10,9 @@ class CardDB
 public:
     static const std::vector<CardInfo> GetRandomCard(int count);
 	static const std::vector<CardInfo>& GetAllCards() { return GetInst()->cards; }
+
+    void Reset();
+
 private:
     std::vector<CardInfo> cards;
 };

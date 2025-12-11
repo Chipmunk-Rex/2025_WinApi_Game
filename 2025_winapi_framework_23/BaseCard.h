@@ -8,6 +8,7 @@ public:
     bool CanAcquire(int maxCount) const { return appliedCount < maxCount; }
     void Apply(Player& player) { OnApply(player); ++appliedCount; }
     void Remove(Player& player) { OnRemove(player); if (appliedCount > 0) --appliedCount; }
+    void Reset() { appliedCount = 0; };
     int GetAppliedCount() const { return appliedCount; }
 
 protected:
