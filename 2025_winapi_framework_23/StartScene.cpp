@@ -28,4 +28,13 @@ void StartScene::Update()
 void StartScene::Render(HDC _hdc)
 {
     Scene::Render(_hdc);
+
+    RECT rc;
+    rc.left = 315;
+    rc.top = 380;
+    rc.right = rc.left + 650;
+    rc.bottom = rc.top - 250;
+    GDISelector namefont(_hdc, FontType::CARDTITLE);
+    SetTextColor(_hdc, RGB(227, 253, 255));
+    DrawText(_hdc, L"PLANET DEFENDER", -1, &rc, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
 }
