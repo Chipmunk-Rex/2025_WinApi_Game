@@ -46,7 +46,7 @@ void BounceBallEnemy::Aattack()
 
 	Object* player = GetTarget();
 	if (player == nullptr) return;
-
+	GET_SINGLE(ResourceManager)->Play(L"BounceBallSound");
 	auto curScene = GET_SINGLE(SceneManager)->GetCurScene();
 	BounceEnemyProjectile* proj = new BounceEnemyProjectile;
 	Vec2 pos = GetPos();

@@ -29,6 +29,8 @@ void TankEnemy::HandleHitEvent(double _prev, double _health)
 		GET_SINGLE(PlayerManager)->AddExp(5);
 	}
 
+	GET_SINGLE(ResourceManager)->Play(L"TankHitSound");
+
 	double maxHealth = GetMaxHealth();
 
 	double normal = _health / maxHealth;

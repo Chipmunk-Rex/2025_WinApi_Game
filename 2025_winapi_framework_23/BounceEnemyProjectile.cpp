@@ -44,6 +44,8 @@ void BounceEnemyProjectile::EnterCollision(Collider* _other)
 		_other->GetOwner()->GetComponent<Health>()->TakeDamage(_damage);
 	}
 
+	
+
 	if (m_count >= 10)
 		GET_SINGLE(SceneManager)->RequestDestroy(this);
 }

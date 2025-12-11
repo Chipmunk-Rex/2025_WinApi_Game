@@ -268,6 +268,11 @@ void ResourceManager::RegisterSound()
 	LoadSound(L"SFX_BlackholeSpawn", L"Sound\\SFX_BlackholeSpawn.wav", false);
 	LoadSound(L"SFX_BlackholeDestroy", L"Sound\\SFX_BlackholeDestroy.wav", false);
 	LoadSound(L"SFX_RedGiantHit", L"Sound\\SFX_RedGiantHit.wav", false);
+	LoadSound(L"BounceBallSound", L"Sound\\BounceBallSound.wav", false);
+	LoadSound(L"DownAttackEnemyAttackSound", L"Sound\\DownAttackEnemyAttackSound.wav", false);
+	LoadSound(L"TankHitSound", L"Sound\\TankHitSound.wav", false);
+	LoadSound(L"Click", L"Sound\\click-345983.wav", false);
+
 	//LoadSound(L"SFX_BallHit", L"Sound\\SFX_BallHit.wav", false);
 	//LoadSound(L"SFX_BallHit", L"Sound\\SFX_BallHit.wav", false);
 	//LoadSound(L"SFX_BallHit", L"Sound\\SFX_BallHit.wav", false);
