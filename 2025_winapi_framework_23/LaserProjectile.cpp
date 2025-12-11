@@ -37,7 +37,7 @@ void LaserProjectile::EnterCollision(Collider* _other)
 	RingEffect* ring = GET_SINGLE(SceneManager)->GetCurScene()->RequestSpawn<RingEffect>(Layer::PROJECTILE);
 	ring->SetPos(targetPos);
 	ring->SetStartRadius(20.f);
-	ring->SetMaxRadius(180.f);
+	ring->SetMaxRadius(150.f);
 	ring->SetDuration(0.35f);
 }
 

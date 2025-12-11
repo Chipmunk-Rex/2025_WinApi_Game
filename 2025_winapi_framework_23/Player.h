@@ -20,6 +20,8 @@ public:
 private:
 	void ShootProjectile();
 	Vec2 GetShootDir();
+
+	void HandleHitEvent(double _prev, double _health);
 public:
 	bool CanShoot() const { return fireTimer >= fireCooldownStat.GetValue() && projectiles.size() != 0; }
 	void AddProjectile(PlayerProjectile* _proj);
@@ -41,8 +43,8 @@ public:
 	// Stat modifiers
 	void AddFireCooldownMultiplier(float delta) { fireCooldownStat.AddMultiplier(delta); }
 	void AddProjectileScaleMultiplier(float delta) { projectileScaleStat.AddMultiplier(delta); }
-	StatValue GetFireCooldownStat() const { return fireCooldownStat; }
-	StatValue GetProjectileScaleStat() const { return projectileScaleStat; }
+	StatValue& GetFireCooldownStat() { return this->fireCooldownStat; }
+	StatValue& GetProjectileScaleStat() { return projectileScaleStat; }
 private:
 	void LevelUp();
 
@@ -56,6 +58,7 @@ private:
 	Texture* currentTexture;
 	Rigidbody* rb;
 	Vec2 m_offset;
+	bool isDead = false;
 private:
 	std::queue<PlayerProjectile*> projectiles;
 	float fireTimer = 0;

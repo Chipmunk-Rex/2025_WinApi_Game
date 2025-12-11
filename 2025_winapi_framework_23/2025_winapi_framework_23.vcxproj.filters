@@ -281,6 +281,12 @@
     <ClInclude Include="BlockholeProjectile.h">
       <Filter>Engine\03. Object\Players\Projectiles</Filter>
     </ClInclude>
+    <ClInclude Include="GameFasterButton.h" />
+    <ClInclude Include="HealPlayerCard.h" />
+    <ClInclude Include="PlayerMaxHealthCard.h" />
+    <ClInclude Include="ExplosionEffect.h">
+      <Filter>Engine\03. Object</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="2025_winapi_framework_23.rc">
@@ -460,6 +466,10 @@
     </ClCompile>
     <ClCompile Include="BlockholeProjectile.cpp">
       <Filter>Engine\03. Object\Players\Projectiles</Filter>
+    </ClCompile>
+    <ClCompile Include="GameFasterButton.cpp" />
+    <ClCompile Include="ExplosionEffect.cpp">
+      <Filter>Engine\03. Object</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
