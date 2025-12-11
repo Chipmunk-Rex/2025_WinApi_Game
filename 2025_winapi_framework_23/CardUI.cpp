@@ -132,6 +132,7 @@ void CardUI::OnClick()
 {
     //SET_TIME_SCALE(1);
     targetScale = 0.f;
+    GET_SINGLE(UIManager)->SetHovering(false);
 
 
     GET_SINGLE(CardManager)->DelayClearCards(0.2f);
