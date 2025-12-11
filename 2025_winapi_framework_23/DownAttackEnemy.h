@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "CloseRangeEnemy.h"
 class DownAttackEnemy : public CloseRangeEnemy
 {
@@ -6,11 +6,13 @@ public:
     DownAttackEnemy();
 public:
     void Update() override;
-    // ObjectÀ»(¸¦) ÅëÇØ »ó¼ÓµÊ'
+    // Objectì„(ë¥¼) í†µí•´ ìƒì†ë¨'
     void Render(HDC _hdc) override;
     void HandleHitEvent(double _prev, double _health) override;
 public:
     bool m_isAttacking;
     bool m_isDead;
+    double _moveDelayTimer;
+    Vec2 _attackMoveStartPos;
 };
 
