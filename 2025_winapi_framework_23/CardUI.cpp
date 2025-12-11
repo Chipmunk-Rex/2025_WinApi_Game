@@ -6,6 +6,7 @@
 #include "PlayerManager.h"
 #include "SceneManager.h"
 #include "LaserProjectile.h"
+#include "UIManager.h"
 
 CardUI::CardUI()
 {
@@ -41,12 +42,15 @@ void CardUI::Update()
     {
         isHovered = true;
         targetScale = 1.1f;
+        GET_SINGLE(UIManager)->SetHovering(true);
     }
 
     if (!inside && wasHovered)
     {
         isHovered = false;
         targetScale = 1.0f;
+        GET_SINGLE(UIManager)->SetHovering(false);
+
     }
 
     wasHovered = inside;
