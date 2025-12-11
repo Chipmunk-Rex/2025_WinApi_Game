@@ -1,23 +1,23 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "TimeManager.h"
 #include "Core.h"
 #include "InputManager.h"	
 void TimeManager::Init()
 {
-	// ÇöÀç Ä«¿îÆ® ½Ã°£ÀÇ Æ½À» °¡Á®¿É´Ï´Ù.
+	// í˜„ìž¬ ì¹´ìš´íŠ¸ ì‹œê°„ì˜ í‹±ì„ ê°€ì ¸ì˜µë‹ˆë‹¤.
 	::QueryPerformanceCounter(&m_llPrevCnt);
 
-	// ÃÊ´ç Ä«¿îÆ® È½¼ö(1000¸¸) ¹ÝÈ¯
-	// ÇöÀç Å¸ÀÌ¸Ó µ¿ÀÛÀÇ ÁÖÆÄ¼ö¸¦ ¹ÝÈ¯
+	// ì´ˆë‹¹ ì¹´ìš´íŠ¸ íšŸìˆ˜(1000ë§Œ) ë°˜í™˜
+	// í˜„ìž¬ íƒ€ì´ë¨¸ ë™ìž‘ì˜ ì£¼íŒŒìˆ˜ë¥¼ ë°˜í™˜
 	::QueryPerformanceFrequency(&m_llFrequency);
 }
 
 void TimeManager::Update()
 {
-	// ÇöÀç Ä«¿îÆ® ½Ã°£ÀÇ Æ½À» °¡Á®¿É´Ï´Ù.
+	// í˜„ìž¬ ì¹´ìš´íŠ¸ ì‹œê°„ì˜ í‹±ì„ ê°€ì ¸ì˜µë‹ˆë‹¤.
 	::QueryPerformanceCounter(&m_llCurCnt);
 	
-	// ÀÌÀü Ä«¿îÆ®¿Í ÇöÀç Ä«¿îÆ®ÀÇ Â÷ÀÌ¸¦ Áøµ¿¼ö·Î ³ª´²¼­ ¹Ì¼¼ÇÑ DT¸¦ ±¸ÇØ¿Â´Ù.
+	// ì´ì „ ì¹´ìš´íŠ¸ì™€ í˜„ìž¬ ì¹´ìš´íŠ¸ì˜ ì°¨ì´ë¥¼ ì§„ë™ìˆ˜ë¡œ ë‚˜ëˆ ì„œ ë¯¸ì„¸í•œ DTë¥¼ êµ¬í•´ì˜¨ë‹¤.
 	// Delta Time
 	m_dT = (float)(m_llCurCnt.QuadPart - m_llPrevCnt.QuadPart)
 		/ (float)(m_llFrequency.QuadPart);
@@ -37,8 +37,7 @@ void TimeManager::Update()
 		//wstring str = L"FPS: " + strFPS + L" DT: " + strDT;
 		//::TextOut(GET_SINGLE(Core)->GetMainDC(), 0, 0, str.c_str(), str.length());
 		POINT mousepos = GET_MOUSEPOS;
-		wstring str = std::format(L"FPS: {0}, DT: {1:.6f}, Mouse: {2}, {3} ", m_fps, m_dT, mousepos.x, mousepos.y);
-		::SetWindowText(GET_SINGLE(Core)->GetHwnd(), str.c_str());
+		::SetWindowText(GET_SINGLE(Core)->GetHwnd(), L"Planet Defender");
 	}
 
 

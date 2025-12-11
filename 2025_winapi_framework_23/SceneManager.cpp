@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "SceneManager.h"
 #include "DevScene.h"
 #include "TestScene.h"
@@ -24,9 +24,7 @@ void SceneManager::Init()
 	RegisterScene(L"GameOverScene", new GameOverScene());
 	RegisterScene(L"EndingScene", new EndingScene());
 
-
-	SceneSelectWindow sceneSelectWindow;
-	sceneSelectWindow.Run(GET_SINGLE(Core)->GetHinstance(), SW_SHOWDEFAULT);
+	LoadScene(L"StartScene");
 	// 첫 씬 지정
 }
 

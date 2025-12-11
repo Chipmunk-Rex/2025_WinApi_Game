@@ -64,8 +64,11 @@ void Scene::Render(HDC _hdc)
 	{
 		auto& vec = m_vecObj[i];
 		for (auto* obj : vec)
-			if (!obj->GetIsDead())
+			if (!obj->GetIsDead()) 
+			{
+				cout << i;
 				obj->Render(_hdc);
+			}
 	}
 }
 
