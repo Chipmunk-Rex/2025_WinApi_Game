@@ -202,6 +202,7 @@
     <ClInclude Include="GameFasterButton.h" />
     <ClInclude Include="GameOverScene.h" />
     <ClInclude Include="GDISelector.h" />
+    <ClInclude Include="HealPlayerCard.h" />
     <ClInclude Include="Health.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="LaserBallCard.h" />
@@ -214,6 +215,7 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerInfoUI.h" />
     <ClInclude Include="PlayerManager.h" />
+    <ClInclude Include="PlayerMaxHealthCard.h" />
     <ClInclude Include="PlayerProjectile.h" />
     <ClInclude Include="Projectile.h" />
     <ClInclude Include="ProjectileSizeCard.h" />
