@@ -39,12 +39,12 @@ void EnemyTestScene::Init()
 	const float wallThickness = 550.f;
 	Spawn<Floor>(Layer::DEFAULT, { WINDOW_WIDTH / 2,  0 }, { 1000.f, 50.f });
 	Spawn<Floor>(Layer::DEFAULT, { WINDOW_WIDTH / 2, WINDOW_HEIGHT }, { 1000.f, 50.f });
-	Spawn<Floor>(Layer::DEFAULT, { 0, WINDOW_HEIGHT / 2}, { 50.f, 1000.f })->GetComponent<Collider>()->SetSize({ wallThickness, 1000.f });
+	Spawn<Floor>(Layer::DEFAULT, { 0, WINDOW_HEIGHT / 2 }, { 50.f, 1000.f })->GetComponent<Collider>()->SetSize({ wallThickness, 1000.f });
 	Spawn<Floor>(Layer::DEFAULT, { WINDOW_WIDTH,  WINDOW_HEIGHT / 2 }, { 50.f, 1000.f })->GetComponent<Collider>()->SetSize({ wallThickness, 1000.f });
 	Spawn<PlayerInfoUI>(Layer::UI, { WINDOW_WIDTH / 2,  0 }, { 1000.f, 50.f });
-	Spawn<GameFasterButton>(Layer::UI, { 1070,75 }, { 45, 35 })->SetSpeed(L"1",1);
-	Spawn<GameFasterButton>(Layer::UI, { 1140,75 }, { 45, 35 })->SetSpeed(L"2",2);
-	Spawn<GameFasterButton>(Layer::UI, { 1210,75 }, { 45, 35 })->SetSpeed(L"3",3);
+	Spawn<GameFasterButton>(Layer::UI, { 1070,75 }, { 45, 35 })->SetSpeed(L"1", 1);
+	Spawn<GameFasterButton>(Layer::UI, { 1140,75 }, { 45, 35 })->SetSpeed(L"2", 2);
+	Spawn<GameFasterButton>(Layer::UI, { 1210,75 }, { 45, 35 })->SetSpeed(L"3", 3);
 
 	GET_SINGLE(CollisionManager)->CheckLayer(Layer::PROJECTILE, Layer::ENEMY);
 	GET_SINGLE(CollisionManager)->CheckLayer(Layer::BOUNCEPROJECTILE, Layer::DEFAULT);
@@ -120,7 +120,11 @@ void EnemyTestScene::EnemySpawn()
 				float mulValue = ((_currentSpawnCount / _enemyCount) + 1) * 0.2f;
 				enemy->SetHealth(10 * mulValue);
 			}
+<<<<<<< Updated upstream
 			else if(randValue < 50)
+=======
+			else if (randValue < 50)
+>>>>>>> Stashed changes
 			{
 				RangedEnemy* enemy = Spawn<RangedEnemy>
 					(
