@@ -18,6 +18,8 @@
 #include "Background.h"
 #include "TankEnemy.h"
 #include "BounceBallEnemy.h"
+#include "DownAttackEnemy.h"
+#include "GameFasterButton.h"
 
 void EnemyTestScene::Init()
 {
@@ -27,6 +29,8 @@ void EnemyTestScene::Init()
 	_currentSpawnCount = 0;
 	_spawnPercent = 65;
 	//EnemySpawn();
+
+	SET_TIME_SCALE(1);
 
 	// Spawn background first
 	Spawn<Background>(Layer::BACKGROUND, { WINDOW_WIDTH / 2 , WINDOW_HEIGHT / 2 }, { WINDOW_WIDTH, WINDOW_HEIGHT });
@@ -38,6 +42,9 @@ void EnemyTestScene::Init()
 	Spawn<Floor>(Layer::DEFAULT, { 0, WINDOW_HEIGHT / 2}, { 50.f, 1000.f })->GetComponent<Collider>()->SetSize({ wallThickness, 1000.f });
 	Spawn<Floor>(Layer::DEFAULT, { WINDOW_WIDTH,  WINDOW_HEIGHT / 2 }, { 50.f, 1000.f })->GetComponent<Collider>()->SetSize({ wallThickness, 1000.f });
 	Spawn<PlayerInfoUI>(Layer::UI, { WINDOW_WIDTH / 2,  0 }, { 1000.f, 50.f });
+	Spawn<GameFasterButton>(Layer::UI, { 1070,75 }, { 45, 35 })->SetSpeed(L"1",1);
+	Spawn<GameFasterButton>(Layer::UI, { 1140,75 }, { 45, 35 })->SetSpeed(L"2",2);
+	Spawn<GameFasterButton>(Layer::UI, { 1210,75 }, { 45, 35 })->SetSpeed(L"3",3);
 
 	GET_SINGLE(CollisionManager)->CheckLayer(Layer::PROJECTILE, Layer::ENEMY);
 	GET_SINGLE(CollisionManager)->CheckLayer(Layer::BOUNCEPROJECTILE, Layer::DEFAULT);
