@@ -48,7 +48,7 @@ void CardManager::SpawnCards(int count)
     ClearCards();
     //SET_TIME_SCALE(0);
     Vec2 size = { 200, 300 };
-    float spacing = 250; // distance between card centers
+    float spacing = 250;
     float cx = WINDOW_WIDTH / 2;
     float cy = WINDOW_HEIGHT / 2;
     GET_SINGLE(ResourceManager)->Play(L"SFX_CardAppearSound");
@@ -61,7 +61,7 @@ void CardManager::SpawnCards(int count)
 
     size_t n = infos.size();
     if (n == 0)
-        return; // no eligible cards
+        return; 
 
     float startX = cx - spacing * (static_cast<float>(n - 1) * 0.5f);
 

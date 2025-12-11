@@ -139,18 +139,7 @@ void PlayerInfoUI::DrawProjectileIcons(HDC hdc)
             else
                 drawY = firstIconY + gap12 + (index - 1) * gapNormal;
 
-            TransparentBlt(
-                hdc,
-                iconX,
-                drawY,
-                iconW,
-                iconH,
-                tex->GetTextureDC(),
-                0, 0,
-                tex->GetWidth(),
-                tex->GetHeight(),
-                RGB(255, 0, 255)
-            );
+            TransparentBlt(hdc,iconX,drawY, iconW,iconH,tex->GetTextureDC(),0, 0,tex->GetWidth(),tex->GetHeight(),RGB(255, 0, 255));
         }
 
         index++;
