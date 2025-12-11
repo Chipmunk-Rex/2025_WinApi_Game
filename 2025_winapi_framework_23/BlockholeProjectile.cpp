@@ -74,7 +74,7 @@ void BlockholeProjectile::Update()
 			_isAshed = true;
 
 			Scene* scene = GET_SINGLE(SceneManager)->GetCurScene();
-			BlackHole* bh = scene->RequestSpawn<BlackHole>(Layer::DEFAULT);
+			BlackHole* bh = scene->RequestSpawn<BlackHole>(Layer::EFFECT);
 			bh->SetPos(GetPos());
 			float scaledRatio = GET_SINGLE(PlayerManager)->GetPlayer()->GetProjectileScaleStat().GetValue();
 			Vec2 blackholeSize = Vec2{ 200,200 } * scaledRatio;

@@ -12,6 +12,8 @@ public:
 	void Render(HDC _hdc) override;
 public:
 	void SetHealth(double value);
+	void SetCurrentHealth(double value);
+	void SetMaxHealth(double value);
 	void TakeDamage(double damage);
 	bool GetIsDead();
 	void AddListener(std::function<void(double, double)> delegate);

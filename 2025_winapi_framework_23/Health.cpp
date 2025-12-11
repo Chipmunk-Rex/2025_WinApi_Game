@@ -30,6 +30,16 @@ void Health::SetHealth(double value)
 	m_maxHealth = m_health = value;
 }
 
+void Health::SetCurrentHealth(double value)
+{
+	m_health = value;
+}
+
+void Health::SetMaxHealth(double value)
+{
+	m_maxHealth = value;
+}
+
 void Health::TakeDamage(double damage)
 {
 	if (m_isDead)

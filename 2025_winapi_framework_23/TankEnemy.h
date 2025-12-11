@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "Enemy.h"
 #include "CloseRangeEnemy.h"
 class TankEnemy : public CloseRangeEnemy
@@ -7,7 +7,7 @@ public:
     TankEnemy();
 public:
     void Update() override;
-    // ObjectÀ»(¸¦) ÅëÇØ »ó¼ÓµÊ'
+    // Objectì„(ë¥¼) í†µí•´ ìƒì†ë¨'
     void Render(HDC _hdc) override;
     void HandleHitEvent(double _prev, double _health) override;
 };
