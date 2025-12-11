@@ -13,7 +13,7 @@ bool ResourceManager::Init()
 
 	if (!RegisterFontFile(L"Font\\나눔손글씨 암스테르담.ttf"))
 		return false;
-	if (!RegisterFontFile(L"Font\\Galmuri11.ttf") )
+	if (!RegisterFontFile(L"Font\\Galmuri11.ttf"))
 		return false;
 	RegisterTexture();
 	RegisterGDI();
@@ -79,6 +79,10 @@ void ResourceManager::RegisterTexture()
 	LoadTexture(L"Projectile_Earth", L"Texture\\Planet\\Earth.bmp");
 	LoadTexture(L"Projectile_Moon", L"Texture\\Planet\\Moon.bmp");
 	LoadTexture(L"Projectile_Saturn", L"Texture\\Planet\\Saturn.bmp");
+	LoadTexture(L"Projectile_Blackhole", L"Texture\\Planet\\Blackhole.bmp");
+	LoadTexture(L"Projectile_Blackhole_Ashed", L"Texture\\Planet\\AshedPlanet.bmp");
+	LoadTexture(L"Projectile_Blackhole_Sheet", L"Texture\\Planet\\Blackhole_Sheet.bmp");
+	LoadTexture(L"Projectile_RedGiant_Sheet", L"Texture\\Planet\\RedGiant_Sheet.bmp");
 	LoadTexture(L"Background_Space", L"Texture\\Background\\Space.bmp");
 	LoadTexture(L"StartScene_Space", L"Texture\\Background\\StartSceneSpace.bmp");
 	LoadTexture(L"BounceBallEnemy", L"Texture\\Enemy\\BounceBallEnemyTile.bmp");
@@ -105,7 +109,6 @@ void ResourceManager::RegisterGDI()
 	m_Pens[(UINT)PenType::RED] = ::CreatePen(PS_SOLID, 1, RGB(255, 0, 0));
 	m_Pens[(UINT)PenType::GREEN] = ::CreatePen(PS_SOLID, 1, RGB(0, 255, 0));
 	m_Pens[(UINT)PenType::CARDTEXT] = ::CreatePen(PS_SOLID, 1, RGB(227, 253, 255));
-
 	// ��Ʈ ����
 	RegisterFont(FontType::TITLE, L"나눔손글씨 암스테르담", 60);
 	RegisterFont(FontType::UI, L"나눔손글씨 암스테르담", 0);
@@ -251,5 +254,14 @@ Texture* ResourceManager::GetTexture(const wstring& _key)
 void ResourceManager::RegisterSound()
 {
 	LoadSound(L"BGM",L"Sound\\Retro_bgm.wav",true);
-	LoadSound(L"Shoot",L"Sound\\laserShoot.wav",false);
+	LoadSound(L"Shoot", L"Sound\\laserShoot.wav", false);
+	LoadSound(L"BGM_Battle", L"Sound\\BGM_Battle.wav", true);
+	LoadSound(L"SFX_BallHit", L"Sound\\SFX_BallHit.wav", false);
+	LoadSound(L"SFX_BlackholeSpawn", L"Sound\\SFX_BlackholeSpawn.wav", false);
+	LoadSound(L"SFX_BlackholeDestroy", L"Sound\\SFX_BlackholeDestroy.wav", false);
+	LoadSound(L"SFX_RedGiantHit", L"Sound\\SFX_RedGiantHit.wav", false);
+	//LoadSound(L"SFX_BallHit", L"Sound\\SFX_BallHit.wav", false);
+	//LoadSound(L"SFX_BallHit", L"Sound\\SFX_BallHit.wav", false);
+	//LoadSound(L"SFX_BallHit", L"Sound\\SFX_BallHit.wav", false);
+	//LoadSound(L"SFX_BallHit", L"Sound\\SFX_BallHit.wav", false);
 }

@@ -40,6 +40,8 @@ void Animation::Create(Texture* _tex, Vec2 _lt, Vec2 _sliceSize,
         _fr.vOffset = { 0.f, 0.f };
         m_frames.push_back(_fr);
     }
+
+    m_renderSize = _sliceSize;
 }
 
 void Animation::ConfigurePlayback(PlayMode _mode, int _loopCount, float _speed)
@@ -122,18 +124,18 @@ void Animation::Render(HDC _hdc)
     const tAnimFrame& fr = m_frames[(size_t)m_curFrame];
     pos = pos + fr.vOffset;
 
-    // 목적지(화면) 사각형: 스프라이트 중심 정렬
-    int dx = (int)(pos.x - fr.vSlice.x / 2);
-    int dy = (int)(pos.y - fr.vSlice.y / 2);
-    int dw = (int)fr.vSlice.x;
-    int dh = (int)fr.vSlice.y;
 
-    // 소스(시트) 사각형
+    int dx = (int)(pos.x - m_renderSize.x / 2);
+    int dy = (int)(pos.y - m_renderSize.y / 2);
+    int dw = (int)m_renderSize.x;
+    int dh = (int)m_renderSize.y;
+
     int sx = (int)fr.vLT.x;
     int sy = (int)fr.vLT.y;
     int sw = (int)fr.vSlice.x;
     int sh = (int)fr.vSlice.y;
-    BOOL debug = TransparentBlt(_hdc,
+
+    TransparentBlt(_hdc,
         dx, dy, dw, dh,
         m_tex->GetTextureDC(),
         sx, sy, sw, sh,

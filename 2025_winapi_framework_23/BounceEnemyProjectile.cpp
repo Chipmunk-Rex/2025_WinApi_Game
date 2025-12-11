@@ -41,7 +41,7 @@ void BounceEnemyProjectile::EnterCollision(Collider* _other)
 	++m_count;
 	if (_other->GetName() == L"Player")
 	{
-		_other->GetOwner()->GetComponent<Health>()->TakeDamage(5);
+		_other->GetOwner()->GetComponent<Health>()->TakeDamage(_damage);
 	}
 
 	if (m_count >= 10)
