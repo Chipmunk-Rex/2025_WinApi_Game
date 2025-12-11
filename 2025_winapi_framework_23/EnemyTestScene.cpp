@@ -1,4 +1,4 @@
-﻿#include "pch.h"
+#include "pch.h"
 #include "Enemy.h"
 #include "Player.h"
 #include "EnemyTestScene.h"
@@ -22,13 +22,19 @@
 #include "DownAttackEnemy.h"
 #include "GameFasterButton.h"
 #include "EnemyManager.h"
+#include "UIManager.h"
 
 void EnemyTestScene::Init()
 {
+	GET_SINGLE(UIManager)->SetHovering(false);
 	GET_SINGLE(CardDB)->Reset();
 	_enemySpawnTime = 5.f;
 	_timer = 5.f;
+	GET_SINGLE(ResourceManager)->Stop(SOUND_CHANNEL::BGM);
 	
+
+	GET_SINGLE(ResourceManager)->Play(L"BGM_Game");
+
 	//EnemySpawn();
 
 	SET_TIME_SCALE(1);

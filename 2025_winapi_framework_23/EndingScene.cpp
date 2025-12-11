@@ -6,11 +6,13 @@
 #include "StartButton.h"
 #include "LeaveButton.h"
 #include "Background.h"
+#include "ResourceManager.h"
 
 
 void EndingScene::Init()
 {
     SET_TIME_SCALE(1);
+    GET_SINGLE(ResourceManager)->Play(L"BGM_Ending");
 
     Spawn<Background>(Layer::BACKGROUND, { WINDOW_WIDTH / 2 , WINDOW_HEIGHT / 2 }, { WINDOW_WIDTH, WINDOW_HEIGHT })->SetTexture(L"StartScene_Space");
     Spawn<LeaveButton>(Layer::UI, { 1100, 300 }, { 200, 80 });
