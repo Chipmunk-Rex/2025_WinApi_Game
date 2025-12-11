@@ -12,6 +12,7 @@ public:
 public:
     bool m_isAttacking;
     bool m_isDead;
+    bool m_isSoundCheck;
     double _moveDelayTimer;
     Vec2 _attackMoveStartPos;
 };

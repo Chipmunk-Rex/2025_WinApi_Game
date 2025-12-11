@@ -16,13 +16,21 @@ public:
     void SetLevel(int lvl);
 
 private:
+    void DrawSideBarriors(HDC hdc);
+    void DrawTime(HDC hdc);
+    void DrawLevel(HDC hdc);
+    void DrawScore(HDC hdc);
+    void DrawProjectileIcons(HDC hdc);
+    void DrawExpBar(HDC hdc);
+    void DrawHpBar(HDC hdc);
+
+private:
     int score;
     float timeSec;
     int level;
-    float curExp = 0.f;
-    float maxExp = 1.f;
-    float curHealth = 0.f;
-    float maxHealth = 1.f;
 
-
+    float curExp;
+    float maxExp;
+    float curHealth;
+    float maxHealth;
 };

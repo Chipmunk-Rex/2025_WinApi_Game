@@ -30,14 +30,14 @@ void Collider::LateUpdate()
 void Collider::Render(HDC _hdc)
 {
 #ifdef _DEBUG
-	PenType penColor = PenType::GREEN;
-	if (m_showDebug)
-		penColor = PenType::RED;
-	// �簢��
-	GDISelector pen(_hdc, penColor);
-	GDISelector brush(_hdc, BrushType::HOLLOW);
-	const Vec2& worldPos = GetWorldPos();
-	RECT_RENDER(_hdc, worldPos.x, worldPos.y, m_size.x ,m_size.y);
+	//PenType penColor = PenType::GREEN;
+	//if (m_showDebug)
+	//	penColor = PenType::RED;
+	//// �簢��
+	//GDISelector pen(_hdc, penColor);
+	//GDISelector brush(_hdc, BrushType::HOLLOW);
+	//const Vec2& worldPos = GetWorldPos();
+	//RECT_RENDER(_hdc, worldPos.x, worldPos.y, m_size.x ,m_size.y);
 #endif
 }
 

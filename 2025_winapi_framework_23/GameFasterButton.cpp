@@ -1,8 +1,9 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "GameFasterButton.h"
 #include "Button.h"
 #include "Object.h"
 #include "SceneManager.h"
+#include "ResourceManager.h"
 #include "EnemyTestScene.h"
 
 GameFasterButton::GameFasterButton()
@@ -52,6 +53,7 @@ void GameFasterButton::Render(HDC hdc)
 void GameFasterButton::OnClick()
 {
     SET_TIME_SCALE(speed);
+    GET_SINGLE(ResourceManager)->Play(L"Click");
 }
 
 void GameFasterButton::SetSpeed(std::wstring speedText, int speed)

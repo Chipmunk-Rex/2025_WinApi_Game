@@ -17,7 +17,7 @@ CloseRangeEnemy::CloseRangeEnemy() :
 	_hitDelay(0.1f),
 	_hitTimer(0),
 	_isAttack(false),
-	_damage(1),
+	_damage(3),
 	_moveDelayTimer(0),
 	_attackMoveStartPos({0,0})
 {

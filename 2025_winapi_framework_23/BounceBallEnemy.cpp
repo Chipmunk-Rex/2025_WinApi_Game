@@ -11,7 +11,7 @@ BounceBallEnemy::BounceBallEnemy() :
 	_timer(0),
 	_attackDelay(7),
 	_attackTime(2),
-	_damage(1),
+	_damage(3),
 	_projectile(nullptr),
 	_isHit(false),
 	_hitDelay(0.1f),
@@ -46,7 +46,7 @@ void BounceBallEnemy::Aattack()
 
 	Object* player = GetTarget();
 	if (player == nullptr) return;
-
+	GET_SINGLE(ResourceManager)->Play(L"BounceBallSound");
 	auto curScene = GET_SINGLE(SceneManager)->GetCurScene();
 	BounceEnemyProjectile* proj = new BounceEnemyProjectile;
 	Vec2 pos = GetPos();

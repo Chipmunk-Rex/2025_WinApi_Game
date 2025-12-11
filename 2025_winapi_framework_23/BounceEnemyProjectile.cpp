@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "BounceEnemyProjectile.h"
 #include "Health.h"
 #include "Collider.h"
@@ -12,7 +12,7 @@ BounceEnemyProjectile::BounceEnemyProjectile()
 	col->SetName(L"EnemyBounceBall");
 	col->SetSize({25.f,25.f });
 	m_count = 0;
-	_damage = 0;
+	_damage = 3;
 }
 
 
@@ -43,6 +43,8 @@ void BounceEnemyProjectile::EnterCollision(Collider* _other)
 	{
 		_other->GetOwner()->GetComponent<Health>()->TakeDamage(_damage);
 	}
+
+	
 
 	if (m_count >= 10)
 		GET_SINGLE(SceneManager)->RequestDestroy(this);

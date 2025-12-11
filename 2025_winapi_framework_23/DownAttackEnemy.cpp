@@ -10,7 +10,7 @@ DownAttackEnemy::DownAttackEnemy() : _moveDelayTimer(0), _attackMoveStartPos({0,
 {
 	m_isDead = false;
 	m_isAttacking = false;
-
+	m_isSoundCheck = false;
 	SetTex(GET_SINGLE(ResourceManager)->GetTexture(L"DownAttackEnemy_1"));
 }
 
@@ -25,6 +25,12 @@ void DownAttackEnemy::Update()
 		{
 			Vec2 pos = GetPos();
 			Rigidbody* rbCompo = GetRbCompo();
+
+			if (!m_isSoundCheck)
+			{
+				GET_SINGLE(ResourceManager)->Play(L"DownAttackEnemyAttackSound");
+				m_isSoundCheck = true;
+			}
 
 			if (pos.y >= WINDOW_HEIGHT + 150)
 			{
