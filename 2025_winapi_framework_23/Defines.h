@@ -23,6 +23,8 @@ public:								\
 #define GET_SINGLE(className) className::GetInst() 
 
 #define fDT GET_SINGLE(TimeManager)->GetDT()
+#define fRDT GET_SINGLE(TimeManager)->GetRDT()
+#define GET_TIME_SCALE GET_SINGLE(TimeManager)->GetTimeScale()
 #define SET_TIME_SCALE(value) GET_SINGLE(TimeManager)->SetMultiplier(value)
 
 #define GET_KEYUP(key) GET_SINGLE(InputManager)->IsUp(key)

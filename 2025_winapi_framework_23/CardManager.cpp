@@ -45,6 +45,7 @@ void CardManager::Update()
 void CardManager::SpawnCards(int count)
 {
     ClearCards();
+    //SET_TIME_SCALE(0);
     Vec2 size = { 200, 300 };
     float spacing = 250; // distance between card centers
     float cx = WINDOW_WIDTH / 2;
