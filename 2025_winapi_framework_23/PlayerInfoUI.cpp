@@ -2,13 +2,22 @@
 #include "PlayerInfoUI.h"
 #include "ResourceManager.h"
 #include "PlayerManager.h"
+#include "Texture.h"
+#include "PlayerProjectile.h"
+
 
 PlayerInfoUI::PlayerInfoUI()
 {
-	score = 0;
-	timeSec = 0.0f;
-	level = 1;
+    score = 0;
+    timeSec = 0.0f;
+    level = 1;
+
+    curExp = 0.f;
+    maxExp = 0.f;
+    curHealth = 0.f;
+    maxHealth = 0.f;
 }
+
 
 PlayerInfoUI::~PlayerInfoUI()
 {
@@ -74,11 +83,12 @@ void PlayerInfoUI::Render(HDC hdc)
     std::wstring scoreText = L"SCORE " + std::to_wstring(score);
 
     RECT scoreRc;
-    scoreRc.left = right - 400;
+    scoreRc.left = right - 330;
     scoreRc.top = topY;
     scoreRc.right = scoreRc.left + 300;
     scoreRc.bottom = scoreRc.top + 40;
 
+    DrawText(hdc, scoreText.c_str(), -1, &scoreRc, DT_RIGHT | DT_TOP | DT_SINGLELINE);
     RECT skillOutline;
     skillOutline.left = right - 150;
     skillOutline.top = topY + 100;
@@ -87,7 +97,45 @@ void PlayerInfoUI::Render(HDC hdc)
 
     Rectangle(hdc, skillOutline.left, skillOutline.top, skillOutline.right, skillOutline.bottom);
 
-    DrawText(hdc, scoreText.c_str(), -1, &scoreRc, DT_RIGHT | DT_TOP | DT_SINGLELINE);
+    // projectial ť (źâ) ----------
+    const auto& projQueue = GET_SINGLE(PlayerManager)->GetPlayerProjectiles();
+
+    int maxShow = 6;
+    int index = 0;
+
+    int iconW = 60;
+    int iconH = 60;
+    int startX = skillOutline.left + 20;
+    int startY = skillOutline.top + 20;
+    int margin = 65;
+
+    std::queue<PlayerProjectile*> temp = projQueue;
+
+    while (!temp.empty() && index < maxShow)
+    {
+        PlayerProjectile* proj = temp.front();
+        temp.pop();
+
+        const Texture* tex = proj->GetIconTexture();
+        if (tex != nullptr)
+        {
+            TransparentBlt(
+                hdc,
+                startX + 5,
+                startY + index * margin,
+                (int)(tex->GetWidth() * 1.5 ),
+                (int)(tex->GetHeight() * 1.5 ),
+                tex->GetTextureDC(),
+                0, 0,
+                tex->GetWidth(),
+                tex->GetHeight(),
+                RGB(255, 0, 255)
+            );
+        }
+
+        index++;
+    }
+
 
 
     int barWidth = 250;
@@ -174,7 +222,7 @@ void PlayerInfoUI::SetScore(int s)
 
 void PlayerInfoUI::SetTime(float sec)
 {
-	timeSec = sec;
+	timeSec = sec;  
 }
 
 void PlayerInfoUI::SetLevel(int lvl)

@@ -46,8 +46,6 @@ void LeaveButton::Render(HDC hdc)
     GDISelector pen(hdc, PenType::RED);
     GDISelector brush(hdc, BrushType::HOLLOW);
 
-    RECT_RENDER(hdc, pos.x, pos.y, scaled.x, scaled.y);
-
 
 
     ComponentRender(hdc);

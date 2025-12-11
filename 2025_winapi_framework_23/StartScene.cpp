@@ -6,7 +6,7 @@
 #include "StartButton.h"
 #include "LeaveButton.h"
 #include "Background.h"
-
+    
 
 void StartScene::Init()
 {

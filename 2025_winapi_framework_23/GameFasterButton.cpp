@@ -1,34 +1,32 @@
 #include "pch.h"
-#include "StartButton.h"
+#include "GameFasterButton.h"
 #include "Button.h"
 #include "Object.h"
 #include "SceneManager.h"
 #include "EnemyTestScene.h"
 
-StartButton::StartButton()
+GameFasterButton::GameFasterButton()
 {
-    SetPos({ 640, 360 });
-    SetSize({ 200, 80 });
 
     AddComponent<Button>();
 }
 
-StartButton::~StartButton()
+GameFasterButton::~GameFasterButton()
 {
 }
 
-void StartButton::Update()
+void GameFasterButton::Update()
 {
-    
+
 }
 
-void StartButton::LateUpdate()
+void GameFasterButton::LateUpdate()
 {
     Object::LateUpdate();
 }
 
 
-void StartButton::Render(HDC hdc)
+void GameFasterButton::Render(HDC hdc)
 {
     Vec2 pos = GetPos();
     Vec2 scaled = GetSize();
@@ -39,17 +37,25 @@ void StartButton::Render(HDC hdc)
     rc.top = (LONG)(pos.y - scaled.y * 0.5f);
     rc.right = (LONG)(pos.x + scaled.x * 0.5f);
     rc.bottom = (LONG)(pos.y + scaled.y * 0.5f);
-   
+
     GDISelector namefont(hdc, FontType::CARDTITLE);
-    DrawText(hdc, L"게임 시작", -1, &rc, DT_CENTER | DT_CENTER | DT_SINGLELINE);
+    DrawText(hdc, speedText.c_str(), -1, &rc, DT_CENTER | DT_CENTER | DT_SINGLELINE);
 
     GDISelector pen(hdc, PenType::RED);
     GDISelector brush(hdc, BrushType::HOLLOW);
+
+
+
     ComponentRender(hdc);
 }
 
-void StartButton::OnClick()
+void GameFasterButton::OnClick()
 {
-    GET_SINGLE(SceneManager)->LoadScene(L"EnemyTestScene");
+    SET_TIME_SCALE(speed);
 }
 
+void GameFasterButton::SetSpeed(std::wstring speedText, int speed)
+{
+    this->speedText = speedText + L"X";
+    this->speed = speed;
+}
