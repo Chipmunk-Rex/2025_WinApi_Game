@@ -3,6 +3,7 @@
 #include "CardUI.h"
 #include "CardDB.h"
 #include "SceneManager.h"
+#include "ResourceManager.h"
 #include "Scene.h"
 
 void CardManager::AddCard(CardUI* card)
@@ -50,6 +51,7 @@ void CardManager::SpawnCards(int count)
     float spacing = 250; // distance between card centers
     float cx = WINDOW_WIDTH / 2;
     float cy = WINDOW_HEIGHT / 2;
+    GET_SINGLE(ResourceManager)->Play(L"SFX_CardAppearSound");
 
     vector<CardInfo> infos = CardDB::GetRandomCard(count);
 

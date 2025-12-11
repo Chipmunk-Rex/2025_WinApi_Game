@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "Button.h"
 #include "InputManager.h"
+#include "ResourceManager.h"
 #include "UIManager.h"
 #include "Object.h"
 
@@ -36,6 +37,7 @@ void Button::LateUpdate()
     if (inside && !wasHovered)
     {
         isHovered = true;
+        GET_SINGLE(ResourceManager)->Play(L"SFX_HoverSound");
         OnHoverEnter();
     }
 
@@ -63,6 +65,7 @@ void Button::Render(HDC _hdc)
 
 void Button::OnHoverEnter() {
     GET_SINGLE(UIManager)->SetHovering(true);
+    GET_SINGLE(ResourceManager)->Play(L"SFX_HoverSound");
 }
 void Button::OnHoverExit() {
     GET_SINGLE(UIManager)->SetHovering(false);

@@ -4,6 +4,7 @@
 #include "Object.h"
 #include "SceneManager.h"
 #include "EnemyTestScene.h"
+#include "ResourceManager.h"
 
 StartButton::StartButton()
 {
@@ -50,6 +51,8 @@ void StartButton::Render(HDC hdc)
 
 void StartButton::OnClick()
 {
+    GET_SINGLE(ResourceManager)->Play(L"SFX_Start");
+
     GET_SINGLE(SceneManager)->LoadScene(L"EnemyTestScene");
 }
 
