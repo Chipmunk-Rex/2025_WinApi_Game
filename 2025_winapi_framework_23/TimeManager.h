@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 class TimeManager
 {
@@ -8,6 +8,11 @@ public:
 	void Update();
 public:
 	float GetDT() const { return m_dT * m_multiplier; }
+	float GetRDT() const { return m_dT; }
+	float GetTimeScale() const {
+		return m_multiplier
+			;
+	}
 	void SetMultiplier(float value) { m_multiplier = value; }
 private:
 	LARGE_INTEGER m_llPrevCnt = {};

@@ -8,9 +8,6 @@
 #include "Rigidbody.h"
 #include "Texture.h"
 
-// Blackhole projectile: starts as a black ball; upon colliding with an enemy, activates
-// into a blackhole that plays an animation and applies AoE damage while attracting
-// nearby player projectiles.
 class BlockholeProjectile : public PlayerProjectile
 {
 public:
@@ -23,11 +20,9 @@ public:
     void EnterCollision(Collider* _other) override;
     void StayCollision(Collider* _other) override {}
     void ExitCollision(Collider* _other) override {}
-
-public:
     void Shoot(Vec2 _dir) override;
     void OnBlackholeFinished(); 
-    const Texture* GetIconTexture() { return _blackholeTex; };
+    const Texture* GetIconTexture() { return _blackholeIconTex; };
 private:
     void ActivateBlackhole();
     void ApplyAoEDamage();
@@ -50,6 +45,7 @@ private:
     Animator* _anim;
     Texture* _ballTex;
     Texture* _blackholeTex;
+    Texture* _blackholeIconTex;
     Texture* _ashedTex;
 
 	bool _isAshed = false;

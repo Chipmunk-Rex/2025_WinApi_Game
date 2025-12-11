@@ -15,4 +15,5 @@ struct CardInfo
     BaseCard* baseCard = nullptr;
     int maxCount = 1;
     CardType cardType;
+    int afterlevel = 1;
 };
