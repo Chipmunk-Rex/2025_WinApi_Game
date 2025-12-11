@@ -268,6 +268,10 @@ void ResourceManager::RegisterSound()
 	LoadSound(L"SFX_BlackholeSpawn", L"Sound\\SFX_BlackholeSpawn.wav", false);
 	LoadSound(L"SFX_BlackholeDestroy", L"Sound\\SFX_BlackholeDestroy.wav", false);
 	LoadSound(L"SFX_RedGiantHit", L"Sound\\SFX_RedGiantHit.wav", false);
+	LoadSound(L"SFX_CardSelectSound", L"Sound\\SFX_CardSelectSound.wav", false);
+	LoadSound(L"SFX_HoverSound", L"Sound\\SFX_HoverSound.wav", false);
+	LoadSound(L"SFX_CardAppearSound", L"Sound\\SFX_CardAppearSound.wav", false);
+	LoadSound(L"SFX_Start", L"Sound\\SFX_Start.wav", false);
 	//LoadSound(L"SFX_BallHit", L"Sound\\SFX_BallHit.wav", false);
 	//LoadSound(L"SFX_BallHit", L"Sound\\SFX_BallHit.wav", false);
 	//LoadSound(L"SFX_BallHit", L"Sound\\SFX_BallHit.wav", false);

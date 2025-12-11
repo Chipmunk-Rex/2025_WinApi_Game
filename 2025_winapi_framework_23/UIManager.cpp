@@ -9,4 +9,5 @@ bool UIManager::isHovering()
 void UIManager::SetHovering(bool isHover)
 {
 	this->isHover = isHover;
-	
+
+}
