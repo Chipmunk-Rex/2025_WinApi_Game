@@ -48,7 +48,10 @@ Player::Player()
 	AddProjectile(proj);
 
 	GET_SINGLE(PlayerManager)->SetPlayer(this);
-}
+
+	SetPos({ WINDOW_WIDTH / 2 ,  WINDOW_HEIGHT - 45});
+	SetSize({ 100,100 });
+};
 Player::~Player()
 {
 	GET_SINGLE(PlayerManager)->SetPlayer(nullptr);
@@ -60,8 +63,8 @@ void Player::Update()
 		dir.x -= 1.f;
 	if (GET_KEY(KEY_TYPE::D))
 		dir.x += 1.f;
-	if (GET_KEY(KEY_TYPE::W)) dir.y -= 1.f;
-	if (GET_KEY(KEY_TYPE::S)) dir.y += 1.f;
+	//if (GET_KEY(KEY_TYPE::W)) dir.y -= 1.f;
+	//if (GET_KEY(KEY_TYPE::S)) dir.y += 1.f;
 
 
 	if (dir.x < 0)
