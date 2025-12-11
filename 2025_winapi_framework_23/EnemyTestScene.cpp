@@ -25,6 +25,7 @@
 
 void EnemyTestScene::Init()
 {
+	GET_SINGLE(CardDB)->Reset();
 	_enemySpawnTime = 5.f;
 	_timer = 5.f;
 	
