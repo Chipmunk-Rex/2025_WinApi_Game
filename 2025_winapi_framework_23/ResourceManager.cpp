@@ -277,6 +277,10 @@ void ResourceManager::RegisterSound()
 	LoadSound(L"TankHitSound", L"Sound\\TankHitSound.wav", false);
 	LoadSound(L"Click", L"Sound\\click-345983.wav", false);
 
+	LoadSound(L"SFX_CardSelectSound", L"Sound\\SFX_CardSelectSound.wav", false);
+	LoadSound(L"SFX_HoverSound", L"Sound\\SFX_HoverSound.wav", false);
+	LoadSound(L"SFX_CardAppearSound", L"Sound\\SFX_CardAppearSound.wav", false);
+	LoadSound(L"SFX_Start", L"Sound\\SFX_Start.wav", false);
 	//LoadSound(L"SFX_BallHit", L"Sound\\SFX_BallHit.wav", false);
 	//LoadSound(L"SFX_BallHit", L"Sound\\SFX_BallHit.wav", false);
 	//LoadSound(L"SFX_BallHit", L"Sound\\SFX_BallHit.wav", false);

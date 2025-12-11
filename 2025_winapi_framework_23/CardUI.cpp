@@ -43,6 +43,7 @@ void CardUI::Update()
         isHovered = true;
         targetScale = 1.1f;
         GET_SINGLE(UIManager)->SetHovering(true);
+        GET_SINGLE(ResourceManager)->Play(L"SFX_HoverSound");
     }
 
     if (!inside && wasHovered)
@@ -134,7 +135,7 @@ void CardUI::OnClick()
     targetScale = 0.f;
     GET_SINGLE(UIManager)->SetHovering(false);
 
-
+    GET_SINGLE(ResourceManager)->Play(L"SFX_CardSelectSound");
     GET_SINGLE(CardManager)->DelayClearCards(0.2f);
 
 	Player* player = GET_SINGLE(PlayerManager)->GetPlayer();
