@@ -120,11 +120,7 @@ void EnemyTestScene::EnemySpawn()
 				float mulValue = ((_currentSpawnCount / _enemyCount) + 1) * 0.2f;
 				enemy->SetHealth(10 * mulValue);
 			}
-<<<<<<< Updated upstream
-			else if(randValue < 50)
-=======
 			else if (randValue < 50)
->>>>>>> Stashed changes
 			{
 				RangedEnemy* enemy = Spawn<RangedEnemy>
 					(
