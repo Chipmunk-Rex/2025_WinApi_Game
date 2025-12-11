@@ -126,6 +126,7 @@ void CardUI::Render(HDC _hdc)
 
 void CardUI::OnClick()
 {
+    //SET_TIME_SCALE(1);
     targetScale = 0.f;
 
 
