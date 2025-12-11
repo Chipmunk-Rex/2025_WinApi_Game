@@ -7,5 +7,9 @@ public:
 	~SlowProjectile() override;
 public:
 	void EnterCollision(Collider* _other) override;
+public:
+	void OnPlayerCollect(Player* player) override;
+private:
+	int collisionCount = 0;
 };
 

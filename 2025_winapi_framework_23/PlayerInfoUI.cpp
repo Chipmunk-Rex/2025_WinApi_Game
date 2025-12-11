@@ -46,12 +46,43 @@ void PlayerInfoUI::Render(HDC hdc)
     int right = WINDOW_WIDTH - 40;
     int bottom = WINDOW_HEIGHT - 40;
 
-    int leftX = 5;
+    int leftX = 0;
     int topY = 20;
     int lvlY = WINDOW_HEIGHT - 185;
 
     int minutes = (int)(timeSec / 60);
     int seconds = (int)(timeSec) % 60;
+
+    Texture* barrierTexL = GET_SINGLE(ResourceManager)->GetTexture(L"BarrierL");
+    TransparentBlt(
+        hdc,
+        891,
+        0,
+        385,
+        800,
+        barrierTexL->GetTextureDC(),
+        0, 0,
+        barrierTexL->GetWidth(),
+        barrierTexL->GetHeight(),
+        RGB(255, 0, 255)
+    );
+    Texture* barrierTexR = GET_SINGLE(ResourceManager)->GetTexture(L"BarrierR");
+
+    TransparentBlt(
+        hdc,
+        0,
+        0,
+        385,
+        700,
+        barrierTexR->GetTextureDC(),
+        0, 0,
+        barrierTexR->GetWidth(),
+        barrierTexR->GetHeight(),
+        RGB(255, 0, 255)
+    );
+
+
+
     // 타임텍스트 -----------------------------
     std::wstring timeText = L"TIME "
         + std::to_wstring(minutes)
@@ -92,12 +123,10 @@ void PlayerInfoUI::Render(HDC hdc)
     RECT skillOutline;
 
     float projectileContainerWidth = 100;
-    skillOutline.left = right - 150;
-    skillOutline.top = topY + 100;
+    skillOutline.left = right - 210;
+    skillOutline.top = topY + 140;
     skillOutline.right = skillOutline.left + projectileContainerWidth;
     skillOutline.bottom = skillOutline.top + 350;
-
-    Rectangle(hdc, skillOutline.left, skillOutline.top, skillOutline.right, skillOutline.bottom);
 
         // projectial 큐 (탄창) ----------
         const auto& projQueue = GET_SINGLE(PlayerManager)->GetPlayerProjectiles();
@@ -218,6 +247,8 @@ void PlayerInfoUI::Render(HDC hdc)
     HBRUSH redBrush = CreateSolidBrush(RGB(255, 87, 98));
     FillRect(hdc, &hpFill, redBrush);
     DeleteObject(redBrush);
+    //-----
+   
 }
 
 

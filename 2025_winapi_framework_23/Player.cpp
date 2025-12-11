@@ -49,7 +49,7 @@ Player::Player()
 
 	GET_SINGLE(PlayerManager)->SetPlayer(this);
 
-	SetPos({ WINDOW_WIDTH / 2 ,  WINDOW_HEIGHT - 45});
+	SetPos({ WINDOW_WIDTH / 2 ,  WINDOW_HEIGHT - 45 });
 	SetSize({ 100,100 });
 };
 Player::~Player()
@@ -113,7 +113,7 @@ void Player::ShootProjectile()
 	Vec2 pos = GetPos();
 	proj->SetPos(pos);
 	float projectileScale = this->projectileScaleStat.GetValue();
-	proj->Scale({ projectileScale, projectileScale});
+	proj->Scale({ projectileScale, projectileScale });
 	Vec2 shootDir = GetShootDir();
 	proj->Shoot(shootDir * 500);
 
@@ -128,6 +128,13 @@ Vec2 Player::GetShootDir()
 	Vec2 playerPos = GetPos();
 	Vec2 dir = { mousePos.x - playerPos.x, mousePos.y - playerPos.y };
 	return dir.Normalize();
+}
+
+void Player::AddProjectile(PlayerProjectile* _proj)
+{
+	projectiles.push(_proj); 
+	_proj->SetActive(false);
+	_proj->OnPlayerCollect(this);
 }
 
 
