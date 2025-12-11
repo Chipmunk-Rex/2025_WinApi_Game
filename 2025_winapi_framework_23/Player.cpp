@@ -17,6 +17,7 @@
 #include "PlayerManager.h"
 #include "CardManager.h"
 #include "ExplosionEffect.h"
+#include "UIManager.h"
 
 Player::Player()
 	: middleTexture(nullptr)
@@ -83,7 +84,8 @@ void Player::Update()
 
 	if (CanShoot())
 	{
-		if (GET_KEYDOWN(KEY_TYPE::LBUTTON) || GET_KEY(KEY_TYPE::LBUTTON))
+		if ((GET_KEYDOWN(KEY_TYPE::LBUTTON) || GET_KEY(KEY_TYPE::LBUTTON))
+			&& GET_SINGLE(UIManager)->isHovering() == false)
 			ShootProjectile();
 	}
 	else if (fireTimer < fireCooldownStat.GetValue() && projectiles.size() != 0)
