@@ -253,6 +253,15 @@ Texture* ResourceManager::GetTexture(const wstring& _key)
 
 void ResourceManager::RegisterSound()
 {
-	LoadSound(L"BGM", L"Sound\\Retro_bgm.wav", true);
+	LoadSound(L"BGM",L"Sound\\Retro_bgm.wav",true);
 	LoadSound(L"Shoot", L"Sound\\laserShoot.wav", false);
+	LoadSound(L"BGM_Battle", L"Sound\\BGM_Battle.wav", true);
+	LoadSound(L"SFX_BallHit", L"Sound\\SFX_BallHit.wav", false);
+	LoadSound(L"SFX_BlackholeSpawn", L"Sound\\SFX_BlackholeSpawn.wav", false);
+	LoadSound(L"SFX_BlackholeDestroy", L"Sound\\SFX_BlackholeDestroy.wav", false);
+	LoadSound(L"SFX_RedGiantHit", L"Sound\\SFX_RedGiantHit.wav", false);
+	//LoadSound(L"SFX_BallHit", L"Sound\\SFX_BallHit.wav", false);
+	//LoadSound(L"SFX_BallHit", L"Sound\\SFX_BallHit.wav", false);
+	//LoadSound(L"SFX_BallHit", L"Sound\\SFX_BallHit.wav", false);
+	//LoadSound(L"SFX_BallHit", L"Sound\\SFX_BallHit.wav", false);
 }

@@ -2,6 +2,7 @@
 #include "PlayerProjectile.h"
 #include "Player.h"
 #include "Collider.h"
+#include "ResourceManager.h"
 
 PlayerProjectile::PlayerProjectile() 
 	: Projectile(), _damage(0)
@@ -25,6 +26,8 @@ void PlayerProjectile::Render(HDC _hdc)
 
 void PlayerProjectile::EnterCollision(Collider* _other)
 {
+
+	GET_SINGLE(ResourceManager)->Play(L"SFX_BallHit");
 	canCollect = true;
 }
 

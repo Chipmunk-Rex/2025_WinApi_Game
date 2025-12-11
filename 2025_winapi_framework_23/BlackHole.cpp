@@ -34,6 +34,9 @@ BlackHole::BlackHole()
     }
     Object::SetSize({ 10.f, 10.f });
     _aoeSize = { 10.f, 10.f };
+
+
+    GET_SINGLE(ResourceManager)->Play(L"SFX_BlackholeSpawn");
 }
 
 BlackHole::~BlackHole() {}
@@ -54,6 +57,7 @@ void BlackHole::Update()
         {
             if (_onFinished)
                 _onFinished();
+
             GET_SINGLE(SceneManager)->RequestDestroy(this);
         }
         return;
@@ -93,6 +97,7 @@ void BlackHole::Update()
     if (_elapsed >= _duration)
     {
         _despawning = true;
+        GET_SINGLE(ResourceManager)->Play(L"SFX_BlackholeDestroy");
         _despawnTimer = 0.0f;
         return;
     }

@@ -111,6 +111,8 @@ void BlockholeProjectile::EnterCollision(Collider* _other)
 	SetActive(false);
 	_exploding = true;
 	explosionTimer = 0.f;
+
+	GET_SINGLE(ResourceManager)->Play(L"SFX_RedGiantHit");
 }
 
 void BlockholeProjectile::Shoot(Vec2 _dir)

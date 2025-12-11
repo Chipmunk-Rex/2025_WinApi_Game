@@ -49,6 +49,8 @@ void EnemyTestScene::Init()
 	GET_SINGLE(CollisionManager)->CheckLayer(Layer::PLAYER, Layer::ENEMYPROJECTILE);
 	GET_SINGLE(CollisionManager)->CheckLayer(Layer::PLAYER, Layer::ENEMY);
 	GET_SINGLE(CollisionManager)->CheckLayer(Layer::PLAYER, Layer::DEFAULT);
+
+	GET_SINGLE(ResourceManager)->Play(L"BGM_Battle");
 }
 
 
