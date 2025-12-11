@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "BounceEnemyProjectile.h"
 #include "Health.h"
 #include "Collider.h"
@@ -12,7 +12,7 @@ BounceEnemyProjectile::BounceEnemyProjectile()
 	col->SetName(L"EnemyBounceBall");
 	col->SetSize({25.f,25.f });
 	m_count = 0;
-	_damage = 0;
+	_damage = 3;
 }
 
 

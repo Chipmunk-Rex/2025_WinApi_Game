@@ -12,7 +12,7 @@ RangedEnemy::RangedEnemy() :
 	_timer(0),
 	_attackDelay(10),
 	_attackTime(2),
-	_damage(1),
+	_damage(3),
 	_projectile(nullptr),
 	_isHit(false),
 	_hitDelay(0.1f),
