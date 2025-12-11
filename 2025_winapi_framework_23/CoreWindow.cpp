@@ -1,4 +1,4 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "CoreWindow.h"
 #include "Resource.h"
 #include "Core.h"
@@ -14,13 +14,13 @@ CoreWindow::~CoreWindow()
 
 int CoreWindow::Run(HINSTANCE hInstance, int nCmdShow)
 {
-    // Window ÃÊ±âÈ­
+    // Window ì´ˆê¸°í™”
     this->m_hInst = hInstance;
     this->MyRegisterClass();
     this->createWindow();
     this->showWindow(nCmdShow);
 
-    // Core ÃÊ±âÈ­
+    // Core ì´ˆê¸°í™”
     if (!GET_SINGLE(Core)->Init(m_hWnd))
         MessageBox(m_hWnd, L"Core Init Error", L"ERROR", MB_OK);
     return this->MessageLoop();
@@ -77,7 +77,7 @@ LRESULT CoreWindow::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPara
     {
         PAINTSTRUCT ps;
         HDC hdc = BeginPaint(hWnd, &ps);
-        // TODO: ¿©±â¿¡ hdc¸¦ »ç¿ëÇÏ´Â ±×¸®±â ÄÚµå¸¦ Ãß°¡ÇÕ´Ï´Ù...
+        // TODO: ì—¬ê¸°ì— hdcë¥¼ ì‚¬ìš©í•˜ëŠ” ê·¸ë¦¬ê¸° ì½”ë“œë¥¼ ì¶”ê°€í•©ë‹ˆë‹¤...
         //Rectangle(hdc, 100, 100, 200, 200);
         EndPaint(hWnd, &ps);
     }
@@ -85,6 +85,22 @@ LRESULT CoreWindow::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPara
     case WM_DESTROY:
         PostQuitMessage(0);
         break;
+    case WM_NCHITTEST:
+    {
+        LRESULT hit = DefWindowProc(hWnd, message, wParam, lParam);
+        if (hit == HTCAPTION)
+            return HTCLIENT;   // ë§ˆìš°ìŠ¤ ë“œë˜ê·¸ ì°¨ë‹¨
+        return hit;
+    }
+    case WM_SYSCOMMAND:
+
+        switch (wParam & 0xFFF0)
+        {
+        //case SC_MOVE:
+        case SC_SIZE:
+        case SC_MAXIMIZE:
+            return 0;
+        }
     default:
         return DefWindowProc(hWnd, message, wParam, lParam);
     }
@@ -95,7 +111,7 @@ int CoreWindow::MessageLoop()
 {
     MSG msg;
 
-    // ±âº» ¸Ş½ÃÁö ·çÇÁÀÔ´Ï´Ù:
+    // ê¸°ë³¸ ë©”ì‹œì§€ ë£¨í”„ì…ë‹ˆë‹¤:
     while (true)
     {
         if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))

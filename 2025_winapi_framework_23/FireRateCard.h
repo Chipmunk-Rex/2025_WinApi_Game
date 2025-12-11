@@ -7,6 +7,6 @@ class FireRateCard : public BaseCard
 protected:
     void OnApply(Player& player) override
     {
-        player.AddFireCooldownMultiplier(-0.10f);
+        player.GetFireCooldownStat().GetMultiplierRef() *= 0.75;
     }
 };

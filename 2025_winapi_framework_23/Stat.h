@@ -9,6 +9,7 @@ public:
 	float GetValue() const { return BaseValue * Multiplier; }
 	void SetMultiplier(float _mult) { Multiplier = _mult; }
 	void AddMultiplier(float _mult) { Multiplier += _mult; }
+	float& GetMultiplierRef() { return Multiplier; }
 private:
 	float BaseValue;
 	float Multiplier;

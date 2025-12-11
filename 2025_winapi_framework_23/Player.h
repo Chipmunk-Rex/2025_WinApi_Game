@@ -41,8 +41,8 @@ public:
 	// Stat modifiers
 	void AddFireCooldownMultiplier(float delta) { fireCooldownStat.AddMultiplier(delta); }
 	void AddProjectileScaleMultiplier(float delta) { projectileScaleStat.AddMultiplier(delta); }
-	StatValue GetFireCooldownStat() const { return fireCooldownStat; }
-	StatValue GetProjectileScaleStat() const { return projectileScaleStat; }
+	StatValue& GetFireCooldownStat() { return this->fireCooldownStat; }
+	StatValue& GetProjectileScaleStat() { return projectileScaleStat; }
 private:
 	void LevelUp();
 
