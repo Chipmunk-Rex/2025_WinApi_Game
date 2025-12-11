@@ -25,16 +25,12 @@ Enemy::Enemy() : m_pTex(nullptr)
 	Object* playerObject = GET_SINGLE(SceneManager)->GetCurScene()->GetLayerObjects(Layer::PLAYER)[0];
 	m_target = dynamic_cast<Player*>(playerObject);
 }
-
-
 Enemy::~Enemy()
 {
 }
-
 void Enemy::Update()
 {
 }
-
 void Enemy::Render(HDC _hdc)
 {
 	Vec2 pos = GetPos();
@@ -55,7 +51,6 @@ void Enemy::Render(HDC _hdc)
 
 	ComponentRender(_hdc);
 }
-
 void Enemy::EnterCollision(Collider* _other)
 {
 	// 총알?

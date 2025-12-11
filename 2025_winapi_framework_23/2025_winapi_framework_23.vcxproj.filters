@@ -287,6 +287,7 @@
     <ClInclude Include="ExplosionEffect.h">
       <Filter>Engine\03. Object</Filter>
     </ClInclude>
+    <ClInclude Include="EnemyManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="2025_winapi_framework_23.rc">
@@ -471,5 +472,12 @@
     <ClCompile Include="ExplosionEffect.cpp">
       <Filter>Engine\03. Object</Filter>
     </ClCompile>
+    <ClCompile Include="EnemyManager.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
+    <None Include="ClassDiagram1.cd" />
+    <None Include="ClassDiagram2.cd" />
+    <None Include="ClassDiagram3.cd" />
   </ItemGroup>
 </Project>

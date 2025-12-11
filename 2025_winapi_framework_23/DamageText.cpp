@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "DamageText.h"
 #include "SceneManager.h"
 #include <sstream>
@@ -21,10 +21,15 @@ void DamageText::Render(HDC _hdc)
 {
 	Vec2 pos = GetPos();
 	
+	GDISelector pen = GDISelector(_hdc, PenType::CARDTEXT);
+
 	std::string str = std::format("{:.0f}", text);
 	
 	const wstring wstr = std::to_wstring(std::stod(str));
 
 	TextOut(_hdc, pos.x, pos.y, wstr.c_str(), str.length());
+
+
+
 	SetBkMode(_hdc, TRANSPARENT);
 }
