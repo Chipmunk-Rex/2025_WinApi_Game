@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include "Projectile.h"
+class Player;
 class PlayerProjectile : public Projectile
 {
 public:
@@ -21,6 +22,7 @@ public:
     void Shoot(Vec2 _dir) override;
     void SetDamage(int damage) { _damage = damage; }
     bool CanCollect() const { return canCollect; }
+	virtual void OnPlayerCollect(Player* player);
 public:
     virtual const Texture* GetIconTexture() { return this->GetTexture(); }
 protected:

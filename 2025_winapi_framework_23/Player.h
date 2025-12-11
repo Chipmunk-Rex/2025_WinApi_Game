@@ -2,7 +2,6 @@
 #include "Object.h"
 #include "PlayerProjectile.h"
 #include "Stat.h"
-//class PlayerProjectile;
 class Texture;
 class Rigidbody;
 class Player :
@@ -23,7 +22,7 @@ private:
 	Vec2 GetShootDir();
 public:
 	bool CanShoot() const { return fireTimer >= fireCooldownStat.GetValue() && projectiles.size() != 0; }
-	void AddProjectile(PlayerProjectile* _proj) { projectiles.push(_proj); _proj->SetActive(false); }
+	void AddProjectile(PlayerProjectile* _proj);
 
 	// Level/Exp
 	int GetLevel() const { return level; }
