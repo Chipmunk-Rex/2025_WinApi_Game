@@ -27,8 +27,8 @@ public:
     {
         Vec2 pos = GetPos();
         Vec2 size = GetSize();
-        GDISelector brush(_hdc, BrushType::HOLLOW);
         HPEN pen = ::CreatePen(PS_SOLID, 3, RGB(218, 165, 32));
+        GDISelector brush(_hdc, BrushType::HOLLOW);
         HGDIOBJ oldPen = ::SelectObject(_hdc, pen);
         ::Ellipse(_hdc,
             (int)(pos.x - size.x / 2),

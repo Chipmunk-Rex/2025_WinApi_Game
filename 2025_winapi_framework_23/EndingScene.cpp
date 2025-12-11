@@ -14,6 +14,7 @@ void EndingScene::Init()
 
     Spawn<Background>(Layer::BACKGROUND, { WINDOW_WIDTH / 2 , WINDOW_HEIGHT / 2 }, { WINDOW_WIDTH, WINDOW_HEIGHT })->SetTexture(L"StartScene_Space");
     Spawn<LeaveButton>(Layer::UI, { 1100, 300 }, { 200, 80 });
+    Spawn<StartButton>(Layer::UI, { 1100, 250 }, { 200, 80 })->SetText(L"다시하기");
 
     creditLines = {
       L"적대적인 다른 우주의 침공이 시작되었을 때,",
@@ -44,10 +45,7 @@ void EndingScene::Init()
 void EndingScene::Update()
 {
     creditTime += fDT * 0.5;
-
 }
-
-
 void EndingScene::Render(HDC _hdc)
 {
     Scene::Render(_hdc);
