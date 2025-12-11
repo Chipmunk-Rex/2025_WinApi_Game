@@ -95,6 +95,8 @@ void ResourceManager::RegisterTexture()
 	LoadTexture(L"DownAttackEnemy_1", L"Texture\\Enemy\\DownAttackEnemyTile_1.bmp");
 	LoadTexture(L"DownAttackEnemy_2", L"Texture\\Enemy\\DownAttackEnemyTile_2.bmp");
 	LoadTexture(L"DownAttackEnemy_3", L"Texture\\Enemy\\DownAttackEnemyTile_3.bmp");
+	LoadTexture(L"BarrierL", L"Texture\\Background\\BarrierLeft.bmp");
+	LoadTexture(L"BarrierR", L"Texture\\Background\\BarrierRight.bmp");
 
 }
 void ResourceManager::RegisterGDI()
