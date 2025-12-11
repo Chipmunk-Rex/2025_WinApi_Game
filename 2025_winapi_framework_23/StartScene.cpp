@@ -6,6 +6,7 @@
 #include "StartButton.h"
 #include "LeaveButton.h"
 #include "Background.h"
+#include "ResourceManager.h"
     
 
 void StartScene::Init()
@@ -14,6 +15,8 @@ void StartScene::Init()
     Spawn<StartButton>(Layer::UI, { 640, 360 }, { 200, 80 })->SetText(L"시작하기");
     Spawn<LeaveButton>(Layer::UI, { 640, 440 }, { 200, 80 });
     cout << "버튼 생성됨" << endl;
+
+    GET_SINGLE(ResourceManager)->Play(L"BGM");
 }
 
 
