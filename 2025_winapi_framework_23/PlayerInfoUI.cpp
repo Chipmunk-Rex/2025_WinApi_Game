@@ -90,51 +90,53 @@ void PlayerInfoUI::Render(HDC hdc)
 
     DrawText(hdc, scoreText.c_str(), -1, &scoreRc, DT_RIGHT | DT_TOP | DT_SINGLELINE);
     RECT skillOutline;
+
+    float projectileContainerWidth = 100;
     skillOutline.left = right - 150;
     skillOutline.top = topY + 100;
-    skillOutline.right = skillOutline.left + 100;
+    skillOutline.right = skillOutline.left + projectileContainerWidth;
     skillOutline.bottom = skillOutline.top + 350;
 
     Rectangle(hdc, skillOutline.left, skillOutline.top, skillOutline.right, skillOutline.bottom);
 
-    // projectial 큐 (탄창) ----------
-    const auto& projQueue = GET_SINGLE(PlayerManager)->GetPlayerProjectiles();
+        // projectial 큐 (탄창) ----------
+        const auto& projQueue = GET_SINGLE(PlayerManager)->GetPlayerProjectiles();
 
-    int maxShow = 6;
-    int index = 0;
+        int maxShow = 6;
+        int index = 0;
 
-    int iconW = 60;
-    int iconH = 60;
-    int startX = skillOutline.left + 20;
-    int startY = skillOutline.top + 20;
-    int margin = 65;
+        int iconW = 64;
+        int iconH = 64;
+        int iconX = skillOutline.left + projectileContainerWidth / 2 - iconW / 2;
+        int iconY = skillOutline.top + 20;
+        int margin = 65;
 
-    std::queue<PlayerProjectile*> temp = projQueue;
+        std::queue<PlayerProjectile*> temp = projQueue;
 
-    while (!temp.empty() && index < maxShow)
-    {
-        PlayerProjectile* proj = temp.front();
-        temp.pop();
-
-        const Texture* tex = proj->GetIconTexture();
-        if (tex != nullptr)
+        while (!temp.empty() && index < maxShow)
         {
-            TransparentBlt(
-                hdc,
-                startX + 5,
-                startY + index * margin,
-                (int)(tex->GetWidth() * 1.5 ),
-                (int)(tex->GetHeight() * 1.5 ),
-                tex->GetTextureDC(),
-                0, 0,
-                tex->GetWidth(),
-                tex->GetHeight(),
-                RGB(255, 0, 255)
-            );
-        }
+            PlayerProjectile* proj = temp.front();
+            temp.pop();
 
-        index++;
-    }
+            const Texture* tex = proj->GetIconTexture();
+            if (tex != nullptr)
+            {
+                TransparentBlt(
+                    hdc,
+                    iconX,
+                    iconY + index * margin,
+                    iconW,
+                    iconH,
+                    tex->GetTextureDC(),
+                    0, 0,
+                    tex->GetWidth(),
+                    tex->GetHeight(),
+                    RGB(255, 0, 255)
+                );
+            }
+
+            index++;
+        }
 
 
 
@@ -155,7 +157,9 @@ void PlayerInfoUI::Render(HDC hdc)
     expTextRc.bottom = expTextRc.top + 40;
 
     SetTextColor(hdc, RGB(255, 255, 255));
+
     GDISelector font2(hdc, FontType::CARDTITLE);
+    GDISelector brush(hdc, BrushType::WHITE);
 
     std::wstring expText = std::to_wstring((int)curExp) + L" / " + std::to_wstring((int)maxExp);
     DrawText(hdc, expText.c_str(), -1, &expTextRc, DT_LEFT | DT_TOP | DT_SINGLELINE);
@@ -166,7 +170,8 @@ void PlayerInfoUI::Render(HDC hdc)
     expOutline.right = barX + barWidth;
     expOutline.bottom = expBarY + barHeight;
 
-    GDISelector pen2(hdc, PenType::CARDTEXT);
+    GDISelector brush2(hdc, BrushType::WHITE);
+
     Rectangle(hdc, expOutline.left, expOutline.top, expOutline.right, expOutline.bottom);
 
     RECT expFill;
@@ -175,7 +180,8 @@ void PlayerInfoUI::Render(HDC hdc)
     expFill.right = barX + (int)(expRatio * barWidth) - 1;
     expFill.bottom = expBarY + barHeight - 1;
 
-    HBRUSH whiteBrush = CreateSolidBrush(RGB(255, 255, 255));
+
+    HBRUSH whiteBrush = CreateSolidBrush(RGB(90, 197, 232));
     FillRect(hdc, &expFill, whiteBrush);
     DeleteObject(whiteBrush);
     // 여기부터 체력임 -----------------------------
@@ -208,8 +214,8 @@ void PlayerInfoUI::Render(HDC hdc)
     hpFill.top = hpBarY + 1;
     hpFill.right = barX + (int)(hpRatio * barWidth) - 1;
     hpFill.bottom = hpBarY + barHeight - 1;
-
-    HBRUSH redBrush = CreateSolidBrush(RGB(255, 60, 60));
+    
+    HBRUSH redBrush = CreateSolidBrush(RGB(255, 87, 98));
     FillRect(hdc, &hpFill, redBrush);
     DeleteObject(redBrush);
 }
