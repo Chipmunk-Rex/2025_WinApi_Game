@@ -105,6 +105,9 @@ void ResourceManager::RegisterGDI()
 	m_Brushs[(UINT)BrushType::HOLLOW] = (HBRUSH)::GetStockObject(HOLLOW_BRUSH);
 	m_Brushs[(UINT)BrushType::RED] = (HBRUSH)::CreateSolidBrush(RGB(255, 167, 167));
 	m_Brushs[(UINT)BrushType::GREEN] = (HBRUSH)::CreateSolidBrush(RGB(134, 229, 134));
+	m_Brushs[(UINT)BrushType::WHITE] = (HBRUSH)::CreateSolidBrush(RGB(255, 255, 255));
+	m_Brushs[(UINT)BrushType::EXP] = (HBRUSH)::CreateSolidBrush(RGB(105, 225, 255));
+	m_Brushs[(UINT)BrushType::HEALTH] = (HBRUSH)::CreateSolidBrush(RGB(255, 87, 98));
 
 
 	// PEN 

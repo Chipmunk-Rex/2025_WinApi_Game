@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "Object.h"
 class Floor :
     public Object
@@ -9,5 +9,9 @@ public:
 public:
     void Update() override;
     void Render(HDC _hdc) override;
+public:
+    void SetSize(Vec2 _size) override;
+private:
+	Collider* collider;
 };
 

@@ -11,6 +11,7 @@
 #include "Health.h"
 #include "Collider.h"
 #include "InputManager.h"
+#include "PlayerManager.h"
 #include "CardManager.h"
 #include "CardUI.h"
 #include "CardDB.h"
@@ -35,12 +36,25 @@ void EnemyTestScene::Init()
 	// Spawn background first
 	Spawn<Background>(Layer::BACKGROUND, { WINDOW_WIDTH / 2 , WINDOW_HEIGHT / 2 }, { WINDOW_WIDTH, WINDOW_HEIGHT });
 
-	Spawn<Player>(Layer::PLAYER, { WINDOW_WIDTH / 2 , WINDOW_HEIGHT / 4 }, { 100,100 });
-	const float wallThickness = 550.f;
-	Spawn<Floor>(Layer::DEFAULT, { WINDOW_WIDTH / 2,  0 }, { 1000.f, 50.f });
-	Spawn<Floor>(Layer::DEFAULT, { WINDOW_WIDTH / 2, WINDOW_HEIGHT }, { 1000.f, 50.f });
-	Spawn<Floor>(Layer::DEFAULT, { 0, WINDOW_HEIGHT / 2 }, { 50.f, 1000.f })->GetComponent<Collider>()->SetSize({ wallThickness, 1000.f });
-	Spawn<Floor>(Layer::DEFAULT, { WINDOW_WIDTH,  WINDOW_HEIGHT / 2 }, { 50.f, 1000.f })->GetComponent<Collider>()->SetSize({ wallThickness, 1000.f });
+	Spawn<Player>(Layer::PLAYER);
+	{
+		{
+			const float wallThickness = 100;
+			const float wallLength = (float)WINDOW_WIDTH;
+			Spawn<Floor>(Layer::DEFAULT, { (float)WINDOW_WIDTH / 2,  0 - (wallThickness / 2) }, {})
+				->SetSize({ wallLength, wallThickness });
+			Spawn<Floor>(Layer::DEFAULT, { (float)WINDOW_WIDTH / 2, WINDOW_HEIGHT + (wallThickness / 2) }, {})
+				->SetSize({ wallLength, wallThickness });
+		}
+		{
+			const float wallLength = (float)WINDOW_HEIGHT;
+			float yCenter = WINDOW_HEIGHT / 2;
+			Spawn<Floor>(Layer::DEFAULT, { 0.f,  yCenter }, {})
+				->SetSize({ 775.f, wallLength });
+			Spawn<Floor>(Layer::DEFAULT, { (float)WINDOW_WIDTH,  yCenter }, {})
+				->SetSize({ 775.f, wallLength });
+		}
+	}
 	Spawn<PlayerInfoUI>(Layer::UI, { WINDOW_WIDTH / 2,  0 }, { 1000.f, 50.f });
 	Spawn<GameFasterButton>(Layer::UI, { 1070,75 }, { 45, 35 })->SetSpeed(L"1", 1);
 	Spawn<GameFasterButton>(Layer::UI, { 1140,75 }, { 45, 35 })->SetSpeed(L"2", 2);
@@ -94,6 +108,9 @@ void EnemyTestScene::Update()
 
 	if (GET_SINGLE(InputManager)->IsDown(KEY_TYPE::NUM_3))
 		GET_SINGLE(CardManager)->SpawnCards(3);
+
+	if (GET_SINGLE(InputManager)->IsDown(KEY_TYPE::E))
+		GET_SINGLE(PlayerManager)->AddExp(100);
 }
 
 void EnemyTestScene::Render(HDC _hdc)
@@ -115,7 +132,7 @@ void EnemyTestScene::EnemySpawn()
 				CloseRangeEnemy* enemy = Spawn<CloseRangeEnemy>
 					(
 						Layer::ENEMY
-						, { (WINDOW_WIDTH / 2 - (50 * (_enemyCount / 2)))  + (50 * i),  -100 }
+						, { (WINDOW_WIDTH / 2 - (50 * (_enemyCount / 2))) + (50 * i) + 25,  -100 }
 				, { 50,50 });
 				float mulValue = ((_currentSpawnCount / _enemyCount) + 1) * 0.2f;
 				enemy->SetHealth(10 * mulValue);
@@ -125,7 +142,7 @@ void EnemyTestScene::EnemySpawn()
 				RangedEnemy* enemy = Spawn<RangedEnemy>
 					(
 						Layer::ENEMY
-						, { (WINDOW_WIDTH / 2 - (50 * (_enemyCount / 2))) + (50 * i), -100 }
+						, { (WINDOW_WIDTH / 2 - (50 * (_enemyCount / 2))) + (50 * i) + 25, -100 }
 				, { 50,50 });
 				float mulValue = ((_currentSpawnCount / _enemyCount) + 1) * 0.2f;
 				enemy->SetHealth(10 * mulValue);
@@ -135,7 +152,7 @@ void EnemyTestScene::EnemySpawn()
 				BounceBallEnemy* enemy = Spawn<BounceBallEnemy>
 					(
 						Layer::ENEMY
-						, { (WINDOW_WIDTH / 2 - (50 * (_enemyCount / 2))) + (50 * i), -100 }
+						, { (WINDOW_WIDTH / 2 - (50 * (_enemyCount / 2))) + (50 * i) + 25, -100 }
 				, { 50,50 });
 				float mulValue = ((_currentSpawnCount / _enemyCount) + 1) * 0.2f;
 				enemy->SetHealth(10 * mulValue);
@@ -146,7 +163,7 @@ void EnemyTestScene::EnemySpawn()
 				DownAttackEnemy* enemy = Spawn<DownAttackEnemy>
 					(
 						Layer::ENEMY
-						, { (WINDOW_WIDTH / 2 - (50 * (_enemyCount / 2))) + (50 * i), -100 }
+						, { (WINDOW_WIDTH / 2 - (50 * (_enemyCount / 2))) + (50 * i) + 25, -100 }
 				, { 50,50 });
 				float mulValue = ((_currentSpawnCount / _enemyCount) + 1) * 0.2f;
 				enemy->SetHealth(10 * mulValue);
@@ -156,7 +173,7 @@ void EnemyTestScene::EnemySpawn()
 				TankEnemy* enemy = Spawn<TankEnemy>
 					(
 						Layer::ENEMY
-						, { ((WINDOW_WIDTH / 2 - (50 * (_enemyCount / 2))) + (50 * i)) + 25, -100 }
+						, { ((WINDOW_WIDTH / 2 - (50 * (_enemyCount / 2))) + (50 * i)) + 50, -100 }
 				, { 100,50 });
 				float mulValue = ((_currentSpawnCount / _enemyCount) + 1) * 0.2f;
 				enemy->SetHealth((10 * mulValue) * 3);
