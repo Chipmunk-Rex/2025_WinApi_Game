@@ -27,6 +27,6 @@ private:
 
 	UINT m_frameCnt = 0;
 	float m_frameTime = 0.f;
-	float m_multiplier = 0.f;
+	float m_multiplier = 1.f;
 };
 
