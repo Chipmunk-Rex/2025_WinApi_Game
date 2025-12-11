@@ -96,6 +96,11 @@ void EnemyTestScene::Update()
 	else
 	{
 		cout << GET_SINGLE(EnemyManager)->GetCurrentEnemy();
+		if (GET_SINGLE(EnemyManager)->GetCurrentEnemy() == 0)
+		{
+			Player* player = GET_SINGLE(PlayerManager)->GetPlayer();
+			GET_SINGLE(SceneManager)->LoadScene(L"EndingScene");
+		}
 	}
 	
 
@@ -112,16 +117,16 @@ void EnemyTestScene::Update()
 
 
 	if (GET_SINGLE(InputManager)->IsDown(KEY_TYPE::NUM_1))
-		GET_SINGLE(CardManager)->SpawnCards(1);
+		SET_TIME_SCALE(1);
 
 	if (GET_SINGLE(InputManager)->IsDown(KEY_TYPE::NUM_2))
-		GET_SINGLE(CardManager)->SpawnCards(2);
+		SET_TIME_SCALE(2);
 
 	if (GET_SINGLE(InputManager)->IsDown(KEY_TYPE::NUM_3))
-		GET_SINGLE(CardManager)->SpawnCards(3);
+		SET_TIME_SCALE(3);
 
-	if (GET_SINGLE(InputManager)->IsDown(KEY_TYPE::E))
-		GET_SINGLE(PlayerManager)->AddExp(100);
+	/*if (GET_SINGLE(InputManager)->IsDown(KEY_TYPE::E))
+		GET_SINGLE(PlayerManager)->AddExp(100);*/
 }
 
 void EnemyTestScene::Render(HDC _hdc)
