@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "Button.h"
 #include "InputManager.h"
+#include "UIManager.h"
 #include "Object.h"
 
 Button::Button()
@@ -60,6 +61,11 @@ void Button::Render(HDC _hdc)
 
 }
 
-void Button::OnHoverEnter() {}
-void Button::OnHoverExit() {}
+void Button::OnHoverEnter() {
+    GET_SINGLE(UIManager)->SetHovering(true);
+}
+void Button::OnHoverExit() {
+    GET_SINGLE(UIManager)->SetHovering(false);
+
+}
 void Button::OnClick() {}
