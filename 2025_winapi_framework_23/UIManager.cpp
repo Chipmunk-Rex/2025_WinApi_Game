@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "UIManager.h"
 
 bool UIManager::isHovering()
@@ -9,4 +9,4 @@ bool UIManager::isHovering()
 void UIManager::SetHovering(bool isHover)
 {
 	this->isHover = isHover;
-	
+}
