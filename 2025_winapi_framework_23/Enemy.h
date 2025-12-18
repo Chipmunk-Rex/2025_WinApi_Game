@@ -36,10 +36,15 @@ public:
 		return m_rbCompo
 			;
 	}
+
+	Collider* GetColliderCompo() {
+		return m_colliderCompo;
+	}
 private:
 	Texture* m_pTex;
 	Health* m_healthCompo;
 	Rigidbody* m_rbCompo;
+	Collider* m_colliderCompo;
 	Player* m_target;
 };
 
