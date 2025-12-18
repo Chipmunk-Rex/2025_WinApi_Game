@@ -36,6 +36,7 @@ void CloseRangeEnemy::Update()
 		_attackMoveStartPos = GetPos();
 		_isAttack = true;
 		GetRbCompo()->SetVelocity({ 0,0 });
+		GetColliderCompo()->SetTrigger(true);
 	}
 
 	if (_isAttack)
