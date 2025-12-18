@@ -140,7 +140,7 @@ void CardUI::OnClick()
     GET_SINGLE(UIManager)->SetHovering(false);
 
     GET_SINGLE(ResourceManager)->Play(L"SFX_CardSelectSound");
-    GET_SINGLE(CardManager)->DelayClearCards(0);
+    GET_SINGLE(CardManager)->DelayClearCards(0.5f);
 
 	Player* player = GET_SINGLE(PlayerManager)->GetPlayer();
     if (player)
