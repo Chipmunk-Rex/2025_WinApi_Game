@@ -33,7 +33,7 @@ void EnemyTestScene::Init()
 	GET_SINGLE(ResourceManager)->Stop(SOUND_CHANNEL::BGM);
 	
 
-	GET_SINGLE(ResourceManager)->Play(L"BGM_Game");
+	GET_SINGLE(ResourceManager)->Play(L"BGM_Battle");
 
 	//EnemySpawn();
 

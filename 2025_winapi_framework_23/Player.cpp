@@ -147,6 +147,7 @@ void Player::HandleHitEvent(double _prev, double _health)
 		ExplosionEffect* explosion = GET_SINGLE(SceneManager)->GetCurScene()->RequestSpawn<ExplosionEffect>(Layer::EFFECT);
 		explosion->SetPos(this->GetPos());
 	}
+	GET_SINGLE(ResourceManager)->Play(L"SFX_PlayerHit");
 }
 
 void Player::AddProjectile(PlayerProjectile* _proj)

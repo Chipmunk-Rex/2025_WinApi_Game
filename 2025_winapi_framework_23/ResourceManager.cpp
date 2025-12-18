@@ -282,10 +282,13 @@ void ResourceManager::RegisterSound()
 	LoadSound(L"SFX_CardAppearSound", L"Sound\\SFX_CardAppearSound.wav", false);
 	LoadSound(L"SFX_Start", L"Sound\\SFX_Start.wav", false);
 	LoadSound(L"SFX_Death", L"Sound\\SFX_Death.wav", false);
+	LoadSound(L"SFX_PlayerHit", L"Sound\\SFX_PlayerHit.wav", false);
+	LoadSound(L"SFX_PlayerExplosion", L"Sound\\SFX_PlayerExplosion.wav", false);
 	LoadSound(L"BGM_Game", L"Sound\\BGM_Game.wav", true);
 	LoadSound(L"BGM_Title", L"Sound\\BGM_Title.wav", true);
 	LoadSound(L"BGM_Defeat", L"Sound\\BGM_Defeat.wav", true);
 	LoadSound(L"BGM_Ending", L"Sound\\BGM_Ending.wav", true);
+
 
 	//LoadSound(L"SFX_BallHit", L"Sound\\SFX_BallHit.wav", false);
 	//LoadSound(L"SFX_BallHit", L"Sound\\SFX_BallHit.wav", false);

@@ -1,4 +1,4 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "EndingScene.h"
 #include "Object.h"
 #include "SceneManager.h"
@@ -12,32 +12,34 @@
 void EndingScene::Init()
 {
     SET_TIME_SCALE(1);
+
+    GET_SINGLE(ResourceManager)->Stop(SOUND_CHANNEL::BGM);
     GET_SINGLE(ResourceManager)->Play(L"BGM_Ending");
 
     Spawn<Background>(Layer::BACKGROUND, { WINDOW_WIDTH / 2 , WINDOW_HEIGHT / 2 }, { WINDOW_WIDTH, WINDOW_HEIGHT })->SetTexture(L"StartScene_Space");
     Spawn<LeaveButton>(Layer::UI, { 1100, 300 }, { 200, 80 });
-    Spawn<StartButton>(Layer::UI, { 1100, 250 }, { 200, 80 })->SetText(L"´Ù½ÃÇÏ±â");
+    Spawn<StartButton>(Layer::UI, { 1100, 250 }, { 200, 80 })->SetText(L"ë‹¤ì‹œí•˜ê¸°");
 
     creditLines = {
-      L"Àû´ëÀûÀÎ ´Ù¸¥ ¿ìÁÖÀÇ Ä§°øÀÌ ½ÃÀÛµÇ¾úÀ» ¶§,",
-      L"±×µéÀº Çà¼ºÀ» µé°í ¿ì¸® ¿ìÁÖ¸¦ ´øÁ® ºÎ¼ö·Á Çß´Ù.",
+      L"ì ëŒ€ì ì¸ ë‹¤ë¥¸ ìš°ì£¼ì˜ ì¹¨ê³µì´ ì‹œìž‘ë˜ì—ˆì„ ë•Œ,",
+      L"ê·¸ë“¤ì€ í–‰ì„±ì„ ë“¤ê³  ìš°ë¦¬ ìš°ì£¼ë¥¼ ë˜ì ¸ ë¶€ìˆ˜ë ¤ í–ˆë‹¤.",
 
-      L"ÇÏÁö¸¸ ¾Æ¹«µµ ¿¹»óÇÏÁö ¸øÇß´Ù.",
-      L"´ç½ÅÀÌ ¡®Çà¼ºÀÇ ÁÖ±ÇÀÚ¡¯·Î °¢¼ºÇÒ ÁÙÀº.",
+      L"í•˜ì§€ë§Œ ì•„ë¬´ë„ ì˜ˆìƒí•˜ì§€ ëª»í–ˆë‹¤.",
+      L"ë‹¹ì‹ ì´ â€˜í–‰ì„±ì˜ ì£¼ê¶Œìžâ€™ë¡œ ê°ì„±í•  ì¤„ì€.",
 
-      L"ÀüÅõ±â¿¡ ¸öÀ» ½ÇÀº ´ç½ÅÀº",
-      L"¹«³ÊÁ®°¡´ø ¿ìÁÖÀÇ ¸¶Áö¸· Èñ¸ÁÀÌ¾ú´Ù.",
-      L"±×¸®°í ´ç½ÅÀº ÇØ³Â´Ù.",
+      L"ì „íˆ¬ê¸°ì— ëª¸ì„ ì‹¤ì€ ë‹¹ì‹ ì€",
+      L"ë¬´ë„ˆì ¸ê°€ë˜ ìš°ì£¼ì˜ ë§ˆì§€ë§‰ í¬ë§ì´ì—ˆë‹¤.",
+      L"ê·¸ë¦¬ê³  ë‹¹ì‹ ì€ í•´ëƒˆë‹¤.",
 
-      L"´ç½ÅÀÌ Á¦¾îÇÑ Çà¼ºµéÀº",
-      L"ÀûµéÀÇ ±Ëµµ¸¦ »ê»êÈ÷ ºÎ¼ö¾ú°í,",
-      L"Ä§°øÀº ¿ÏÀüÈ÷ ¸ØÃß¾ú´Ù.",
+      L"ë‹¹ì‹ ì´ ì œì–´í•œ í–‰ì„±ë“¤ì€",
+      L"ì ë“¤ì˜ ê¶¤ë„ë¥¼ ì‚°ì‚°ížˆ ë¶€ìˆ˜ì—ˆê³ ,",
+      L"ì¹¨ê³µì€ ì™„ì „ížˆ ë©ˆì¶”ì—ˆë‹¤.",
 
-      L"ÀÌ ¿ìÁÖ´Â ÁöÄÑÁ³´Ù.",
-      L"±×°Íµµ ´ç½ÅÀÇ ¼ÕÀ¸·Î, È®½ÇÇÏ°Ô.",
+      L"ì´ ìš°ì£¼ëŠ” ì§€ì¼œì¡Œë‹¤.",
+      L"ê·¸ê²ƒë„ ë‹¹ì‹ ì˜ ì†ìœ¼ë¡œ, í™•ì‹¤í•˜ê²Œ.",
 
-      L"¿À´Ã, ¿ìÁÖÀÇ ÁÖÀÎÀº ´ç½ÅÀÌ¾ú´Ù",
-       L"ÃàÇÏÇÕ´Ï´Ù! -½ÅÈñ¼·, °í¹Î¼ö, À±¿ÏÈñ-"
+      L"ì˜¤ëŠ˜, ìš°ì£¼ì˜ ì£¼ì¸ì€ ë‹¹ì‹ ì´ì—ˆë‹¤",
+       L"ì¶•í•˜í•©ë‹ˆë‹¤! -ì‹ í¬ì„­, ê³ ë¯¼ìˆ˜, ìœ¤ì™„í¬-"
     };
 
 }

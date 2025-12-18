@@ -8,6 +8,8 @@
 #include "Scene.h"
 ExplosionEffect::ExplosionEffect()
 {
+	GET_SINGLE(ResourceManager)->Play(L"SFX_PlayerExplosion");
+
 	Texture* animationTex = GET_SINGLE(ResourceManager)->GetTexture(L"Effect_Explosion");
 	Animator* animator = AddComponent<Animator>();
 	float frameSize = animationTex->GetHeight();

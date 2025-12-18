@@ -1,4 +1,4 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "GameOverScene.h"
 #include "Object.h"
 #include "SceneManager.h"
@@ -13,9 +13,10 @@ void GameOverScene::Init()
 {
     Spawn<Background>(Layer::BACKGROUND, { WINDOW_WIDTH / 2 , WINDOW_HEIGHT / 2 }, { WINDOW_WIDTH, WINDOW_HEIGHT })->SetTexture(L"StartScene_Space");
     Spawn<LeaveButton>(Layer::UI, { 640, 440 }, { 200, 45 });
-    Spawn<StartButton>(Layer::UI, { 640, 490 }, { 200, 45 })->SetText(L"´Ù½ÃÇÏ±â");
-    cout << "¹öÆ° »ı¼ºµÊ" << endl;
+    Spawn<StartButton>(Layer::UI, { 640, 490 }, { 200, 45 })->SetText(L"ë‹¤ì‹œí•˜ê¸°");
+    cout << "ë²„íŠ¼ ìƒì„±ë¨" << endl;
 
+    GET_SINGLE(ResourceManager)->Stop(SOUND_CHANNEL::BGM);
     GET_SINGLE(ResourceManager)->Play(L"BGM_Defeat");
 }
 
@@ -36,6 +37,6 @@ void GameOverScene::Render(HDC _hdc)
     rc.bottom = rc.top - 80;
     GDISelector namefont(_hdc, FontType::CARDTITLE);
     SetTextColor(_hdc, RGB(227, 253, 255));
-    DrawText(_hdc, L"´ç½ÅÀº ¿ìÁÖ ÀüÀï¿¡¼­ ÆĞ¹èÇÏ¿´½À´Ï´Ù..", -1, &rc, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
+    DrawText(_hdc, L"ë‹¹ì‹ ì€ ìš°ì£¼ ì „ìŸì—ì„œ íŒ¨ë°°í•˜ì˜€ìŠµë‹ˆë‹¤..", -1, &rc, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
 }
 
