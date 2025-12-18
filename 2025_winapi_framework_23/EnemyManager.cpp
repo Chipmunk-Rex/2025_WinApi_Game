@@ -26,12 +26,14 @@ void EnemyManager::SpawnEnemy()
 {
 	Scene* curScene = GET_SINGLE(SceneManager)->GetCurScene();
 
+	bool isBeginning = (_currentSpawnCount / _enemyCount) < 8;
+
 	for (int i = 0; i < _enemyCount; i++)
 	{
 		if (rand() % 100 <= _spawnPercent)
 		{
 			float randValue = rand() % 100;
-			if (randValue < 55)//
+			if (randValue < 65)//
 			{
 				CloseRangeEnemy* enemy = curScene->Spawn<CloseRangeEnemy>
 					(
@@ -41,7 +43,7 @@ void EnemyManager::SpawnEnemy()
 				float mulValue = ((_currentSpawnCount / _enemyCount) + 1) * 0.2f;
 				enemy->SetHealth(10 * mulValue);
 			}
-			else if (randValue < 70)
+			else if (!isBeginning && randValue < 70)
 			{
 				RangedEnemy* enemy = curScene->Spawn<RangedEnemy>
 					(
@@ -51,7 +53,7 @@ void EnemyManager::SpawnEnemy()
 				float mulValue = ((_currentSpawnCount / _enemyCount) + 1) * 0.2f;
 				enemy->SetHealth(10 * mulValue);
 			}
-			else if (randValue < 75)
+			else if (!isBeginning && randValue < 80)
 			{
 				BounceBallEnemy* enemy = curScene->Spawn<BounceBallEnemy>
 					(
@@ -72,7 +74,7 @@ void EnemyManager::SpawnEnemy()
 				float mulValue = ((_currentSpawnCount / _enemyCount) + 1) * 0.2f;
 				enemy->SetHealth(10 * mulValue);
 			}
-			else if (!(i + 1 == _enemyCount))
+			else if (!(i + 1 == _enemyCount) && !isBeginning)
 			{
 				TankEnemy* enemy = curScene->Spawn<TankEnemy>
 					(

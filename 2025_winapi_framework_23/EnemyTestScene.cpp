@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "Enemy.h"
 #include "Player.h"
 #include "EnemyTestScene.h"
@@ -145,4 +145,4 @@ void EnemyTestScene::EnemySpawn()
 	srand(time(nullptr));
 
 	GET_SINGLE(EnemyManager)->SpawnEnemy();
-}//////////
+}//////////	
