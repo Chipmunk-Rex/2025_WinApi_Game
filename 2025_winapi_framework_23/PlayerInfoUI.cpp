@@ -171,10 +171,10 @@ void PlayerInfoUI::DrawExpBar(HDC hdc)
     Rectangle(hdc, outline.left, outline.top, outline.right, outline.bottom);
 
     RECT fill{
-        barX + 1,
-        barY + 1,
-        barX + (int)(ratio * barW) - 1,
-        barY + barH - 1
+        barX ,
+        barY ,
+        barX + (int)(ratio * barW),
+        barY + barH
     };
 
     HBRUSH brush = CreateSolidBrush(RGB(90, 197, 232));
@@ -209,10 +209,10 @@ void PlayerInfoUI::DrawHpBar(HDC hdc)
     Rectangle(hdc, outline.left, outline.top, outline.right, outline.bottom);
 
     RECT fill{
-        barX + 1,
-        barY + 1,
-        barX + (int)(ratio * barW) - 1,
-        barY + barH - 1
+        barX,
+        barY,
+        barX + (int)(ratio * barW),
+        barY + barH
     };
 
     HBRUSH brush = CreateSolidBrush(RGB(255, 87, 98));
