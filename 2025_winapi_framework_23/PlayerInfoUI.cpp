@@ -57,7 +57,7 @@ void PlayerInfoUI::DrawSideBarriors(HDC hdc)
         leftTex->GetWidth(), leftTex->GetHeight(), RGB(255, 0, 255));
 
     Texture* rightTex = GET_SINGLE(ResourceManager)->GetTexture(L"BarrierR");
-    TransparentBlt(hdc, 0, 0, 385, 700,
+    TransparentBlt(hdc, 0, 0, 385, 800,
         rightTex->GetTextureDC(), 0, 0,
         rightTex->GetWidth(), rightTex->GetHeight(), RGB(255, 0, 255));
 }
