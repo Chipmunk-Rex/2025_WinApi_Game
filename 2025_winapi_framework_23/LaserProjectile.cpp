@@ -10,7 +10,7 @@
 LaserProjectile::LaserProjectile() : PlayerProjectile()
 {
 	SetTexture(GET_SINGLE(ResourceManager)->GetTexture(L"Projectile_Saturn"));
-	SetDefaultSize({ 80.f, 80.f });
+	SetDefaultSize({ 75.f, 75.f });
 }
 
 LaserProjectile::~LaserProjectile()

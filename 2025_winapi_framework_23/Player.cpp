@@ -141,6 +141,8 @@ void Player::HandleHitEvent(double _prev, double _health)
 {
 	if (_health <= 0.0f)
 	{
+		SET_TIME_SCALE(1.0f);
+		SetActive(false);
 		isDead = true;
 		ExplosionEffect* explosion = GET_SINGLE(SceneManager)->GetCurScene()->RequestSpawn<ExplosionEffect>(Layer::EFFECT);
 		explosion->SetPos(this->GetPos());
@@ -157,6 +159,8 @@ void Player::AddProjectile(PlayerProjectile* _proj)
 
 void Player::Render(HDC _hdc)
 {
+	if (IsActive() == false)
+		return;
 	Vec2 pos = GetPos();
 	Vec2 size = GetSize();
 

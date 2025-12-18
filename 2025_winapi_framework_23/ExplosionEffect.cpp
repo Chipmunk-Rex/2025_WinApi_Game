@@ -13,8 +13,9 @@ ExplosionEffect::ExplosionEffect()
 	float frameSize = animationTex->GetHeight();
 	int frameCount = (animationTex->GetWidth() / frameSize);
 	animator->CreateAnimation(L"Explosion", animationTex, Vec2(0.f, 0.f), Vec2(frameSize, frameSize),
-		Vec2(frameSize, 0.f), frameCount, 0.05f);
-	animator->Play(L"Explosion", PlayMode::Once, 1, 1.0f);
+		Vec2(frameSize, 0.f), frameCount, 0.4f);
+	animator->Play(L"Explosion", PlayMode::Once, 1, 6.0f);
+	animator->GetCurrent()->SetRenderSize({ 180.f, 180.f });
 }
 
 ExplosionEffect::~ExplosionEffect()

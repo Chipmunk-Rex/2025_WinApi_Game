@@ -11,6 +11,7 @@ public:
 			this->_playerHealth = _player->GetComponent<Health>();
 		else
 			this->_playerHealth = nullptr;
+		score = 0;
 	}
 	Player* GetPlayer() const { return _player; }
 
