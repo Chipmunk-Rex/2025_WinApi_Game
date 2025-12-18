@@ -59,6 +59,10 @@ void CardUI::Update()
     if (inside && GET_SINGLE(InputManager)->IsDown(KEY_TYPE::LBUTTON))
         OnClick();
     float t = 15.0f * fDT;
+
+    if (t > 1)
+        t = 1;
+
     hoverScale += (targetScale - hoverScale) * t;
 
     if (waitingDestroy)
@@ -67,7 +71,7 @@ void CardUI::Update()
         if (destroyDelay <= 0.f)
         {
             waitingDestroy = false;
-            SetDead();
+            GET_SINGLE(SceneManager)->RequestDestroy(this);
         }
     }
 }

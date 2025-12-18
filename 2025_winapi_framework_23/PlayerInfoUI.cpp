@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "PlayerInfoUI.h"
 #include "ResourceManager.h"
 #include "PlayerManager.h"
@@ -25,6 +25,11 @@ void PlayerInfoUI::Update()
 {
     auto player = GET_SINGLE(PlayerManager)->GetPlayer();
     float delta = fDT * 20.f;
+    
+    if (delta > 1)
+    {
+        delta = 1;
+    }
 
     SetLevel(player->GetLevel());
     SetScore(GET_SINGLE(PlayerManager)->GetScore());
