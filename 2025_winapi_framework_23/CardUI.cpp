@@ -136,7 +136,7 @@ void CardUI::OnClick()
     GET_SINGLE(UIManager)->SetHovering(false);
 
     GET_SINGLE(ResourceManager)->Play(L"SFX_CardSelectSound");
-    GET_SINGLE(CardManager)->DelayClearCards(0.2f);
+    GET_SINGLE(CardManager)->DelayClearCards(0);
 
 	Player* player = GET_SINGLE(PlayerManager)->GetPlayer();
     if (player)
@@ -155,7 +155,7 @@ void CardUI::OnClick()
 void CardUI::DisappearCard()
 {
     targetScale = 0.f;
-
+    GET_SINGLE(UIManager)->SetHovering(false);
 
     destroyDelay = .5f;
     waitingDestroy = true;
