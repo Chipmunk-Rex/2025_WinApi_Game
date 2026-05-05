@@ -84,8 +84,8 @@ void Player::Update()
 
 	if (CanShoot())
 	{
-		if ((GET_KEYDOWN(KEY_TYPE::LBUTTON) || GET_KEY(KEY_TYPE::LBUTTON))
-			&& GET_SINGLE(UIManager)->isHovering() == false)
+		if ((GET_KEYDOWN(KEY_TYPE::LBUTTON) || GET_KEY(KEY_TYPE::LBUTTON)))
+//			&& GET_SINGLE(UIManager)->isHovering() == false)
 			ShootProjectile();
 	}
 	else if (fireTimer < fireCooldownStat.GetValue() && projectiles.size() != 0)
